@@ -16,8 +16,8 @@ const getDbConnection = async () => {
 const addUser = async (email, username, password,isAdmin) =>{
     const db = await getDbConnection();
     const sql = `INSERT INTO users 
-    ('email', 'username', 'password', 'true') 
-    VALUES ('${email}', '${username}', '${password}' , '${isAdmin}')`;
+    ('email', 'username', 'password', 'isAdmin') 
+    VALUES ('${email}', '${username}', '${password}' , 'true')`;
 
     await db.run(sql);
     await db.close();

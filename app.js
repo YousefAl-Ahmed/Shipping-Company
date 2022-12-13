@@ -1,3 +1,4 @@
+
 const express = require("express");
 const session = require("express-session");
 const bcrypt = require("bcryptjs")
@@ -9,8 +10,10 @@ const auth = require('./models/auth');
 // const plans = require('./models/plans');
 const { render } = require("ejs");
 
+
 //express app
 const app = express();
+// app.use(express.static(__dirname + '/node_modules/bootstrap/dist'));
 
 //view engine
 app.set("view engine", "ejs");
@@ -24,6 +27,7 @@ app.use(session({
 
 //middleware & static files
 app.use(express.static('public'));
+
 // app.use('/style', express.static('style'));
 
 app.use(express.urlencoded({ extended: 'false' }));
@@ -62,9 +66,12 @@ app.get("/logout", (req, res) => {
     });
 });
 
-app.get("/:username", async (req, res) => {
-    // const username = req.params.username;
-    res.render("user-page",);
+app.get("/user-page/:username", async (req, res) => {
+    const username = req.params.username;
+    const email = req.body.email;
+
+    const packages = await auth.getUserPackages(username);
+    res.render("user-page", { packages: packages, user: req.session.user, userInfo: await auth.getUserInfo(email) });
 });
 
 app.post("/auth", async (req, res) => {

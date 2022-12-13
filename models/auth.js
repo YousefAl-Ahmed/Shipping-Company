@@ -17,7 +17,7 @@ const addUser = async (email, username, password,isAdmin) =>{
     const db = await getDbConnection();
     const sql = `INSERT INTO users 
     ('email', 'username', 'password', 'isAdmin') 
-    VALUES ('${email}', '${username}', '${password}' , 'true')`;
+    VALUES ('${email}', '${username}', '${password}' , 'false')`;
 
     await db.run(sql);
     await db.close();
@@ -64,11 +64,19 @@ const getUserID = async (email) =>{
     return user_id;
 }
 
+const isAdmin = async (email) =>{
+    const db = await getDbConnection();
+    const isAdmin = await db.get(`SELECT isAdmin FROM users WHERE email = '${email}'`);
+    
+    await db.close();   
+    return isAdmin.isAdmin;
+}
 
 
 
 
-module.exports = {addUser, authUser, changeUserName, changePassword, getUserID, authLogIn};
+
+module.exports = {addUser, authUser, changeUserName, changePassword, getUserID, authLogIn,isAdmin};
 
 
 

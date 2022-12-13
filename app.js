@@ -76,7 +76,7 @@ app.post("/auth", async (req, res) => {
 
 
 
-//log in routes
+//login routes
 app.get("/login", async (req, res) => {
     res.render("login");
 });
@@ -85,7 +85,8 @@ app.get("/login", async (req, res) => {
 app.post("/", async (req, res) => {
     const logedPassword = req.body.password.toString();
     const email = req.body.email;
-
+    const isAdmin = await auth.isAdmin(email);
+    console.log(isAdmin);
     const info = await auth.authLogIn(email)
 
     if (info.email) {
@@ -96,12 +97,16 @@ app.post("/", async (req, res) => {
 
                 req.session.authenticated = true;
                 req.session.user = { id, email };
+                if(isAdmin==='true'){
+                    res.render("admin", { user: req.session.user });
+                }
+                else
                 res.render("index", { user: req.session.user });
 
             }
 
         })
-    } else res.render("logIn", { message: 'Password is not correct' });
+    } else res.render("login", { message: 'Password is not correct' });
 
 });
 

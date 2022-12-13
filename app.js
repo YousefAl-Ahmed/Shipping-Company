@@ -5,7 +5,7 @@ const bcrypt = require("bcryptjs")
 const path = require('path');
 
 //models
-// const auth = require('./models/auth');
+const auth = require('./models/auth');
 // const plans = require('./models/plans');
 const { render } = require("ejs");
 

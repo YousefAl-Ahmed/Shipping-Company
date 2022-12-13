@@ -11,6 +11,15 @@ const db = new sqlite3.Database('./website.db', sqlite3.OPEN_READWRITE,
     });
 db.get("PRAGMA foreign_keys = ON")
 
+sql = `CREATE TABLE IF NOT EXISTS users(
+	user_id	 INTEGER	   PRIMARY KEY AUTOINCREMENT,
+  	email     TEXT  NOT NULL    UNIQUE,
+    username TEXT  NOT NULL    UNIQUE,
+    password  TEXT   NOT NULL,
+    isAdmin      TEXT NOT NULL
+)`;
+
+db.run(sql);
 let sql;
 //create table packages with primary key package_id, 
 // package_name, weight, destination, status, 
@@ -65,3 +74,4 @@ db.serialize(function () {
         console.log(tables);
     });
 });
+

@@ -5,7 +5,7 @@ const bcrypt = require("bcryptjs")
 const path = require('path');
 
 //models
-// const auth = require('./models/auth');
+const auth = require('./models/auth');
 // const plans = require('./models/plans');
 const { render } = require("ejs");
 
@@ -49,28 +49,24 @@ app.get("/register", async (req, res) => {
 
 
 
-// app.post("/auth", async (req, res) => {
+app.post("/auth", async (req, res) => {
 
 
-//     const email = req.body.email;
-//     const username = req.body.username;
-//     const password = req.body.password;
-//     const weight = req.body.weight;
-//     const target_weight = req.body.target_weight;
-//     const height = req.body.height;
-//     const gender = req.body.gender;
-//     const level = req.body.level;
-//     const birth_date = req.body.birth_date;
+    const email = req.body.email;
+    const username = req.body.username;
+    const password = req.body.password;
+   
+   
 
-//     let hashedPassword = await bcrypt.hash(password, 8);
+    let hashedPassword = await bcrypt.hash(password, 8);
 
-//     const info = await auth.authUser(email, username)
-//     if (info === undefined) {
-//         await auth.addUser(email, username, hashedPassword, weight, target_weight, height, gender, level, birth_date);
+    const info = await auth.authUser(email, username)
+    if (info === undefined) {
+        await auth.addUser(email, username, hashedPassword, false);
 
-//         res.redirect("/logIn");
-//     }else res.render("register", {message: "not unique"})
-// });
+        res.redirect("/login");
+    }else res.render("register", {message: "not unique"})
+});
 
 
 
@@ -81,28 +77,28 @@ app.get("/login", async (req, res) => {
 });
 
 
-// app.post("/", async (req, res) => {
-//     const logedPassword = req.body.password.toString();
-//     const email = req.body.email;
+app.post("/", async (req, res) => {
+    const logedPassword = req.body.password.toString();
+    const email = req.body.email;
 
-//     const info = await auth.authLogIn(email)
+    const info = await auth.authLogIn(email)
 
-//     if (info.email) {
-//         //validate password
-//         bcrypt.compare(logedPassword, info.password, async (err, result) => {
-//             if (result) {
-//                 id = await auth.getUserID(email);
+    if (info.email) {
+        //validate password
+        bcrypt.compare(logedPassword, info.password, async (err, result) => {
+            if (result) {
+                id = await auth.getUserID(email);
 
-//                 req.session.authenticated = true;
-//                 req.session.user = { id, email };
-//                 res.render("index", { user: req.session.user });
+                req.session.authenticated = true;
+                req.session.user = { id, email };
+                res.render("index", { user: req.session.user });
 
-//             }
+            }
 
-//         })
-//     } else res.render("logIn", { message: 'Password is not correct' });
+        })
+    } else res.render("logIn", { message: 'Password is not correct' });
 
-// });
+});
 
 
 

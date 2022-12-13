@@ -10,7 +10,7 @@ const db = new sqlite3.Database('./website.db', sqlite3.OPEN_READWRITE,
         else console.log('connected to the SQLlite database');
     });
 db.get("PRAGMA foreign_keys = ON")
-
+let sql;
 sql = `CREATE TABLE IF NOT EXISTS users(
 	user_id	 INTEGER	   PRIMARY KEY AUTOINCREMENT,
   	email     TEXT  NOT NULL    UNIQUE,
@@ -20,13 +20,15 @@ sql = `CREATE TABLE IF NOT EXISTS users(
 )`;
 
 db.run(sql);
-let sql;
 //create table packages with primary key package_id, 
 // package_name, weight, destination, status, 
 // final_delivery_date,dimensions,insurance_ammount,catagoery
+//drop packages table
+
+
 sql = `CREATE TABLE IF NOT EXISTS packages (
     package_id INTEGER PRIMARY KEY AUTOINCREMENT,
-    user_name TEXT NOT NULL  UNIQUE,
+    username TEXT NOT NULL  UNIQUE,
     package_name TEXT NOT NULL,
     weight INTEGER NOT NULL,
     destination TEXT NOT NULL,
@@ -34,7 +36,8 @@ sql = `CREATE TABLE IF NOT EXISTS packages (
     final_delivery_date TEXT NOT NULL,
     dimensions TEXT NOT NULL,
     insurance_ammount INTEGER NOT NULL,
-    catagoery TEXT NOT NULL
+    catagoery TEXT NOT NULL,
+    FOREIGN KEY (username) REFERENCES users(username)
     )`;
 db.run(sql);
 

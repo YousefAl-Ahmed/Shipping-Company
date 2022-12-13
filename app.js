@@ -23,8 +23,8 @@ app.use(session({
 }));
 
 //middleware & static files
-app.use('/public', express.static('public'));
-app.use('/style', express.static('style'));
+app.use(express.static('public'));
+// app.use('/style', express.static('style'));
 
 app.use(express.urlencoded({ extended: 'false' }));
 app.use(express.json());
@@ -38,7 +38,12 @@ app.use(express.json());
 // });
 
 app.get("/", async (req, res) => {
-    res.render("index");
+    res.render("index", { user: req.session.user });
+});
+
+app.get("/:username", async (req, res) => {
+    const username = req.params.username;
+    res.render("user-page", { userInfo: await plans.getUser(username), user: req.session.user  });
 });
 
 //------------------register routes----------------------------
@@ -55,8 +60,8 @@ app.post("/auth", async (req, res) => {
     const email = req.body.email;
     const username = req.body.username;
     const password = req.body.password;
-   
-   
+
+
 
     let hashedPassword = await bcrypt.hash(password, 8);
 
@@ -65,7 +70,7 @@ app.post("/auth", async (req, res) => {
         await auth.addUser(email, username, hashedPassword, false);
 
         res.redirect("/login");
-    }else res.render("register", {message: "not unique"})
+    } else res.render("register", { message: "not unique" })
 });
 
 

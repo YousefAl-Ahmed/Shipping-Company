@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register</title>
+    <link rel="stylesheet" href="/style/style.css">
+    <script src="/public/js/register.js"></script>
+</head>
+
+<body class="centerBody">
+    <form action="/auth" class="form" method="post">
+      <h2 class="Register-text">Register Form</h2>
+      <!-- Progress bar -->
+      <div class="progressbar">
+        <div class="progress" id="progress"></div>
+  
+        <div class="progress-step progress-step-active" data-title="SignUp"></div>
+  
+        <div class="progress-step" data-title="measurements"></div>
+  
+      </div>
+  
+      <!-- Steps -->
+      <div class="form-step form-step-active">
+        <div class="input-group">
+  
+          <label for="email">Email</label>
+          <input type="email" name="email" id="email" class="email" placeholder="" required>
+  
+          <br>
+  
+          <label for="username">Username</label>
+          <input type="text" name="username" id="username" class="username" placeholder="" required>
+  
+          <br>
+  
+          <label for="password">Password</label>
+          <input type="password" name="password" id="password" class="password" placeholder="" required>
+  
+        </div>
+  
+    <button type="submit">submit</button>
+    <a href="/login">login</a>
+  
+    </form>
+  
+  
+  </body>
+  
+</html>

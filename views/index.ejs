@@ -10,17 +10,18 @@
 </head>
 
 <body>
-    <p>
-        <% if (typeof user !='undefined' ) { %>
-            <button>
-                <a href="/<%=userInfo.username%>">
-                    <%=userInfo.username%>
-                </a>
-            </button>
-            <% } else {%>
-                <%- include("./guest.ejs") %>
-                    <% } %>
-    </p>
+    <% if (typeof user !='undefined' ) { %>
+        <p>
+            <%=userInfo.username%>
+        </p>
+        <button>
+            <a href="/user-page">wellcome </a>
+        </button>
+        <a href="/logout">logout</a>
+        <% } else {%>
+            <%- include("./guest.ejs") %>
+                <% } %>
+
 </body>
 
 </html>

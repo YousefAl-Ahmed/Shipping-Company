@@ -1,8 +1,1069 @@
-.main-geust-container {}
+:root {
+    --yellow-color: #FFC857;
+    --dark-yellow-color: #ffbb33;
+    --red-color: #c5283d;
+    --white-color: #ffffff;
+    --light-white-color: #f3f3f3;
+    --blue-color: rgb(11, 78, 179);
+    --body-color: linear-gradient(219.58deg, #010417 10.26%, #2B333F 84.25%);
+}
 
-.title {
-    font-size: 20px;
-    font-weight: bold;
-    color: red;
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+
+}
+
+
+* {
+    font-family: 'Lato', sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+
+
+/* Global Stylings */
+label {
+    display: block;
     margin-bottom: 10px;
+    font-size: 20px;
+}
+
+input,
+select {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    font-size: 1.1rem;
+}
+
+button {
+    text-align: center;
+    margin-top: 1.5em;
+    border-radius: 10px;
+    border: 0;
+    padding: 0.75rem;
+    text-decoration: none;
+    background-color: var(--yellow-color);
+    color: #000000;
+    text-align: center;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+button:hover {
+    box-shadow: 0 0 0 2px #fff, 0 0 0 3px var(--dark-yellow-color);
+}
+
+nav {
+    background-color: rgba(237, 235, 235, 0.25);
+    display: flex;
+    position: relative;
+    justify-content: space-between;
+    align-items: center;
+    color: white;
+    padding: 20px;
+}
+
+nav a,
+a {
+    display: inline;
+    text-decoration: none;
+    font-size: 1.9rem;
+    color: rgb(255, 255, 255);
+    padding: 10px;
+}
+
+a {
+    color: black;
+}
+
+nav li {
+    list-style: none;
+    display: inline;
+}
+
+.navbar-links ul {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 30px;
+}
+
+
+
+.profileNav,
+.logOutNav {
+    display: none;
+}
+
+
+
+ul {
+    list-style: none
+}
+
+h2 {
+    font-size: 2rem;
+}
+
+.toggle-button {
+    position: absolute;
+    top: .75rem;
+    right: 1rem;
+    display: none;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 40px;
+    height: 40px;
+    margin: auto;
+}
+
+.toggle-button .bar {
+    height: 3px;
+    width: 100%;
+    background-color: white;
+    border-radius: 10px;
+}
+
+
+
+/* --------------------------------- logIn ---------------------------------*/
+.centerBody {
+    font-family: 'Lato', sans-serif;
+    margin: 0;
+    display: grid;
+    place-items: center;
+    min-height: 100vh;
+    background: linear-gradient(219.58deg, #010417 10.26%, #2B333F 84.25%);
+}
+
+.log-in-text {
+    text-align: center;
+    margin-bottom: 2em;
+}
+
+.log-in-button {
+    width: 100%;
+}
+
+.forgot-password-text {
+    margin-top: 1em;
+    text-align: end;
+    font-size: 12px;
+}
+
+.forgot-password-text:hover {
+    text-decoration: underline;
+}
+
+.formDivider {
+    text-align: center;
+}
+
+.formDividerText {
+    position: relative;
+    margin-top: 1em;
+    text-align: center;
+
+}
+
+.formDividerText::after {
+    content: " ";
+    display: block;
+    position: absolute;
+    height: 2px;
+    width: 45%;
+    top: 50%;
+    left: 0;
+    background: var(--light-white-color);
+}
+
+
+.formDividerText::before {
+    content: " ";
+    display: block;
+    position: absolute;
+    height: 2px;
+    width: 45%;
+    top: 50%;
+    right: 0;
+    background: var(--light-white-color);
+}
+
+.need-account {
+    font-size: 15px;
+    text-align: center;
+    margin-top: 20px;
+}
+
+.sign-up-text {
+    text-decoration: underline;
+    font-weight: 700;
+}
+
+.signUp {
+    color: black;
+    font-size: 1rem;
+}
+
+.signUp:hover {
+    color: var(--red-color);
+}
+
+.plans-title {
+    margin-top: 2em;
+}
+
+
+/* --------------------------------- register page --------------------------------- */
+.Register-text {
+    font-weight: 700;
+    text-align: center;
+}
+
+
+.form {
+    background-color: var(--light-white-color);
+}
+
+.width-50 {
+    width: 50%;
+}
+
+.ml-auto {
+    margin-left: auto;
+}
+
+.text-center {
+    text-align: center;
+}
+
+/* Progressbar */
+.progressbar {
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    counter-reset: step;
+    margin: 2rem 0 4rem;
+}
+
+.progressbar::before,
+.progress {
+    content: "";
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    height: 4px;
+    width: 100%;
+    background-color: #000000;
+    z-index: -1;
+}
+
+.progress {
+    background-color: var(--blue-color);
+    width: 50%;
+    transition: 0.3s;
+}
+
+.progress-step {
+    width: 2.1875rem;
+    height: 2.1875rem;
+    background-color: #dcdcdc;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: auto;
+}
+
+.progress-step::before {
+    counter-increment: step;
+    content: counter(step);
+}
+
+.progress-step::after {
+    content: attr(data-title);
+    position: absolute;
+    top: calc(100% + 0.5rem);
+    font-size: 0.85rem;
+    color: #666;
+}
+
+.progress-step-active {
+    background-color: var(--blue-color);
+    color: #f3f3f3;
+}
+
+/* Form */
+.form {
+    width: 450px;
+    margin: 0 auto;
+    border: 1px solid #ccc;
+    border-radius: 0.35rem;
+    padding: 1.5rem;
+}
+
+.form-step {
+    display: none;
+    transform-origin: top;
+    animation: animate 0.5s;
+}
+
+.form-step-active {
+    display: block;
+}
+
+.input-group {
+    margin: 2rem 0;
+}
+
+@keyframes animate {
+    from {
+        transform: scale(1, 0);
+        opacity: 0;
+    }
+
+    to {
+        transform: scale(1, 1);
+        opacity: 1;
+    }
+}
+
+.btns-group {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+}
+
+.btn {
+    padding: 0.75rem;
+    display: block;
+    text-decoration: none;
+    background-color: var(--blue-color);
+    color: #f3f3f3;
+    text-align: center;
+    border-radius: 0.25rem;
+    height: 50px;
+}
+
+.btn:hover {
+    box-shadow: 0 0 0 2px #fff, 0 0 0 3px var(--blue-color);
+}
+
+.recipient-name {
+    display: flex;
+    gap: 8px;
+}
+
+.recipient-name>input {
+    width: 50%;
+}
+
+.data-cvv {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+}
+
+.price-container,
+h2 {
+    text-align: center;
+}
+
+
+
+/* --------------------------------- index ---------------------------------*/
+.indexBody {
+    background-color: var(--body-color);
+    background-image: url(/img/homeBackground.png);
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+    height: 100%;
+    font-family: 'Lato', sans-serif;
+}
+
+
+.websiteName {
+    margin-right: auto;
+    color: var(--white-color);
+    font-size: 3rem;
+    font-weight: 700;
+    margin-left: 1.5em;
+}
+
+.signUpButton {
+    margin-right: 3em;
+}
+
+.logInButton,
+.signUpButton {
+    padding: 5px 25px;
+    border: 0;
+    font-weight: 600;
+    margin-left: 2em;
+    filter: drop-shadow(0px 5.06977px 5.06977px rgba(0, 0, 0, 0.5));
+}
+
+.motivation {
+    font-size: 4rem;
+    color: var(--white-color);
+    margin-top: 3em;
+    margin-bottom: 1em;
+}
+
+.workoutsButton {
+    width: 300px;
+    margin: 1em;
+}
+
+.homePage>div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+/* --------------------------------- plans ---------------------------------*/
+
+.plansBody {
+    margin: 0;
+    min-height: 100vh;
+}
+
+
+.planHeader {
+    margin-bottom: 150px;
+}
+
+
+.gridContanior {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 50%;
+    margin: auto;
+}
+
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2.2rem;
+    justify-items: center;
+}
+
+
+.textDiv {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    grid-column: span 3;
+    border-radius: 16px;
+    width: 100%;
+    background: linear-gradient(85deg, #434343, #262626);
+}
+
+.readyPlansText {
+    font-size: 3rem;
+    color: var(--white-color);
+    margin: 0.5em;
+}
+
+.plan {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    box-sizing: border-box;
+    width: 100%;
+    aspect-ratio: 1/1;
+    background: linear-gradient(85deg, #434343, #262626);
+    border-radius: 16px;
+    box-shadow: rgba(6, 24, 44, 0.4) 0px 0px 0px 2px, rgba(6, 24, 44, 0.65) 0px 4px 6px -1px, rgba(255, 255, 255, 0.08) 0px 1px 0px inset;
+    transition: 0.5s;
+}
+
+.plan:hover {
+    -webkit-transform: scale(1.1);
+    -ms-transform: scale(1.1);
+    transform: scale(1.1);
+    box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
+}
+
+.planImg {
+    width: 50%;
+    aspect-ratio: 1 / 1;
+    object-fit: cover;
+    margin-bottom: 1em;
+    margin-top: 1em;
+}
+
+.planName {
+    font-weight: 600;
+    font-size: 40px;
+    padding: 0 1em;
+    line-height: 58px;
+    color: var(--dark-yellow-color);
+}
+
+/* --------------------------------- choose day ---------------------------------*/
+
+.chooseDayBody {
+    margin: 0;
+    min-height: 100vh;
+}
+
+
+.chooseDayHeader {
+    margin-bottom: 0vh;
+}
+
+
+.gridContanior {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2.5rem;
+}
+
+
+.planNameDiv {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* expand div */
+    grid-column: span 3;
+
+
+}
+
+.chooseDayPlanName {
+    font-size: 4rem;
+    color: white;
+    margin: 0.5em;
+    background: transparent;
+}
+
+.dayCard {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    box-sizing: border-box;
+    width: 20vw;
+    height: 16vw;
+    background: linear-gradient(85deg, #434343, #262626);
+    border-radius: 12%;
+    box-shadow: rgba(6, 24, 44, 0.4) 0px 0px 0px 2px, rgba(6, 24, 44, 0.65) 0px 4px 6px -1px, rgba(255, 255, 255, 0.08) 0px 1px 0px inset;
+    transition: 0.5s;
+
+}
+
+.card2:hover,
+.dayCard:hover {
+    -webkit-transform: scale(1.1);
+    -ms-transform: scale(1.1);
+    transform: scale(1.1);
+    /* time of animation */
+    transition: 0.5s;
+    box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
+}
+
+
+.dayText {
+    font-weight: 600;
+    font-size: 48px;
+    line-height: 58px;
+    color: var(--dark-yellow-color);
+}
+
+
+.start {
+    margin-bottom: 20px;
+}
+
+.addPlan {
+    display: flex;
+    justify-content: center;
+}
+
+.addPlan>button {
+    margin-top: 3em;
+    height: 100px;
+    width: 100px;
+    border-radius: 70%;
+    font-size: 2rem;
+}
+
+
+/* ---------------------- nav-Dropdown ----------------------*/
+
+.dropdown {
+    display: inline-block;
+    position: relative;
+    margin-right: 2em;
+    margin-bottom: 0;
+    color: black;
+}
+
+.dd-button {
+    display: inline-block;
+    border: 1px solid gray;
+    border-radius: 4px;
+    padding: 10px 30px 10px 20px;
+    background-color: var(--yellow-color);
+    cursor: pointer;
+    white-space: nowrap;
+    border-radius: 20px;
+    transition: 0.3s;
+}
+
+.dd-button:after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    right: 15px;
+    transform: translateY(-50%);
+    width: 0;
+    height: 0;
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    border-top: 5px solid black;
+}
+
+.dd-button:hover {
+    box-shadow: 0 0 0 2px #fff, 0 0 0 3px var(--dark-yellow-color);
+}
+
+.dd-input {
+    display: none;
+}
+
+.dd-menu {
+    position: absolute;
+    top: 100%;
+    border-radius: 10px;
+    padding: 0;
+    margin: 2px 0 0 0;
+    box-shadow: 0 0 6px 0 rgba(0, 0, 0, 0.1);
+    background-color: #0b0000;
+    list-style-type: none;
+}
+
+.dd-input+.dd-menu {
+    display: none;
+}
+
+.dd-input:checked+.dd-menu {
+    display: block;
+}
+
+.dd-menu li {
+    padding: 10px 20px;
+    cursor: pointer;
+    white-space: nowrap;
+    color: white;
+}
+
+
+/* ------------- fix it later ------------- */
+.dd-menu li:hover {
+    background-color: #f6f6f6;
+}
+
+.dd-menu li a {
+    display: block;
+    margin: -10px -20px;
+    padding: 10px 20px;
+    color: rgb(0, 0, 0);
+    background-color: white;
+}
+
+.dd-menu li.divider {
+    padding: 0;
+    border-bottom: 1px solid #cccccc;
+}
+
+/* --------------------------------- Profile ---------------------------------*/
+.profileBody {
+    background-color: var(--blue-color);
+    height: 100vh;
+}
+
+
+.profileInfo {
+    padding: 36px;
+
+}
+
+.Container {
+    width: 60%;
+    background-color: var(--light-white-color);
+    margin: auto;
+    margin-bottom: 5em;
+    border-radius: 10px;
+}
+
+
+.GeneralProfile {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+}
+
+.GeneralProfile div {
+    display: block;
+}
+
+.updateButton {
+    padding: 20px;
+    margin-left: 2em;
+    margin-bottom: 1em;
+    font-size: 1.1rem;
+}
+
+.NutritionContainer {
+    padding-bottom: 90px;
+}
+
+
+/* -------------------------body parts ------------------------------- */
+.db {
+    text-decoration: none;
+    display: inline-block;
+    padding: 8px 16px;
+    height: 60px;
+    width: 60px;
+}
+
+.db:hover {
+    background-color: #ddd;
+    color: black;
+}
+
+.previous {
+    background-color: #f1f1f1;
+    color: black;
+}
+
+
+.round {
+    text-align: center;
+    font-size: 2rem;
+    position: absolute;
+    bottom: 72%;
+    margin: 2rem;
+    border-radius: 50%;
+}
+
+.plans-title {
+    color: white;
+
+}
+
+.main-description-container {
+    /* display: ; */
+    justify-content: center;
+    align-items: center;
+    /* text-align: center; */
+    flex-wrap: wrap;
+    gap: 1.5rem;
+    height: 700px;
+    margin: 0 3rem 0 3rem;
+}
+
+.description-text {
+    color: white;
+    font-size: 1.2rem;
+    /* overflow-x: hidden; */
+    white-space: pre-line;
+
+}
+
+/* make yello border and grident back ground for workout-head */
+.workout-header {
+    /* background-color: var(--yellow-color); */
+    background: linear-gradient(45deg, rgba(255, 255, 255, 0.24) 0%, rgba(0, 0, 0, 0.623) 100%);
+    box-shadow: 4px 4px 4px rgba(0, 0, 0, 1);
+    border-radius: 10px;
+    padding: 10px;
+    width: 90%;
+    margin: 6rem 3rem 3rem 3rem;
+    color: black;
+    font-size: 1.5rem;
+    font-weight: 600;
+    text-align: center;
+}
+
+.description-container {
+
+    width: 90%;
+    background: linear-gradient(45deg, rgba(255, 255, 255, 0.24) 0%, rgba(0, 0, 0, 0.623) 100%);
+    box-shadow: 4px 4px 4px rgba(0, 0, 0, 1);
+    border-radius: 10px;
+    padding: 5px;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    /* gap: 1.5rem; */
+    margin: 3rem 3rem 3rem 3rem;
+}
+
+.video-frame {
+
+    margin: 0 3rem 0 3rem;
+}
+
+.main-cards-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+    margin: 0 3rem 0 3rem;
+}
+
+
+.cards-container {
+    width: 90%;
+    margin: auto 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+}
+
+
+.card2 {
+    /* backgroud color black and white  gradient */
+    background: linear-gradient(120deg, rgba(255, 255, 255, 0.24) 0%, rgba(0, 0, 0, 0.623) 100%);
+
+
+    /* border: #c5283d 1px solid; */
+    border-radius: 50px;
+    width: 277px;
+    height: 277px;
+    margin: 20px;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 5px 5px 5px rgb(0, 0, 0);
+
+}
+
+.card {
+    /* border: #c5283d 1px solid; */
+    border-radius: 50px;
+
+    margin: 20px;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 5px 5px 5px rgb(0, 0, 0);
+
+}
+
+.card-img {
+    width: 105%;
+    height: 100%;
+    margin-bottom: -25px;
+    margin-left: -10px;
+}
+
+.card:hover {
+    cursor: pointer;
+}
+
+.card:hover .card-img {
+    transform: scale(1.1);
+    transition: 0.5s;
+}
+
+.card2>p {
+    position: absolute;
+    bottom: -20px;
+    left: 0;
+    right: 0;
+    bottom: 60px;
+    margin: auto;
+
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    font-size: 2rem;
+    color: var(--yellow-color);
+    margin: 1em;
+}
+
+.card-title {
+    position: absolute;
+    bottom: -20px;
+    left: 0;
+    right: 0;
+    margin: auto;
+
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    font-size: 2rem;
+    color: var(--white-color);
+    margin: 1em;
+}
+
+.description-title {
+    margin-top: 0;
+}
+
+@media only screen and (min-width:481px) and (max-width:768px) {
+
+    .form {
+        width: 400px;
+    }
+
+    /* --------------------------------- plans ---------------------------------*/
+
+    .gridContanior {
+        width: 100%;
+    }
+
+    .grid {
+        place-self: center;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        padding: 1em;
+        grid-row-gap: 80px;
+    }
+
+    .plan {
+        width: 100%;
+        margin: auto;
+    }
+
+
+    .planName {
+        font-size: 30px;
+    }
+
+    .textDiv {
+        grid-column: span 2;
+    }
+
+    .readyPlansText {
+        font-size: 2rem;
+    }
+
+}
+
+@media only screen and (max-width:480px) {
+    .form {
+        width: 300px;
+    }
+
+    /* --------------------------------- plans ---------------------------------*/
+
+    .gridContanior {
+        width: 90%;
+    }
+
+    .grid {
+        place-self: center;
+        display: grid;
+        grid-template-columns: 1fr;
+        padding: 1em;
+        grid-row-gap: 80px;
+    }
+
+
+
+
+    .plan {
+        width: 100%;
+        margin: auto;
+    }
+
+
+    .planName {
+        font-size: 40px;
+    }
+
+    .textDiv {
+        grid-column: span 1;
+    }
+
+    .readyPlansText {
+        font-size: 2rem;
+    }
+
+}
+
+@media (max-width: 1090px) {
+
+    .websiteName {
+        margin-bottom: 50px;
+        text-align: center;
+    }
+
+    nav {
+        flex-direction: column;
+        align-items: flex-start;
+        justify-content: center;
+        padding: 0;
+    }
+
+    .toggle-button {
+        display: flex;
+    }
+
+    .navbar-links {
+        display: none;
+        width: 100%;
+    }
+
+    .navbar-links ul {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .navbar-links ul li {
+        text-align: center;
+    }
+
+    .navbar-links li {
+        padding: 10px;
+    }
+
+    .navbar-links ul li a {
+        padding: .5rem 1rem;
+    }
+
+    .navbar-links.active {
+        display: flex;
+    }
+
+    .dropdown {
+        display: none;
+    }
+
+    .profileNav,
+    .logOutNav {
+        display: contents;
+    }
+
+
+
 }

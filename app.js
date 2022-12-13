@@ -38,21 +38,34 @@ app.use(express.json());
 // });
 
 app.get("/", async (req, res) => {
-    res.render("index", { user: req.session.user });
+    const email = req.body.email;
+
+    res.render("index", { userInfo: await auth.getUserInfo(email), user: req.session.user });
 });
 
-app.get("/:username", async (req, res) => {
-    const username = req.params.username;
-    res.render("user-page", { userInfo: await plans.getUser(username), user: req.session.user  });
-});
 
 //------------------register routes----------------------------
 app.get("/register", async (req, res) => {
     res.render("register");
 });
 
+app.get("/login", async (req, res) => {
 
+    res.render("login");
+});
+app.get("/logout", (req, res) => {
+    req.session.destroy((err) => {
+        if (err) {
+            return console.log(err);
+        }
+        res.redirect("/");
+    });
+});
 
+app.get("/:username", async (req, res) => {
+    // const username = req.params.username;
+    res.render("user-page",);
+});
 
 app.post("/auth", async (req, res) => {
 
@@ -72,14 +85,13 @@ app.post("/auth", async (req, res) => {
         res.redirect("/login");
     } else res.render("register", { message: "not unique" })
 });
+//logout route and redirect to index
 
 
 
 
 //login routes
-app.get("/login", async (req, res) => {
-    res.render("login");
-});
+
 
 
 app.post("/", async (req, res) => {
@@ -97,11 +109,11 @@ app.post("/", async (req, res) => {
 
                 req.session.authenticated = true;
                 req.session.user = { id, email };
-                if(isAdmin==='true'){
+                if (isAdmin === 'true') {
                     res.render("admin", { user: req.session.user });
                 }
                 else
-                res.render("index", { user: req.session.user });
+                    res.render("index", { userInfo: await auth.getUserInfo(email), user: req.session.user });
 
             }
 
@@ -109,6 +121,7 @@ app.post("/", async (req, res) => {
     } else res.render("login", { message: 'Password is not correct' });
 
 });
+
 
 
 

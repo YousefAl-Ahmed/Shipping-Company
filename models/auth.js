@@ -5,7 +5,7 @@ const sqlite = require('sqlite')
 
 const getDbConnection = async () => {
     return await sqlite.open({
-        filename: 'albayat.db',
+        filename: 'website.db',
         driver: sqlite3.Database
     })
 }
@@ -13,11 +13,11 @@ const getDbConnection = async () => {
 
 //this method will be called for the useres who wants to register, 
 // after ensuring that the email is unique
-const addUser = async (email, username, password, weight, targetWeight, height, gender, level, birthDate) =>{
+const addUser = async (email, username, password,isAdmin) =>{
     const db = await getDbConnection();
     const sql = `INSERT INTO users 
-    ('email', 'username', 'password', 'weight', 'target_weight', 'height', 'gender', 'level', 'birth_date') 
-    VALUES ('${email}', '${username}', '${password}', ${weight}, ${targetWeight}, ${height}, '${gender}', '${level}', '${birthDate}')`;
+    ('email', 'username', 'password', 'true') 
+    VALUES ('${email}', '${username}', '${password}' , '${isAdmin}')`;
 
     await db.run(sql);
     await db.close();

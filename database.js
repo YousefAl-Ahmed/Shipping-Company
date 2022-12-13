@@ -11,6 +11,7 @@ const db = new sqlite3.Database('./website.db', sqlite3.OPEN_READWRITE,
     });
 db.get("PRAGMA foreign_keys = ON")
 
+let sql;
 sql = `CREATE TABLE IF NOT EXISTS users(
 	user_id	 INTEGER	   PRIMARY KEY AUTOINCREMENT,
   	email     TEXT  NOT NULL    UNIQUE,
@@ -20,7 +21,7 @@ sql = `CREATE TABLE IF NOT EXISTS users(
 )`;
 
 db.run(sql);
-let sql;
+
 //create table packages with primary key package_id, 
 // package_name, weight, destination, status, 
 // final_delivery_date,dimensions,insurance_ammount,catagoery

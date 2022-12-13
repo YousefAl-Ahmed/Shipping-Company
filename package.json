@@ -1,0 +1,29 @@
+{
+  "name": "shipping-company",
+  "version": "1.0.0",
+  "description": "A website designed for shipping companies",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/YousefAl-Ahmed/Shipping-Company.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/YousefAl-Ahmed/Shipping-Company/issues"
+  },
+  "homepage": "https://github.com/YousefAl-Ahmed/Shipping-Company#readme",
+  "dependencies": {
+    "3": "^2.1.0",
+    "bcryptjs": "^2.4.3",
+    "ejs": "^3.1.8",
+    "express": "^4.18.2",
+    "express-flash": "^0.0.2",
+    "express-session": "^1.17.3",
+    "nodemon": "^2.0.20",
+    "sqlite": "^4.1.2"
+  }
+}

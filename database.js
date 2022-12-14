@@ -28,7 +28,7 @@ db.run(sql);
 
 sql = `CREATE TABLE IF NOT EXISTS packages (
     package_id INTEGER PRIMARY KEY AUTOINCREMENT,
-    username TEXT NOT NULL  UNIQUE,
+    username TEXT NOT NULL  ,
     package_name TEXT NOT NULL,
     weight INTEGER NOT NULL,
     destination TEXT NOT NULL,
@@ -43,6 +43,8 @@ db.run(sql);
 //insert into packages table
 //insert into packages table
 sql = `INSERT INTO packages (username,package_name,weight,destination,status,final_delivery_date,dimensions,insurance_ammount,catagoery) VALUES ('youssef','laptop',5,'cairo','in transit','2020-12-12','10x10x10',100,'electronics')`;
+sql = `INSERT or REPLACE INTO packages (username,package_name,weight,destination,status,final_delivery_date,dimensions,insurance_ammount,catagoery) VALUES ('youssef','iphone',3,'jeddah','lost','2020-12-12','3x2x1',200,'electronics')`;
+
 db.run(sql);
 //create table locations with primary key location_id,foreign key package_id,
 //location_name,location_date,type

@@ -42,6 +42,46 @@ const getUserPackages = async (username) => {
     await db.close();
     return packages;
 }
+
+//List the total number of package types
+
+
+
+//get lost packages
+const getLostPackages = async () => {
+    const db = await getDbConnection();
+    const sql = `SELECT * FROM packages WHERE status = 'lost'`;
+    const lostPackages = await db.all
+    (sql);
+    await db.close();
+    return lostPackages;
+}
+
+const getDelayedPackages = async () => {
+    const db = await getDbConnection();
+    const sql = `SELECT * FROM packages WHERE status = 'delayed'`;
+    const lostPackages = await db.all
+    (sql);
+    await db.close();
+    return lostPackages;
+}
+
+const getDeliveredPackages = async () => {
+    const db = await getDbConnection();
+    const sql = `SELECT * FROM packages WHERE status = 'delivered'`;
+    const lostPackages = await db.all
+    (sql);
+    await db.close();
+    return lostPackages;
+}
+// get all packages
+const getAllPackages = async () => {
+    const db = await getDbConnection();
+    const sql = `SELECT * FROM packages`;
+    const Allpackages = await db.all(sql);
+    await db.close();
+    return Allpackages;
+}
 //get user by username
 const getUserInfo = async (email) => {
     const db = await getDbConnection();
@@ -100,7 +140,8 @@ const isAdmin = async (email) => {
 
 
 
-module.exports = { addUser, authUser, changeUserName, changePassword, getUserID, authLogIn, isAdmin, getUserInfo, getUsername, getUserPackages };
+module.exports = { addUser, authUser, changeUserName, changePassword,
+     getUserID, authLogIn, isAdmin, getUserInfo, getUsername, getUserPackages,getAllPackages,getLostPackages,getDelayedPackages,getDeliveredPackages };
 
 
 

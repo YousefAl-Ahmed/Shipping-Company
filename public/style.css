@@ -270,7 +270,7 @@ h2 {
 /* Form */
 .form {
     width: 450px;
-    margin: 0 auto;
+    margin: auto;
     border: 1px solid #ccc;
     border-radius: 0.35rem;
     padding: 1.5rem;

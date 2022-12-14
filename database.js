@@ -40,7 +40,10 @@ sql = `CREATE TABLE IF NOT EXISTS packages (
     FOREIGN KEY (username) REFERENCES users(username)
     )`;
 db.run(sql);
-
+//insert into packages table
+//insert into packages table
+sql = `INSERT INTO packages (username,package_name,weight,destination,status,final_delivery_date,dimensions,insurance_ammount,catagoery) VALUES ('youssef','laptop',5,'cairo','in transit','2020-12-12','10x10x10',100,'electronics')`;
+db.run(sql);
 //create table locations with primary key location_id,foreign key package_id,
 //location_name,location_date,type
 sql = `CREATE TABLE IF NOT EXISTS locations (
@@ -63,9 +66,14 @@ sql = `CREATE TABLE IF NOT EXISTS retail_center (
     retail_center_name TEXT NOT NULL,
     retail_center_address TEXT NOT NULL,
     location_name TEXT NOT NULL,
+    sender_name TEXT NOT NULL,
+    receiver_name TEXT NOT NULL,
+    FOREIGN KEY (receiver_name) REFERENCES users(username),
+    FOREIGN KEY (sender_name) REFERENCES users(username),
     FOREIGN KEY (package_id) REFERENCES packages(package_id)
     )`;
 db.run(sql);
+//insert into packages
 
 db.run(sql
     , (err) => {

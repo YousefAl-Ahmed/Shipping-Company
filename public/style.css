@@ -324,8 +324,13 @@ h2 {
     margin-right: 3em;
 }
 
+.main-packges-title {
+    text-align: center;
+    margin-top: 2em;
+}
+
 .table-container {
-    margin: 2rem;
+    margin: 1rem 4rem;
 }
 
 .logInButton,

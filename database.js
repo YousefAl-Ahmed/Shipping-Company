@@ -26,27 +26,31 @@ db.run(sql);
 //drop packages table
 
 
+
 sql = `CREATE TABLE IF NOT EXISTS packages (
     package_id INTEGER PRIMARY KEY AUTOINCREMENT,
-    username TEXT NOT NULL  UNIQUE,
+    username TEXT NOT NULL,
     package_name TEXT NOT NULL,
     weight INTEGER NOT NULL,
     destination TEXT NOT NULL,
     status TEXT NOT NULL,
     final_delivery_date TEXT NOT NULL,
     dimensions TEXT NOT NULL,
-    insurance_ammount INTEGER NOT NULL,
-    catagoery TEXT NOT NULL,
+    insurance_amount INTEGER NOT NULL,
+    catagory TEXT NOT NULL,
+    payment_status TEXT NOT NULL,
     FOREIGN KEY (username) REFERENCES users(username)
     )`;
 db.run(sql);
 
 
 
+//remove unique from username
 
 //insert into packages table
-// sql = `INSERT INTO packages (username,package_name,weight,destination,status,final_delivery_date,dimensions,insurance_ammount,catagoery) VALUES ('youssef','laptop',5,'cairo','in transit','2020-12-12','10x10x10',100,'electronics')`;
+// sql = `INSERT INTO packages (username,package_name,weight,destination,status,final_delivery_date,dimensions,insurance_amount,catagory) VALUES ('jawadaljarrash','laptop',5,'cairo','in transit','2020-12-12','10x10x10',100,'electronics')`;
 // db.run(sql);
+
 
 //create table locations with primary key location_id,foreign key package_id,
 //location_name,location_date,type
@@ -62,8 +66,8 @@ sql = `CREATE TABLE IF NOT EXISTS locations (
     )`;
 db.run(sql);
 
-//create table retail center with primary key retail_center_id,
-//retail_center_name,retail_center_address
+//drop retail_center table
+
 sql = `CREATE TABLE IF NOT EXISTS retail_center (
     retail_center_id INTEGER PRIMARY KEY AUTOINCREMENT,
     package_id INTEGER NOT NULL,
@@ -72,6 +76,8 @@ sql = `CREATE TABLE IF NOT EXISTS retail_center (
     location_name TEXT NOT NULL,
     sender_name TEXT NOT NULL,
     receiver_name TEXT NOT NULL,
+    status TEXT NOT NULL,
+    FOREIGN KEY (status) REFERENCES packages(status)
     FOREIGN KEY (receiver_name) REFERENCES users(username),
     FOREIGN KEY (sender_name) REFERENCES users(username),
     FOREIGN KEY (package_id) REFERENCES packages(package_id)

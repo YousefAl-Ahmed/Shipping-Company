@@ -304,22 +304,14 @@ h2 {
     }
 }
 
-
-
-
-
-/* --------------------------------- index ---------------------------------*/
-.indexBody {
-    background-color: var(--body-color);
-    background-position: center center;
-    background-repeat: no-repeat;
-    background-attachment: fixed;
-    background-size: cover;
-    height: 100%;
-    font-family: 'Lato', sans-serif;
+/* margin to body */
+body {
+    padding: 1rem;
 }
 
-
+.navBar {
+    margin-bottom: 1rem;
+}
 
 
 .signUpButton {
@@ -357,20 +349,6 @@ h2 {
 }
 
 
-/* -------------------------body parts ------------------------------- */
-.db {
-    text-decoration: none;
-    display: inline-block;
-    padding: 8px 16px;
-    height: 60px;
-    width: 60px;
-}
-
-.db:hover {
-    background-color: #ddd;
-    color: black;
-}
-
 .previous {
     background-color: #f1f1f1;
     color: black;
@@ -404,28 +382,7 @@ h2 {
     margin: 0 3rem 0 3rem;
 }
 
-.description-text {
-    color: white;
-    font-size: 1.2rem;
-    /* overflow-x: hidden; */
-    white-space: pre-line;
 
-}
-
-/* make yello border and grident back ground for workout-head */
-.workout-header {
-    /* background-color: var(--yellow-color); */
-    background: linear-gradient(45deg, rgba(255, 255, 255, 0.24) 0%, rgba(0, 0, 0, 0.623) 100%);
-    box-shadow: 4px 4px 4px rgba(0, 0, 0, 1);
-    border-radius: 10px;
-    padding: 10px;
-    width: 90%;
-    margin: 6rem 3rem 3rem 3rem;
-    color: black;
-    font-size: 1.5rem;
-    font-weight: 600;
-    text-align: center;
-}
 
 .main-geust-container,
 .description-container {
@@ -442,6 +399,17 @@ h2 {
     margin: 3rem 3rem 3rem 3rem;
 }
 
+.center-container {
+    /* display: flex; */
+    border: #000000 1px solid;
+    border-radius: 10px;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+    margin: 0 3rem 0 3rem;
+}
 
 .main-cards-container {
     display: flex;
@@ -553,33 +521,6 @@ h2 {
     }
 
     .toggle-button {
-        display: flex;
-    }
-
-    .navbar-links {
-        display: none;
-        width: 100%;
-    }
-
-    .navbar-links ul {
-        width: 100%;
-        display: flex;
-        flex-direction: column;
-    }
-
-    .navbar-links ul li {
-        text-align: center;
-    }
-
-    .navbar-links li {
-        padding: 10px;
-    }
-
-    .navbar-links ul li a {
-        padding: .5rem 1rem;
-    }
-
-    .navbar-links.active {
         display: flex;
     }
 

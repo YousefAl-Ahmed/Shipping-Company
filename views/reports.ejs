@@ -47,6 +47,41 @@
         </div>
     </nav>
 
+    <form action="/status_catagory_report" class="form" method="post">
+        <h2 class="Register-text">Select starting and ending date</h2>
+           
+        <div>
+            <label for="start_date">Starting Date</label>
+            <input type="date" name="start_date" id="dastart_datete" required>
+          </div>
+
+        <br>
+           
+        <div>
+            <label for="end_date">Ending Date</label>
+            <input type="date" name="end_date" id="end_date" required>
+          </div>
+
+        <br>
+ 
+    
+        <!-- Steps -->
+          
+
+    
+         
+    
+          <div class="btns-group">
+            <button class="btn">submit</button>
+       
+          </div>
+    
+    
+      </form>
+    
+
+
+
   
 
     <div class="table-container">
@@ -65,7 +100,7 @@
                 </tr>
             </thead>
             <tbody>
-                <% for (let i=0; i < LostPackages.length; i++) { %>
+                <% for (let i=0; i < betweenDatesPackages.length; i++) { %>
                     <tr>
                         <td>
                             <%=LostPackages[i].package_id%>

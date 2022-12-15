@@ -36,6 +36,11 @@
                 <li class="nav-item">
                     <a class="nav-link" href="/admin/manage-users">Manage Users</a>
                 </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="/admin/package-route">Package Route</a>
+                </li>
+
                 <li class="nav-item">
                     <a class="nav-link" href="/admin/send-email">Send Email</a>
                 </li>
@@ -60,6 +65,7 @@
                     <th scope="col">Insurance amount</th>
                     <th scope="col">Catagory</th>
                     <th scope="col">Delivery Date</th>
+                    <th scope="col">Payment Status</th>
                 </tr>
             </thead>
             <tbody>
@@ -68,6 +74,7 @@
                         <td>
                             <%=Allpackages[i].package_id%>
                         </td>
+                        
                         <td>
                             <%=Allpackages[i].package_name%>
                         </td>
@@ -84,7 +91,7 @@
                             <%=Allpackages[i].dimensions%>
                         </td>
                         <td>
-                            <%=Allpackages[i].incurance_amount%>
+                            <%=Allpackages[i].insurance_amount%>
                         </td>
                         <td>
                             <%=Allpackages[i].catagory%>
@@ -92,10 +99,17 @@
                         <td>
                             <%=Allpackages[i].final_delivery_date%>
                         </td>
+
+                        <td>
+                            <%=Allpackages[i].payment_status%>
+                        </td>
                     </tr>
                     <% } %>
         </table>
     </div>
+
+    <hr>
+
 
     <div class="table-container">
         <table class="table">

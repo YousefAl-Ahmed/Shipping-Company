@@ -8,7 +8,7 @@
     integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
     <link rel="stylesheet" href="/style.css">
     <script src = "/register.js"></script>
-    <title>Manage users</title>
+    <title>Package Route</title>
 </head>
 <body>
     <nav style="margin-bottom: 2vh;" class="navbar navbar-expand-lg navbar-light bg-light">
@@ -46,39 +46,63 @@
         </div>
     </nav>
 
-    <a href="/admin/manage-users/remove-user">Remove user</a>
-    <a href="/admin/manage-users/edit-user">Edit user</a>
-
-    <form action="/addUser" class="form" method="post">
-        <h2 class="Register-text">Add User</h2>
+   
+    <form action="/add-package-route" class="form" method="post">
+        <h2 class="Register-text">Add Package</h2>
  
     
         <!-- Steps -->
           <div class="input-group">
     
-            <label for="email">Email</label>
-            <input type="email" name="email" id="email" class="email" placeholder="" required>
+            <label for="package_id">Package ID</label>
+            <input type="number" name="package_id" id="package_id" class="package_id" placeholder="" required>
     
             <br>
-    
-            <label for="username">Username</label>
-            <input type="text" name="username" id="username" class="username" placeholder="" required>
-    
-            <br>
-    
-            <label for="password">Password</label>
-            <input type="password" name="password" id="password" class="password" placeholder="" required>
-    
-    
-          </div>
-          <!-- radio button -->
-                <label for="role">Role</label>
-                <input type="radio" name="isAdmin" id="role" value="true" required>Admin
-                <input type="radio" name="isAdmin" id="role" value="false" required>Customer
-            
-    
     
          
+    
+    
+ 
+          <br>
+    
+       
+
+          <div>
+            <label for="location">Current Location</label>
+            <select id="location" name="location" class="location" required>
+              <option value="">Select package location</option>
+              <option value="Dammam">Dammam </option>
+              <option value="Riyadh">Riyadh </option>
+              <option value="Jeddah">Jeddah </option>
+              <option value="Jazan">Jazan </option>
+              <option value="Khobar">Khobar </option>
+            </select>
+          </div>
+    
+
+          <br>
+    
+    
+          
+          
+          <div>
+            <label for="date">Delivery date</label>
+            <input type="date" name="date" id="date" required>
+          </div>
+
+<br>
+          <div>
+            <label for="locationType">Location type</label>
+            <select id="locationType" name="locationType" class="locationType" required>
+              <option value="">Select package location</option>
+              <option value="truck">On truck </option>
+              <option value="flight">On flight </option>
+              <option value="warehouse">On warehouse </option>
+              <option value="airport">On airport </option>
+            </select>
+          </div>
+    
+
     
           <div class="btns-group">
             <button class="btn">submit</button>

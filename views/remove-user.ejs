@@ -4,9 +4,73 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Remove user</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css"
+    integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+    <link rel="stylesheet" href="/style.css">
+    <script src = "/register.js"></script>
+    <title>Remove User</title>
 </head>
 <body>
+    <nav style="margin-bottom: 2vh;" class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="#">Admin page</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+                <li class="nav-item active">
+                    <a class="nav-link" href="/admin">Home <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/admin/reports">Reports</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/admin/manage-packages">Manage Packages</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/admin/manage-users">Manage Users</a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="/admin/package-route">Package Route</a>
+                </li>
+                
+                <li class="nav-item">
+                    <a class="nav-link" href="/admin/send-email">Send Email</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/logout">logout</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <form action="/removeUser" class="form" method="post">
+        <h2 class="Register-text">Remove User</h2>
+ 
+    
+        <!-- Steps -->
+          <div class="input-group">
+    
+    
+            <br>
+    
+            <label for="user_id">Enter User ID</label>
+            <input type="number" name="user_id" id="user_id" class="user_id" placeholder="" required>
+    
+          </div>
+
+
+    
+          <div class="btns-group">
+            <button class="btn">submit</button>
+       
+          </div>
+    
+    
+      </form>
+    
     
 </body>
 </html>

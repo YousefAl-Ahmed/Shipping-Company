@@ -11,6 +11,10 @@ const db = new sqlite3.Database('./website.db', sqlite3.OPEN_READWRITE,
     });
 db.get("PRAGMA foreign_keys = ON")
 let sql;
+
+//drop users table
+// sql = `DROP TABLE users`;
+// db.run(sql);
 sql = `CREATE TABLE IF NOT EXISTS users(
 	user_id	 INTEGER	   PRIMARY KEY AUTOINCREMENT,
   	email     TEXT  NOT NULL    UNIQUE,
@@ -24,8 +28,13 @@ db.run(sql);
 // package_name, weight, destination, status, 
 // final_delivery_date,dimensions,insurance_ammount,catagoery
 //drop packages table
+// sql = `DROP TABLE packages`;
+// db.run(sql);
 
 
+//drop packages table
+   sql = `DROP TABLE packages`;
+  db.run(sql);
 
 sql = `CREATE TABLE IF NOT EXISTS packages (
     package_id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -42,6 +51,10 @@ sql = `CREATE TABLE IF NOT EXISTS packages (
     FOREIGN KEY (username) REFERENCES users(username)
     )`;
 db.run(sql);
+
+
+
+
 
 
 
@@ -67,6 +80,9 @@ sql = `CREATE TABLE IF NOT EXISTS locations (
 db.run(sql);
 
 //drop retail_center table
+  sql = `DROP TABLE retail_center`;
+ db.run(sql);
+
 
 sql = `CREATE TABLE IF NOT EXISTS retail_center (
     retail_center_id INTEGER PRIMARY KEY AUTOINCREMENT,

@@ -32,7 +32,33 @@ const addUser = async (email, username, password, isAdmin) => {
     await db.close();
 }
 
-module.exports = {getAllUsers,addUser};
+//delete user
+const removeUser = async (user_id) => {
+    const db = await getDbConnection();
+    const sql = `DELETE FROM users WHERE user_id = '${user_id}'`;
+    await db
+    .run(sql);
+    await db.close();
+}
+
+//update user
+const editUser = async (user_id, email, username, password, isAdmin) => {
+    const db = await getDbConnection();
+    const sql = `UPDATE users SET email = '${email}', username = '${username}', password = '${password}', isAdmin = '${isAdmin}' WHERE user_id = '${user_id}'`;
+    await db
+    .run(sql);
+    await db.close();
+}
+
+//get user info
+const getUserInfo = async (user_id) => {
+    const db = await getDbConnection();
+    const sql = `SELECT * FROM users WHERE user_id = '${user_id}'`;
+    const userInfo = await db.get(sql);
+    await db.close();
+    return userInfo;
+}
+module.exports = {getAllUsers,addUser,removeUser,editUser,getUserInfo};
 
     
 

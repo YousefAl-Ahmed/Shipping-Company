@@ -11,15 +11,59 @@ const getDbConnection = async () => {
 }
 
 //add package
-const addPackage = async (username, package_name, weight, destination, status, final_delivery_date, dimensions, insurance_ammount, catagoery) => {
+const addPackage = async (username, package_name, weight, destination, status, final_delivery_date, dimensions, insurance_amount, catagory,reciever_name) => {
     const db = await getDbConnection();
     const sql = `INSERT INTO packages 
-    ('username', 'package_name', 'weight', 'destination', 'status', 'final_delivery_date', 'dimensions', 'insurance_ammount', 'catagoery')
-    VALUES ('${username}', '${package_name}', '${weight}', '${destination}', '${status}', '${final_delivery_date}', '${dimensions}', '${insurance_ammount}', '${catagoery}')`;
+    ('username', 'package_name', 'weight', 'destination', 'status', 'final_delivery_date', 'dimensions', 'insurance_amount', 'catagory','payment_status')
+    VALUES ('${username}', '${package_name}', '${weight}', '${destination}', '${status}', '${final_delivery_date}', '${dimensions}', '${insurance_amount}', '${catagory}','not paid')`;
+    //select last inserted package id
+  
     await db.run(sql);
     await db.close();
-    return 1; 
+
+    let package_id = getLastPackageId();
+    package_id.then(function(result) {
+        const package_id = result.package_id;
+         addToRetailCenter(package_id,destination,username,reciever_name,username);
+
+   
+    });
+
+    // package_id.then(function(result) {
+    // return result;
+    // console.log(result);
+    // });
+
+    //  addToRetailCenter(destination,username,receiver_name,username);
+
+    
 }
+//get last inserted package id
+const getLastPackageId = async () => {
+    const db = await getDbConnection();
+    const package_id = await db.get("SELECT package_id FROM packages ORDER BY package_id DESC LIMIT 1");
+    await db.close();
+    return package_id;
+}
+
+
+
+    
+async function addToRetailCenter(package_id,destination,username,reciever_name,username){
+
+    
+    const db = await getDbConnection();
+
+    const sql = `INSERT INTO retail_center
+    (package_id,'retail_center_name','retail_center_address','location_name','sender_name','receiver_name','status')
+    VALUES ('${package_id}','${destination}','${destination}','${destination}','${username}','${reciever_name}','not paid')`;
+    await db
+    .run(sql);
+    await db.close();
+}
+
+
+
 
 //remove package
 const removePackage = async (package_id) => {

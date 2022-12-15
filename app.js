@@ -99,13 +99,14 @@ app.post("/addPackage", async (req, res) => {
     const username = req.body.username;
     const package_name = req.body.package_name;
     const weight = req.body.weight;
-    const destination = req.body.destination;
+    const retail_center = req.body.retail_center;
     const status = req.body.status;
     const dimentions = req.body.dimentions;
-    const insurance_ammount = req.body.insurance_amount;
+    const insurance_amount = req.body.insurance_amount;
     const catagory = req.body.catagory;
     const final_delivery_date = req.body.date;
-    await managePackages.addPackage(username, package_name, weight, destination, status,final_delivery_date, dimentions, insurance_ammount, catagory);
+    const reciever_name = req.body.reciever_name;
+    await managePackages.addPackage(username, package_name, weight, retail_center, status,final_delivery_date, dimentions, insurance_amount, catagory, reciever_name);
     res.redirect("/admin");
 });
 
@@ -154,6 +155,33 @@ app.post("/addUser", async (req, res) => {
     await manageUsers.addUser(email, username, hashedPassword, admin);
     res.redirect("/admin");
 });
+app.post("/removeUser", async (req, res) => {
+    const user_id = req.body.user_id;
+    
+    await manageUsers.removeUser(user_id);
+    res.redirect("/admin");
+});
+app.post("/editUser", async (req, res) => {
+    const user_id = req.body.user_id;
+    const userInfo = await manageUsers.getUserInfo(user_id);
+    console.log(userInfo.username);
+    console.log(userInfo.email);
+    let email = req.body.email;
+    if (email == '') email = userInfo.email;
+    let username = req.body.username;
+    if (username == '') username = userInfo.username;
+
+    let password = req.body.password;
+    if (password == '') password = userInfo.password;
+    
+    hashedPassword = await bcrypt.hash(password, 8);
+
+    let admin = req.body.isAdmin;
+    if (admin == '') admin = userInfo.isAdmin;
+    await manageUsers.editUser(user_id, email, username, hashedPassword, admin);
+    res.redirect("/admin");
+});
+
 
 
     
@@ -177,9 +205,6 @@ app.get('/admin/manage-packages', async (req, res) => {
     res.render("manage-packages", { user: req.session.user });
 });
 
-app.get('/admin/manage-users', async (req, res) => {
-    res.render("manage-users", { user: req.session.user });
-});
 
 app.get('/admin/send-email', async (req, res) => {
     res.render("send-email", { user: req.session.user });
@@ -190,6 +215,20 @@ app.get('/admin/manage-packages/remove-package', async (req, res) => {
 app.get('/admin/manage-packages/edit-package', async (req, res) => {
 
     res.render("edit-package", {user: req.session.user });
+});
+app.get('/admin/manage-users', async (req, res) => {
+    res.render("manage-users", { user: req.session.user });
+});
+app.get('/admin/manage-users/remove-user', async (req, res) => {
+    res.render("remove-user", { user: req.session.user });
+});
+
+app.get('/admin/manage-users/edit-user', async (req, res) => {
+    res.render("edit-user", { user: req.session.user });
+});
+
+app.get('/admin/package-route', async (req, res) => {
+    res.render("package-route", { user: req.session.user });
 });
 
 
@@ -217,7 +256,8 @@ app.post("/", async (req, res) => {
                 req.session.authenticated = true;
                 req.session.user = { id, email };
                 if (isAdmin === 'true') {
-                    res.render("admin", { user: req.session.user });
+                    res.redirect("/admin");
+
                 }
                 else
                     res.render("index", { userInfo: await auth.getUserInfo(email), user: req.session.user });

@@ -31,6 +31,11 @@
                 <li class="nav-item">
                     <a class="nav-link" href="/admin/manage-users">Manage Users</a>
                 </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="/admin/package-route">Package Route</a>
+                </li>
+                
                 <li class="nav-item">
                     <a class="nav-link" href="/admin/send-email">Send Email</a>
                 </li>
@@ -53,6 +58,9 @@
     
             <label for="username">Username</label>
             <input type="username" name="username" id="username" class="username" placeholder="" required>
+
+            <label for="reciever_name">Reciever name</label>
+            <input type="reciever_name" name="reciever_name" id="reciever_name" class="usernreciever_name" placeholder="" >
     
             <br>
     
@@ -71,10 +79,7 @@
     
           <div>
             <!-- this needs to be updated to better selector -->
-            <label for="destination">Destination</label>
-            <input type="text" name="destination" id="destination" required>
-          </div>
-    
+ 
           <br>
     
           <div>
@@ -88,6 +93,19 @@
               <option value="delivered">delivered</option>
             </select>
           </div>
+
+          <div>
+            <label for="retail_center">Retail Center</label>
+            <select id="retail_center" name="retail_center" class="retail_center" required>
+              <option value="">Select retail center</option>
+              <option value="Dammam">Dammam center</option>
+              <option value="Riyadh">Riyadh center</option>
+              <option value="Jeddah">Jeddah center</option>
+              <option value="Jazan">Jazan center</option>
+              <option value="Khobar">Khobar center</option>
+            </select>
+          </div>
+    
     
           <br>
     
@@ -106,7 +124,7 @@
           <br>
     
           <div>
-            <label for="catagory">Fitness Level</label>
+            <label for="catagory">Catagory</label>
             <select id="catagory" name="catagory" class="catagory" required>
               <option value="">Select catagory</option>
               <option value="regular">regular</option>
@@ -124,7 +142,6 @@
           </div>
     
           <div class="btns-group">
-            <a href="#" class="btn btn-prev">Previous</a>
             <button class="btn">submit</button>
        
           </div>

@@ -46,7 +46,9 @@ app.use(express.json());
 app.get("/", async (req, res) => {
     const email = req.body.email;
 
-    res.render("index", { userInfo: await auth.getUserInfo(email), user: req.session.user });
+    res.render("index", { email: email, userInfo: await auth.getUserInfo(email), user: req.session.user });
+
+
 });
 
 
@@ -73,7 +75,12 @@ app.get("/user-page/:username", async (req, res) => {
     const email = req.body.email;
 
     const packages = await auth.getUserPackages(username);
-    res.render("user-page", { packages: packages, user: req.session.user, userInfo: await auth.getUserInfo(email) });
+    res.render("user-page", { packages: packages, user: req.session.user, userInfo: await auth.getUserInfoByUsername(username) });
+});
+//app get user profile
+app.get("/user-page/:username/profile", async (req, res) => {
+    const username = req.params.username;
+    res.render("profile", { user: req.session.user, userInfo: await auth.getUserInfoByUsername(username) });
 });
 
 app.post("/auth", async (req, res) => {
@@ -106,7 +113,7 @@ app.post("/addPackage", async (req, res) => {
     const catagory = req.body.catagory;
     const final_delivery_date = req.body.date;
     const reciever_name = req.body.reciever_name;
-    await managePackages.addPackage(username, package_name, weight, retail_center, status,final_delivery_date, dimentions, insurance_amount, catagory, reciever_name);
+    await managePackages.addPackage(username, package_name, weight, retail_center, status, final_delivery_date, dimentions, insurance_amount, catagory, reciever_name);
     res.redirect("/admin");
 });
 
@@ -117,7 +124,7 @@ app.post("/removePackage", async (req, res) => {
 });
 
 app.post("/editPackage", async (req, res) => {
-  
+
 
 
     const package_id = req.body.package_id;
@@ -134,15 +141,15 @@ app.post("/editPackage", async (req, res) => {
     let status = req.body.status;
     if (status == '') status = packageInfo.status;
     let dimentions = req.body.dimentions;
-    if(dimentions == '') dimentions = packageInfo.dimensions;
+    if (dimentions == '') dimentions = packageInfo.dimensions;
     let insurance_ammount = req.body.insurance_amount;
-    if(insurance_ammount == '') insurance_ammount = packageInfo.insurance_amount;
+    if (insurance_ammount == '') insurance_ammount = packageInfo.insurance_amount;
     let catagory = req.body.catagory;
-    if(catagory == '') catagory = packageInfo.catagory;
+    if (catagory == '') catagory = packageInfo.catagory;
     let final_delivery_date = req.body.date;
-    if(final_delivery_date == '') final_delivery_date = packageInfo.final_delivery_date;
-    
-    await managePackages.editPackage(package_id, package_name, weight, destination, status,final_delivery_date, dimentions, insurance_ammount, catagory);
+    if (final_delivery_date == '') final_delivery_date = packageInfo.final_delivery_date;
+
+    await managePackages.editPackage(package_id, package_name, weight, destination, status, final_delivery_date, dimentions, insurance_ammount, catagory);
     res.redirect("/admin");
 });
 
@@ -157,7 +164,7 @@ app.post("/addUser", async (req, res) => {
 });
 app.post("/removeUser", async (req, res) => {
     const user_id = req.body.user_id;
-    
+
     await manageUsers.removeUser(user_id);
     res.redirect("/admin");
 });
@@ -173,7 +180,7 @@ app.post("/editUser", async (req, res) => {
 
     let password = req.body.password;
     if (password == '') password = userInfo.password;
-    
+
     hashedPassword = await bcrypt.hash(password, 8);
 
     let admin = req.body.isAdmin;
@@ -184,7 +191,7 @@ app.post("/editUser", async (req, res) => {
 
 
 
-    
+
 
 //logout route and redirect to index
 
@@ -198,11 +205,11 @@ app.get('/admin', async (req, res) => {
 app.get('/admin/reports', async (req, res) => {
     const LostPackages = await auth.getLostPackages();
 
-    res.render("reports", { user: req.session.user, LostPackages: LostPackages});
+    res.render("reports", { user: req.session.user, LostPackages: LostPackages });
 });
 
 app.get('/admin/manage-packages', async (req, res) => {
-    res.render("manage-packages", { user: req.session.user });
+    res.render("manage-packages", { user: req.session.user, users: await manageUsers.getAllUsers() });
 });
 
 
@@ -214,7 +221,7 @@ app.get('/admin/manage-packages/remove-package', async (req, res) => {
 });
 app.get('/admin/manage-packages/edit-package', async (req, res) => {
 
-    res.render("edit-package", {user: req.session.user });
+    res.render("edit-package", { user: req.session.user });
 });
 app.get('/admin/manage-users', async (req, res) => {
     res.render("manage-users", { user: req.session.user });

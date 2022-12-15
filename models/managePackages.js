@@ -92,7 +92,36 @@ const editPackage = async (package_id, package_name, weight, destination, status
     await db.close();
 }
 
+//add package to locations 
+const addPackageRoute = async (package_id, location_name, date,locationType) => {
+    const db = await getDbConnection();
+//split date
+    const dateArray = date.split('-');
+    const year = dateArray[0];
+    const month = dateArray[1];
+    const day = dateArray[2];
+
+    const sql = `INSERT INTO locations
+    ('package_id', 'location_name', 'day','month','year','type')
+    VALUES ('${package_id}', '${location_name}', '${day}','${month}','${year}','${locationType}')`;
+    await db
+    .run
+    (sql);
+    await db.close();
+}
+
+//get package between two dates
+const getPackagesBetweenDates = async (startDate, endDate) => {
+    const db = await getDbConnection();
+    const sql = `SELECT * FROM packages WHERE final_delivery_date BETWEEN '${startDate}' AND '${endDate}'`;
+    const packages
+    = await
+    db.all
+    (sql);
+    await db.close();
+    return packages;
+}
     
 
-module.exports = {addPackage,removePackage,getPackageInfo,editPackage};
+module.exports = {addPackage,removePackage,getPackageInfo,editPackage,addPackageRoute,getPackagesBetweenDates};
 

@@ -146,6 +146,15 @@ app.post("/editPackage", async (req, res) => {
     res.redirect("/admin");
 });
 
+app.post("/add-package-route", async (req, res) => {
+    const package_id = req.body.package_id;
+    const location = req.body.location;
+    const date = req.body.date;
+    const locationType = req.body.locationType;
+     await managePackages.addPackageRoute(package_id, location, date, locationType);
+    res.redirect("/admin");
+});
+
 app.post("/addUser", async (req, res) => {
     const email = req.body.email;
     const username = req.body.username;
@@ -180,6 +189,14 @@ app.post("/editUser", async (req, res) => {
     if (admin == '') admin = userInfo.isAdmin;
     await manageUsers.editUser(user_id, email, username, hashedPassword, admin);
     res.redirect("/admin");
+});
+
+app.post("/status_catagory_report", async (req, res) => {
+    const start_date = req.body.start_date;
+    const end_date = req.body.end_date;
+    const betweenDatesPackages = await managePackages.getPackagesBetweenDates(start_date, end_date);
+
+    res.redirect("/admin/reports", { betweenDatesPackages: betweenDatesPackages });
 });
 
 

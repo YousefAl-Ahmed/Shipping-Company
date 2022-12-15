@@ -48,11 +48,11 @@
 
    
     <form action="/add-package-route" class="form" method="post">
-        <h2 class="Register-text">Add Package</h2>
+        <h2 class="Register-text">Add Package Route</h2>
  
     
         <!-- Steps -->
-          <div class="input-group">
+          <!-- <div class="input-group"> -->
     
             <label for="package_id">Package ID</label>
             <input type="number" name="package_id" id="package_id" class="package_id" placeholder="" required>
@@ -68,7 +68,7 @@
        
 
           <div>
-            <label for="location">Current Location</label>
+            <label for="location">Package Location</label>
             <select id="location" name="location" class="location" required>
               <option value="">Select package location</option>
               <option value="Dammam">Dammam </option>
@@ -81,16 +81,14 @@
     
 
           <br>
-    
-    
-          
           
           <div>
-            <label for="date">Delivery date</label>
+            <label for="date">Select Date</label>
             <input type="date" name="date" id="date" required>
           </div>
 
-<br>
+        <br>
+
           <div>
             <label for="locationType">Location type</label>
             <select id="locationType" name="locationType" class="locationType" required>

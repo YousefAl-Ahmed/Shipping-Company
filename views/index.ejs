@@ -13,22 +13,24 @@
 
 <body>
     <% if (typeof user !='undefined' ) { %>
-        <%- include("./navbar.ejs") %>
-            <!-- redirect to "user-page<%=userInfo.username%>" -->
+        <!-- redirect to "user-page<%=userInfo.username%>" -->
 
-            <div class="container">
+        <div class="center-container">
+            <div>
                 <p>
                     <!-- <meta http-equiv="refresh" content="time; URL='/user-page/<%=userInfo.username%>'" /> -->
-                    Welcome <%=userInfo.username%>
+                <h1>Welcome <%=userInfo.username%>!</h1>
                 </p>
-                <button>
-                    <a href="/user-page/<%=userInfo.username%>">Get Started </a>
-                </button>
-                <a href="/logout">logout</a>
             </div>
-            <% } else {%>
-                <%- include("./guest.ejs") %>
-                    <% } %>
+            <div> <button>
+                    <a href="/user-page/<%=userInfo.username%>">Get Started </a>
+                </button></div>
+            <div> <a href="/logout">logout</a>
+            </div>
+        </div>
+        <% } else {%>
+            <%- include("./guest.ejs") %>
+                <% } %>
 
 </body>
 

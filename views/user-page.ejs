@@ -25,12 +25,15 @@
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav">
                 <li class="nav-item active">
-                    <a class="nav-link" href="#">Home </span></a>
+                    <a class="nav-link" href="/user-page/<%=userInfo.username%>">Home </span></a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="/user-page/<%=userInfo.username%>/profile"> Profile</a>
                 </li>
                 <li class="nav-item">
+                    <a class="nav-link" href="/user-page/<%=userInfo.username%>/send-package"> Send packages</a>
+                <li class="nav-item">
+
                     <a href="/logout"> <button type="button" class="btn btn-secondary">Logout</button>
                     </a>
                 </li>
@@ -38,10 +41,9 @@
         </div>
     </nav>
     <div class="main-packges-title">
-        <p> All of your packages
-        </p>
-
+        <h1>My Packages</h1>
     </div>
+
     <div class="table-container">
         <table class="table">
             <thead class="thead-dark">
@@ -55,6 +57,7 @@
                     <th scope="col">Incurance amount</th>
                     <th scope="col">Catagory</th>
                     <th scope="col">Delivery Date</th>
+                    <th scope="col">Payment status</th>
                 </tr>
             </thead>
             <tbody>
@@ -87,22 +90,93 @@
                         <td>
                             <%=packages[i].final_delivery_date%>
                         </td>
+                        <td>
+                            <%=packages[i].payment_status%>
                     </tr>
                     <% } %>
         </table>
     </div>
-    <p>
-    </p>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
-        crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"
-        integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3"
-        crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js"
-        integrity="sha384-cuYeSxntonz0PPNlHhBs68uyIAVpIIOZZ5JqeqvYYIcEL727kskC66kF92t6Xl2V"
-        crossorigin="anonymous"></script>
-    <script language="javascript" src="/bootstrap-5.2.3-dist/js/bootstrap.min.js"></script>
+    <div>
+        <hr>
+
+    </div>
+    <!-- textfield to input a package id and show it in a table -->
+    <div class="">
+        <form action="/user-page/<%=userInfo.username%>/packages" method="POST">
+            <div class="">
+                <label for="package-id">Search Package</label>
+
+                <select class="" id="package-id" name="package-id">
+                    <option value="">
+                        Select package id to search for
+                    </option>
+                    <% for (let i=0; i < packages.length; i++) { %>
+
+                        <option value="<%=packages[i].package_id%>">
+                            <%=packages[i].package_id%>
+                        </option>
+                        <% } %>
+            </div>
+            <button type="submit" class="btn btn-primary">Search</button>
+        </form>
+    </div>
+    <!-- table to show the searched package -->
+    <div class="table-container">
+        <table class="table">
+            <thead class="thead-dark">
+                <tr>
+                    <th scope="col">Package ID</th>
+                    <th scope="col">Package Name</th>
+                    <th scope="col">Weight</th>
+                    <th scope="col">Destination</th>
+                    <th scope="col">Status</th>
+                    <th scope="col">Dimensions</th>
+                    <th scope="col">Incurance amount</th>
+                    <th scope="col">Catagory</th>
+                    <th scope="col">Delivery Date</th>
+                    <th scope="col">Payment status</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% for (let i=0; i < searchedPackages.length; i++) { %>
+                    <tr>
+                        <td>
+                            <%=searchedPackages[i].package_id%>
+                        </td>
+                        <td>
+                            <%=searchedPackages[i].package_name%>
+                        </td>
+                        <td>
+                            <%=searchedPackages[i].weight%>
+                        </td>
+                        <td>
+                            <%=searchedPackages[i].destination%>
+                        </td>
+                        <td>
+                            <%=searchedPackages[i].status%>
+                        </td>
+                        <td>
+                            <%=searchedPackages[i].dimensions%>
+                        </td>
+                        <td>
+                            <%=searchedPackages[i].insurance_amount%>
+                        </td>
+                        <td>
+                            <%=searchedPackages[i].catagory%>
+                        </td>
+                        <td>
+                            <%=searchedPackages[i].final_delivery_date%>
+                        </td>
+                        <td>
+                            <%=searchedPackages[i].payment_status%>
+                    </tr>
+                    <% } %>
+        </table>
+    </div>
+    <!-- include footer -->
+    <footer class="footer">
+        <div class="container">
+            <span class="text-muted">Place sticky footer content here.</span>
 
 </body>
 

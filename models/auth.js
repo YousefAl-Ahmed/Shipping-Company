@@ -52,7 +52,7 @@ const getLostPackages = async () => {
     const db = await getDbConnection();
     const sql = `SELECT * FROM packages WHERE status = 'lost'`;
     const lostPackages = await db.all
-    (sql);
+        (sql);
     await db.close();
     return lostPackages;
 }
@@ -61,7 +61,7 @@ const getDelayedPackages = async () => {
     const db = await getDbConnection();
     const sql = `SELECT * FROM packages WHERE status = 'delayed'`;
     const lostPackages = await db.all
-    (sql);
+        (sql);
     await db.close();
     return lostPackages;
 }
@@ -70,7 +70,7 @@ const getDeliveredPackages = async () => {
     const db = await getDbConnection();
     const sql = `SELECT * FROM packages WHERE status = 'delivered'`;
     const lostPackages = await db.all
-    (sql);
+        (sql);
     await db.close();
     return lostPackages;
 }
@@ -90,6 +90,15 @@ const getUserInfo = async (email) => {
     await db.close();
     return userInfo;
 }
+//get userInfo by username
+const getUserInfoByUsername = async (username) => {
+    const db = await getDbConnection();
+    const sql = `SELECT * FROM users WHERE username = '${username}'`;
+    const userInfo = await db.get(sql);
+    await db.close();
+    return userInfo;
+}
+
 const getUsername = async (email) => {
     const db = await getDbConnection();
     const sql = `SELECT username FROM users WHERE email = '${email}'`;
@@ -140,8 +149,10 @@ const isAdmin = async (email) => {
 
 
 
-module.exports = { addUser, authUser, changeUserName, changePassword,
-     getUserID, authLogIn, isAdmin, getUserInfo, getUsername, getUserPackages,getAllPackages,getLostPackages,getDelayedPackages,getDeliveredPackages };
+module.exports = {
+    addUser, authUser, changeUserName, changePassword,
+    getUserID, authLogIn, isAdmin, getUserInfo, getUsername, getUserPackages, getAllPackages, getLostPackages, getDelayedPackages, getDeliveredPackages, getUserInfoByUsername
+};
 
 
 

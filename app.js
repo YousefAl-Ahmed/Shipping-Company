@@ -198,12 +198,12 @@ app.post("/editUser", async (req, res) => {
     res.redirect("/admin");
 });
 
-app.post("/status_catagory_report", async (req, res) => {
+app.post("/reports/status_catagory_report", async (req, res) => {
     const start_date = req.body.start_date;
     const end_date = req.body.end_date;
-    const betweenDatesPackages = await managePackages.getPackagesBetweenDates(start_date, end_date);
+    const betweenDatesPackages = await managePackages.getLostPackagesBetweenDates(start_date, end_date);
 
-    res.redirect("/admin/reports", { betweenDatesPackages: betweenDatesPackages });
+    res.render("status_catagory_report", { betweenDatesPackages: betweenDatesPackages });
 });
 
 
@@ -253,6 +253,10 @@ app.get('/admin/manage-users/edit-user', async (req, res) => {
 
 app.get('/admin/package-route', async (req, res) => {
     res.render("package-route", { user: req.session.user });
+});
+
+app.get('/admin/reports/status_catagory_report', async (req, res) => {
+    res.render("status_catagory_report", { user: req.session.user });
 });
 
 

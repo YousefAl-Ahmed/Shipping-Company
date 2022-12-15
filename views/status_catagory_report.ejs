@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="/style.css">
 
 
-    <title>Reports</title>
+    <title>Report 1</title>
 </head>
 <body>
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
@@ -47,44 +47,58 @@
         </div>
     </nav>
 
-    <form action="/reports/status_catagory_report" class="form" method="post">
-        <h2 class="Register-text">Select starting and ending date</h2>
-           
-        <div>
-            <label for="start_date">Starting Date</label>
-            <input type="date" name="start_date" id="dastart_datete" required>
-          </div>
-
-        <br>
-           
-        <div>
-            <label for="end_date">Ending Date</label>
-            <input type="date" name="end_date" id="end_date" required>
-          </div>
-
-        <br>
- 
-    
-        <!-- Steps -->
-          
-
-    
-         
-    
-          <div class="btns-group">
-            <button class="btn">submit</button>
-       
-          </div>
-    
-    
-      </form>
-    
-
-
-
   
 
- ]
+    <div class="table-container">
+        <table class="table">
+            <thead class="thead-dark">
+                <tr>
+                    <th scope="col">Package ID</th>
+                    <th scope="col">Package Name</th>
+                    <th scope="col">Weight</th>
+                    <th scope="col">Destination</th>
+                    <th scope="col">Status</th>
+                    <th scope="col">Dimensions</th>
+                    <th scope="col">Insurance amount</th>
+                    <th scope="col">Catagory</th>
+                    <th scope="col">Delivery Date</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% for (let i=0; i < betweenDatesPackages.length; i++) { %>
+                    <tr>
+                        <td>
+                            <%=betweenDatesPackages[i].package_id%>
+                        </td>
+                        <td>
+                            <%=betweenDatesPackages[i].package_name%>
+                        </td>
+                        <td>
+                            <%=betweenDatesPackages[i].weight%>
+                        </td>
+                        <td>
+                            <%=betweenDatesPackages[i].destination%>
+                        </td>
+                        <td>
+                            <%=betweenDatesPackages[i].status%>
+                        </td>
+                        <td>
+                            <%=betweenDatesPackages[i].dimensions%>
+                        </td>
+                        <td>
+                            <%=betweenDatesPackages[i].insurance_amount%>
+                        </td>
+                        <td>
+                            <%=betweenDatesPackages[i].catagory%>
+                        </td>
+                        <td>
+                            <%=betweenDatesPackages[i].final_delivery_date%>
+                        </td>
+                    </tr>
+                    <% } %>
+        </table>
+    </div>
+
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
     integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"

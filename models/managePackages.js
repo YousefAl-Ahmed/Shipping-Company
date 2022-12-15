@@ -111,7 +111,7 @@ const addPackageRoute = async (package_id, location_name, date,locationType) => 
 }
 
 //get package between two dates
-const getPackagesBetweenDates = async (startDate, endDate) => {
+const getLostPackagesBetweenDates = async (startDate, endDate) => {
     const db = await getDbConnection();
     const sql = `SELECT * FROM packages WHERE final_delivery_date BETWEEN '${startDate}' AND '${endDate}'`;
     const packages
@@ -123,5 +123,5 @@ const getPackagesBetweenDates = async (startDate, endDate) => {
 }
     
 
-module.exports = {addPackage,removePackage,getPackageInfo,editPackage,addPackageRoute,getPackagesBetweenDates};
+module.exports = {addPackage,removePackage,getPackageInfo,editPackage,addPackageRoute,getLostPackagesBetweenDates};
 

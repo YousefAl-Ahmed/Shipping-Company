@@ -185,7 +185,6 @@ const getPackageInfoByLocation = async (username, location) => {
     await db.close();
     return packages;
 }
-module.exports = { getPackageInfoByLocation, getPackageInfoByDate, getPackageInfoByCatagory, addPackage, removePackage, getPackageInfo, editPackage, addPackageRoute, getLostPackagesBetweenDates, getPackgesInRetailCenter };
 
 
 const track_packages = async (catagory, location, status) => {
@@ -199,9 +198,22 @@ const track_packages = async (catagory, location, status) => {
     return packages;
 }
 
+// export all the functions
 module.exports = {
-    addPackage, removePackage, getPackageInfo, editPackage,
-    addPackageRoute, getLostPackagesBetweenDates, getDelayedPackagesBetweenDates,
-    getDeliveredPackagesBetweenDates, catagory_count, track_packages
-};
+    addPackage,
+    removePackage,
+    getPackageInfo,
+    editPackage,
+    addPackageRoute,
+    getLostPackagesBetweenDates,
+    getDelayedPackagesBetweenDates,
+    getDeliveredPackagesBetweenDates,
+    catagory_count,
+    getPackgesInRetailCenter,
+    getPackageInfoByCatagory,
+    getPackageInfoByDate,
+    getPackageInfoByLocation,
+    track_packages
+}
+
 

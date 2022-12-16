@@ -290,7 +290,10 @@ app.post("/reports/track-packages", async (req, res) => {
 
     res.render("track-packages", { track_packages: track_packages });
 });
-
+app.get("/user-page/:username/send-package", async (req, res) => {
+    const username = req.params.username;
+    res.render("send-package", { user: req.session.user, userInfo: await auth.getUserInfoByUsername(username), users: await manageUsers.getAllUsers() });
+});
 
 
 

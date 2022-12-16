@@ -40,7 +40,17 @@ db.run(sql);
 // //drop packages table
 //    sql = `DROP TABLE packages`;
 //   db.run(sql);
-
+// create payment table
+sql = `CREATE TABLE IF NOT EXISTS payment (
+    payment_id INTEGER PRIMARY KEY AUTOINCREMENT,
+    package_id INTEGER NOT NULL,
+    username TEXT NOT NULL,
+    insurance_amount INTEGER NOT NULL,
+    payment_status TEXT NOT NULL,
+    FOREIGN KEY (package_id) REFERENCES packages(package_id),
+    FOREIGN KEY (username) REFERENCES users(username)
+    )`;
+db.run(sql);
 sql = `CREATE TABLE IF NOT EXISTS packages (
     package_id INTEGER PRIMARY KEY AUTOINCREMENT,
     username TEXT NOT NULL,

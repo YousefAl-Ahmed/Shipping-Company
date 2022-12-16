@@ -1,4 +1,3 @@
-
 const express = require("express");
 const session = require("express-session");
 const bcrypt = require("bcryptjs")
@@ -277,9 +276,14 @@ app.post("/editUser", async (req, res) => {
 app.post("/reports/status_catagory_report", async (req, res) => {
     const start_date = req.body.start_date;
     const end_date = req.body.end_date;
-    const betweenDatesPackages = await managePackages.getLostPackagesBetweenDates(start_date, end_date);
+    const betweenDatesLostPackages = await managePackages.getLostPackagesBetweenDates(start_date, end_date);
+    const betweenDatesDelayedPackages = await managePackages.getDelayedPackagesBetweenDates(start_date, end_date);
+    const betweenDatesDeliveredPackages = await managePackages.getDeliveredPackagesBetweenDates(start_date, end_date);
+    const catagory_count = await managePackages.catagory_count(start_date, end_date);
 
-    res.render("status_catagory_report", { betweenDatesPackages: betweenDatesPackages });
+    res.render("status_catagory_report", { betweenDatesLostPackages: betweenDatesLostPackages,
+         betweenDatesDelayedPackages: betweenDatesDelayedPackages, betweenDatesDeliveredPackages: betweenDatesDeliveredPackages , 
+         catagory_count: catagory_count });
 });
 
 app.post("/reports/track-packages", async (req, res) => {
@@ -290,6 +294,27 @@ app.post("/reports/track-packages", async (req, res) => {
 
     res.render("track-packages", { track_packages: track_packages });
 });
+
+
+app.post("/reports/received_sent_packages", async (req, res) => {
+    const sent_or_received = req.body.sent_or_received;
+    const username  = req.body.username;
+    let sent_or_packages_result;
+    if (sent_or_received == 'sent') {
+         sent_or_packages_result= await managePackages.sent_packages_user(username);
+    }
+    else {
+        sent_or_packages_result = await managePackages.received_packages_user(username);
+    }
+    console.log(sent_or_packages_result);
+    res.render("received_sent_packages", { sent_or_packages_result: sent_or_packages_result});
+});
+
+
+
+
+
+
 app.get("/user-page/:username/send-package", async (req, res) => {
     const username = req.params.username;
     res.render("send-package", { user: req.session.user, userInfo: await auth.getUserInfoByUsername(username), users: await manageUsers.getAllUsers() });
@@ -307,9 +332,8 @@ app.get('/admin', async (req, res) => {
 });
 
 app.get('/admin/reports', async (req, res) => {
-    const LostPackages = await auth.getLostPackages();
 
-    res.render("reports", { user: req.session.user, LostPackages: LostPackages });
+    res.render("reports", { user: req.session.user, users: await manageUsers.getAllUsers() });
 });
 
 app.get('/admin/manage-packages', async (req, res) => {

@@ -161,6 +161,9 @@ const getPackgesInRetailCenter = async (username) => {
     await db.close();
     return packages;
 }
+
+
+
 const getPackageInfoByCatagory = async (username, catagory) => {
     const db = await getDbConnection();
     const sql = `SELECT * FROM packages WHERE username = '${username}' AND catagory = '${catagory}'`;
@@ -198,6 +201,31 @@ const track_packages = async (catagory, location, status) => {
     return packages;
 }
 
+const sent_packages_user = async (username) => {
+    const db = await getDbConnection();
+    const sql = `SELECT * FROM packages JOIN retail_center ON packages.package_id = retail_center.package_id WHERE retail_center.sender_name = '${username}'`;
+    const packages
+        = await
+        db.all
+        (sql);
+    await db.close();
+    return packages;
+}
+
+const received_packages_user = async (username) => {
+    const db = await getDbConnection();
+    const sql = `SELECT * FROM packages JOIN retail_center ON packages.package_id = retail_center.package_id WHERE retail_center.receiver_name = '${username}'`;
+    const packages
+        = await
+        db.all
+        (sql);
+    await db.close();
+    return packages;
+}
+
+
+        
+
 // export all the functions
 module.exports = {
     addPackage,
@@ -213,7 +241,9 @@ module.exports = {
     getPackageInfoByCatagory,
     getPackageInfoByDate,
     getPackageInfoByLocation,
-    track_packages
+    track_packages,
+    sent_packages_user,
+    received_packages_user,
 }
 
 

@@ -47,6 +47,8 @@
         </div>
     </nav>
 
+    <div style="display: flex;">
+
     <form action="/reports/status_catagory_report" class="form" method="post">
         <h2 class="Register-text">Select starting and ending date</h2>
            
@@ -63,13 +65,55 @@
           </div>
 
         <br>
- 
-    
-        <!-- Steps -->
-          
 
     
-         
+          <div class="btns-group">
+            <button class="btn">submit</button>
+       
+          </div>
+      </form>
+
+
+      <form action="/reports/track-packages" class="form" method="post">
+        <h2 class="Register-text">Track Packages</h2>
+
+
+        <div>
+            <label for="catagory">Catagory</label>
+            <select id="catagory" name="catagory" class="catagory" required>
+              <option value="">Select catagory</option>
+              <option value="regular">regular</option>
+              <option value="fragile">fragile</option>
+              <option value="liquid">liquid</option>
+              <option value="chemical">chemical</option>
+            </select>
+          </div>
+    
+           
+        <div>
+            <label for="location">Package Location</label>
+            <select id="location" name="location" class="location" required>
+              <option value="">Select package location</option>
+              <option value="Dammam">Dammam </option>
+              <option value="Riyadh">Riyadh </option>
+              <option value="Jeddah">Jeddah </option>
+              <option value="Jazan">Jazan </option>
+              <option value="Khobar">Khobar </option>
+            </select>
+          </div>
+
+          <div>
+            <label for="status">Status</label>
+            <select id="status" name="status" class="status" required>
+              <option value="">Select status</option>
+              <option value="in transit">in transit</option>
+              <option value="lost">lost</option>
+              <option value="delayed">delayed</option>
+              <option value="damaged">damaged</option>
+              <option value="delivered">delivered</option>
+            </select>
+          </div>
+
     
           <div class="btns-group">
             <button class="btn">submit</button>
@@ -80,11 +124,45 @@
       </form>
     
 
+      <form action="/reports/received_sent_packages" class="form" method="post">
+        <h2 class="Register-text">Send/Received Packages for Particular User</h2>
+        <div>
+            <label for="send_or_received">Status</label>
+            <select id="send_or_received" name="send_or_received" class="send_or_received" required>
+              <option value="">Sent or Received</option>
+              <option value="sent">Sent</option>
+              <option value="received">Received</option>
+          
+            </select>
+          </div>
+
+          <div>
+            <label for="status">Status</label>
+            <select id="status" name="status" class="status" required>
+              <option value="">Select status</option>
+              <option value="in transit">in transit</option>
+              <option value="lost">lost</option>
+              <option value="delayed">delayed</option>
+              <option value="damaged">damaged</option>
+              <option value="delivered">delivered</option>
+            </select>
+          </div>
+
+           
+    
+          <div class="btns-group">
+            <button class="btn">submit</button>
+       
+          </div>
+      </form>
 
 
-  
 
- ]
+    </div>
+
+
+
+
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
     integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"

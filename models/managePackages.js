@@ -84,9 +84,9 @@ const getPackageInfo = async (package_id) => {
     return packageInfo;
 }
 //update package info
-const editPackage = async (package_id, package_name, weight, destination, status, final_delivery_date, dimensions, insurance_ammount, catagoery) => {
+const editPackage = async (package_id, package_name, weight, destination, status, final_delivery_date, dimensions, insurance_amount, catagory) => {
     const db = await getDbConnection();
-    const sql = `UPDATE packages SET package_name = '${package_name}', weight = '${weight}', destination = '${destination}', status = '${status}', final_delivery_date = '${final_delivery_date}', dimensions = '${dimensions}', insurance_ammount = '${insurance_ammount}', catagoery = '${catagoery}' WHERE package_id = '${package_id}'`;
+    const sql = `UPDATE packages SET package_name = '${package_name}', weight = '${weight}', destination = '${destination}', status = '${status}', final_delivery_date = '${final_delivery_date}', dimensions = '${dimensions}', insurance_amount = '${insurance_amount}', catagory = '${catagory}' WHERE package_id = '${package_id}'`;
     await db
     .run(sql);
     await db.close();
@@ -113,7 +113,7 @@ const addPackageRoute = async (package_id, location_name, date,locationType) => 
 //get package between two dates
 const getLostPackagesBetweenDates = async (startDate, endDate) => {
     const db = await getDbConnection();
-    const sql = `SELECT * FROM packages WHERE final_delivery_date BETWEEN '${startDate}' AND '${endDate}'`;
+    const sql = `SELECT * FROM packages WHERE final_delivery_date BETWEEN '${startDate}' AND '${endDate}' AND status = 'lost'`;
     const packages
     = await
     db.all
@@ -121,7 +121,52 @@ const getLostPackagesBetweenDates = async (startDate, endDate) => {
     await db.close();
     return packages;
 }
-    
 
-module.exports = {addPackage,removePackage,getPackageInfo,editPackage,addPackageRoute,getLostPackagesBetweenDates};
+const getDelayedPackagesBetweenDates = async (startDate, endDate) => {
+    const db = await getDbConnection();
+    const sql = `SELECT * FROM packages WHERE final_delivery_date BETWEEN '${startDate}' AND '${endDate}' AND status = 'delayed'`;
+    const packages
+    = await
+    db.all
+    (sql);
+    await db.close();
+    return packages;
+}
+const getDeliveredPackagesBetweenDates = async (startDate, endDate) => {
+    const db = await getDbConnection();
+    const sql = `SELECT * FROM packages WHERE final_delivery_date BETWEEN '${startDate}' AND '${endDate}' AND status = 'delivered'`;
+    const packages
+    = await
+    db.all
+    (sql);
+    await db.close();
+    return packages;
+}
+
+const catagory_count = async (startDate,endDate) => {
+    const db = await getDbConnection();
+    const sql = `SELECT catagory, COUNT(package_id) AS packages_count FROM packages WHERE final_delivery_date BETWEEN '${startDate}' AND '${endDate}'  GROUP BY catagory`;
+    const packages
+    = await
+    db.all
+    (sql);
+    await db.close();
+    return packages;
+}
+
+
+const track_packages = async (catagory,location,status) => {
+    const db = await getDbConnection();
+    const sql = `SELECT * FROM packages JOIN locations WHERE packages.catagory = '${catagory}' AND locations.location_name = '${location}' AND packages.status = '${status}'`;
+    const packages
+    = await
+    db.all
+    (sql);
+    await db.close();
+    return packages;
+}
+
+module.exports = {addPackage,removePackage,getPackageInfo,editPackage,
+    addPackageRoute,getLostPackagesBetweenDates,getDelayedPackagesBetweenDates,
+    getDeliveredPackagesBetweenDates,catagory_count,track_packages};
 

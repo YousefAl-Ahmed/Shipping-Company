@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="/style.css">
 
 
-    <title>Admin</title>
+    <title>Track Packages</title>
 </head>
 
 <body>
@@ -51,7 +51,6 @@
         </div>
     </nav>
 
-    <h2 class="Register-text">All Packages</h2>
 
     <div class="table-container">
         <table class="table">
@@ -70,39 +69,39 @@
                 </tr>
             </thead>
             <tbody>
-                <% for (let i=0; i < Allpackages.length; i++) { %>
+                <% for (let i=0; i < track_packages.length; i++) { %>
                     <tr>
                         <td>
-                            <%=Allpackages[i].package_id%>
+                            <%=track_packages[i].package_id%>
                         </td>
                         
                         <td>
-                            <%=Allpackages[i].package_name%>
+                            <%=track_packages[i].package_name%>
                         </td>
                         <td>
-                            <%=Allpackages[i].weight%>
+                            <%=track_packages[i].weight%>
                         </td>
                         <td>
-                            <%=Allpackages[i].destination%>
+                            <%=track_packages[i].destination%>
                         </td>
                         <td>
-                            <%=Allpackages[i].status%>
+                            <%=track_packages[i].status%>
                         </td>
                         <td>
-                            <%=Allpackages[i].dimensions%>
+                            <%=track_packages[i].dimensions%>
                         </td>
                         <td>
-                            <%=Allpackages[i].insurance_amount%>
+                            <%=track_packages[i].insurance_amount%>
                         </td>
                         <td>
-                            <%=Allpackages[i].catagory%>
+                            <%=track_packages[i].catagory%>
                         </td>
                         <td>
-                            <%=Allpackages[i].final_delivery_date%>
+                            <%=track_packages[i].final_delivery_date%>
                         </td>
 
                         <td>
-                            <%=Allpackages[i].payment_status%>
+                            <%=track_packages[i].payment_status%>
                         </td>
                     </tr>
                     <% } %>
@@ -111,41 +110,8 @@
 
     <hr>
 
-    <h2 class="Register-text">All Users</h2>
 
-    <div class="table-container">
-        <table class="table">
-            <thead class="thead-dark">
-                <tr>
-                    <th scope="col">User ID</th>
-                    <th scope="col">User Email</th>
-                    <th scope="col">Username</th>
-                    <th scope="col">is admin</th>
-    
-                </tr>
-            </thead>
-            <tbody>
-                <% for (let i=0; i < getAllUsers.length; i++) { %>
-                    <tr>
-                        <td>
-                            <%=getAllUsers[i].user_id%>
-                        </td>
-                        <td>
-                            <%=getAllUsers[i].email%>
-                        </td>
-                        <td>
-                            <%=getAllUsers[i].username%>
-                        </td>
-                     
-                        <td>
-                            <%=getAllUsers[i].isAdmin%>
-                        </td>
-                
-                    </tr>
-                    <% } %>
-        </table>
-    </div>
-
+   
 
 
 

@@ -42,9 +42,9 @@ const removeUser = async (user_id) => {
 }
 
 //update user
-const editUser = async (user_id, email, username, password, isAdmin) => {
+const editUser = async (user_id, email, username, isAdmin) => {
     const db = await getDbConnection();
-    const sql = `UPDATE users SET email = '${email}', username = '${username}', password = '${password}', isAdmin = '${isAdmin}' WHERE user_id = '${user_id}'`;
+    const sql = `UPDATE users SET email = '${email}', username = '${username}', isAdmin = '${isAdmin}' WHERE user_id = '${user_id}'`;
     await db
         .run(sql);
     await db.close();

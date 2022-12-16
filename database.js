@@ -32,9 +32,9 @@ db.run(sql);
 // db.run(sql);
 
 
-//drop packages table
-   sql = `DROP TABLE packages`;
-  db.run(sql);
+// //drop packages table
+//    sql = `DROP TABLE packages`;
+//   db.run(sql);
 
 sql = `CREATE TABLE IF NOT EXISTS packages (
     package_id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -66,7 +66,6 @@ db.run(sql);
 
 
 //create table locations with primary key location_id,foreign key package_id,
-//location_name,location_date,type
 sql = `CREATE TABLE IF NOT EXISTS locations (
     location_id INTEGER PRIMARY KEY AUTOINCREMENT,
     package_id INTEGER NOT NULL,
@@ -79,9 +78,9 @@ sql = `CREATE TABLE IF NOT EXISTS locations (
     )`;
 db.run(sql);
 
-//drop retail_center table
-  sql = `DROP TABLE retail_center`;
- db.run(sql);
+// //drop retail_center table
+//   sql = `DROP TABLE retail_center`;
+//  db.run(sql);
 
 
 sql = `CREATE TABLE IF NOT EXISTS retail_center (

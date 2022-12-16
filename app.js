@@ -75,7 +75,7 @@ app.get("/user-page/:username", async (req, res) => {
     const email = req.body.email;
 
     const packages = await auth.getUserPackages(username);
-    res.render("user-page", { searchedPackages: packages, packages: packages, user: req.session.user, userInfo: await auth.getUserInfoByUsername(username) });
+    res.render("user-page", { packages: packages, user: req.session.user, userInfo: await auth.getUserInfoByUsername(username) });
 });
 //app get user profile
 app.get("/user-page/:username/profile", async (req, res) => {
@@ -102,24 +102,6 @@ app.post("/auth", async (req, res) => {
     } else res.render("register", { message: "not unique" })
 });
 
-app.post("/sendPackage/", async (req, res) => {
-    const username = req.body.username;
-    const package_name = req.body.package_name;
-    const weight = req.body.weight;
-    const retail_center = req.body.retail_center;
-    const status = req.body.status;
-    const dimentions = req.body.dimentions;
-    const insurance_amount = req.body.insurance_amount;
-    const catagory = req.body.catagory;
-    const final_delivery_date = req.body.date;
-    const reciever_name = req.body.reciever_name;
-    await managePackages.addPackage(username, package_name, weight, retail_center, status, final_delivery_date, dimentions, insurance_amount, catagory, reciever_name);
-    res.redirect(`/user-page/${username}`);
-});
-app.get("/user-page/:username/send-package", async (req, res) => {
-    const username = req.params.username;
-    res.render("send-package", { user: req.session.user, userInfo: await auth.getUserInfoByUsername(username), users: await manageUsers.getAllUsers() });
-});
 app.post("/addPackage", async (req, res) => {
     const username = req.body.username;
     const package_name = req.body.package_name;
@@ -160,14 +142,14 @@ app.post("/editPackage", async (req, res) => {
     if (status == '') status = packageInfo.status;
     let dimentions = req.body.dimentions;
     if (dimentions == '') dimentions = packageInfo.dimensions;
-    let insurance_ammount = req.body.insurance_amount;
-    if (insurance_ammount == '') insurance_ammount = packageInfo.insurance_amount;
+    let insurance_amount = req.body.insurance_amount;
+    if (insurance_amount == '') insurance_amount = packageInfo.insurance_amount;
     let catagory = req.body.catagory;
     if (catagory == '') catagory = packageInfo.catagory;
     let final_delivery_date = req.body.date;
     if (final_delivery_date == '') final_delivery_date = packageInfo.final_delivery_date;
 
-    await managePackages.editPackage(package_id, package_name, weight, destination, status, final_delivery_date, dimentions, insurance_ammount, catagory);
+    await managePackages.editPackage(package_id, package_name, weight, destination, status, final_delivery_date, dimentions, insurance_amount, catagory);
     res.redirect("/admin");
 });
 
@@ -176,7 +158,7 @@ app.post("/add-package-route", async (req, res) => {
     const location = req.body.location;
     const date = req.body.date;
     const locationType = req.body.locationType;
-    await managePackages.addPackageRoute(package_id, location, date, locationType);
+     await managePackages.addPackageRoute(package_id, location, date, locationType);
     res.redirect("/admin");
 });
 
@@ -205,23 +187,33 @@ app.post("/editUser", async (req, res) => {
     let username = req.body.username;
     if (username == '') username = userInfo.username;
 
-    let password = req.body.password;
-    if (password == '') password = userInfo.password;
-
-    hashedPassword = await bcrypt.hash(password, 8);
 
     let admin = req.body.isAdmin;
     if (admin == '') admin = userInfo.isAdmin;
-    await manageUsers.editUser(user_id, email, username, hashedPassword, admin);
+    await manageUsers.editUser(user_id, email, username, admin);
     res.redirect("/admin");
 });
 
 app.post("/reports/status_catagory_report", async (req, res) => {
     const start_date = req.body.start_date;
     const end_date = req.body.end_date;
-    const betweenDatesPackages = await managePackages.getLostPackagesBetweenDates(start_date, end_date);
+    const betweenDatesLostPackages = await managePackages.getLostPackagesBetweenDates(start_date, end_date);
+    const betweenDatesDelayedPackages = await managePackages.getDelayedPackagesBetweenDates(start_date, end_date);
+    const betweenDatesDeliveredPackages = await managePackages.getDeliveredPackagesBetweenDates(start_date, end_date);
+    const catagory_count = await managePackages.catagory_count(start_date, end_date);
 
-    res.render("status_catagory_report", { betweenDatesPackages: betweenDatesPackages });
+    res.render("status_catagory_report", { betweenDatesLostPackages: betweenDatesLostPackages,
+         betweenDatesDelayedPackages: betweenDatesDelayedPackages, betweenDatesDeliveredPackages: betweenDatesDeliveredPackages , 
+         catagory_count: catagory_count });
+});
+
+app.post("/reports/track-packages", async (req, res) => {
+    const catagory = req.body.catagory;
+    const location = req.body.location;    
+    const status = req.body.status;
+    const track_packages = await managePackages.track_packages(catagory, location, status);
+
+    res.render("track-packages", { track_packages: track_packages });
 });
 
 
@@ -275,6 +267,9 @@ app.get('/admin/package-route', async (req, res) => {
 
 app.get('/admin/reports/status_catagory_report', async (req, res) => {
     res.render("status_catagory_report", { user: req.session.user });
+});
+app.get('/admin/reports/trace-packages', async (req, res) => {
+    res.render("trace-packages", { user: req.session.user });
 });
 
 

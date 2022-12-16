@@ -48,6 +48,7 @@
     </nav>
 
   
+    <h2 class="Register-text">Lost Packages</h2>
 
     <div class="table-container">
         <table class="table">
@@ -65,39 +66,177 @@
                 </tr>
             </thead>
             <tbody>
-                <% for (let i=0; i < betweenDatesPackages.length; i++) { %>
+                <% for (let i=0; i < betweenDatesLostPackages.length; i++) { %>
                     <tr>
                         <td>
-                            <%=betweenDatesPackages[i].package_id%>
+                            <%=betweenDatesLostPackages[i].package_id%>
                         </td>
                         <td>
-                            <%=betweenDatesPackages[i].package_name%>
+                            <%=betweenDatesLostPackages[i].package_name%>
                         </td>
                         <td>
-                            <%=betweenDatesPackages[i].weight%>
+                            <%=betweenDatesLostPackages[i].weight%>
                         </td>
                         <td>
-                            <%=betweenDatesPackages[i].destination%>
+                            <%=betweenDatesLostPackages[i].destination%>
                         </td>
                         <td>
-                            <%=betweenDatesPackages[i].status%>
+                            <%=betweenDatesLostPackages[i].status%>
                         </td>
                         <td>
-                            <%=betweenDatesPackages[i].dimensions%>
+                            <%=betweenDatesLostPackages[i].dimensions%>
                         </td>
                         <td>
-                            <%=betweenDatesPackages[i].insurance_amount%>
+                            <%=betweenDatesLostPackages[i].insurance_amount%>
                         </td>
                         <td>
-                            <%=betweenDatesPackages[i].catagory%>
+                            <%=betweenDatesLostPackages[i].catagory%>
                         </td>
                         <td>
-                            <%=betweenDatesPackages[i].final_delivery_date%>
+                            <%=betweenDatesLostPackages[i].final_delivery_date%>
                         </td>
                     </tr>
                     <% } %>
         </table>
     </div>
+
+    <hr>
+    <h2 class="Register-text">Delayed Packages</h2>
+
+
+    <div class="table-container">
+        <table class="table">
+            <thead class="thead-dark">
+                <tr>
+                    <th scope="col">Package ID</th>
+                    <th scope="col">Package Name</th>
+                    <th scope="col">Weight</th>
+                    <th scope="col">Destination</th>
+                    <th scope="col">Status</th>
+                    <th scope="col">Dimensions</th>
+                    <th scope="col">Insurance amount</th>
+                    <th scope="col">Catagory</th>
+                    <th scope="col">Delivery Date</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% for (let i=0; i < betweenDatesDelayedPackages.length; i++) { %>
+                    <tr>
+                        <td>
+                            <%=betweenDatesDelayedPackages[i].package_id%>
+                        </td>
+                        <td>
+                            <%=betweenDatesDelayedPackages[i].package_name%>
+                        </td>
+                        <td>
+                            <%=betweenDatesDelayedPackages[i].weight%>
+                        </td>
+                        <td>
+                            <%=betweenDatesDelayedPackages[i].destination%>
+                        </td>
+                        <td>
+                            <%=betweenDatesDelayedPackages[i].status%>
+                        </td>
+                        <td>
+                            <%=betweenDatesDelayedPackages[i].dimensions%>
+                        </td>
+                        <td>
+                            <%=betweenDatesDelayedPackages[i].insurance_amount%>
+                        </td>
+                        <td>
+                            <%=betweenDatesDelayedPackages[i].catagory%>
+                        </td>
+                        <td>
+                            <%=betweenDatesDelayedPackages[i].final_delivery_date%>
+                        </td>
+                    </tr>
+                    <% } %>
+        </table>
+    </div>
+
+    <hr>
+    <h2 class="Register-text">Delivered Packages</h2>
+
+    <div class="table-container">
+        <table class="table">
+            <thead class="thead-dark">
+                <tr>
+                    <th scope="col">Package ID</th>
+                    <th scope="col">Package Name</th>
+                    <th scope="col">Weight</th>
+                    <th scope="col">Destination</th>
+                    <th scope="col">Status</th>
+                    <th scope="col">Dimensions</th>
+                    <th scope="col">Insurance amount</th>
+                    <th scope="col">Catagory</th>
+                    <th scope="col">Delivery Date</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% for (let i=0; i < betweenDatesDeliveredPackages.length; i++) { %>
+                    <tr>
+                        <td>
+                            <%=betweenDatesDeliveredPackages[i].package_id%>
+                        </td>
+                        <td>
+                            <%=betweenDatesDeliveredPackages[i].package_name%>
+                        </td>
+                        <td>
+                            <%=betweenDatesDeliveredPackages[i].weight%>
+                        </td>
+                        <td>
+                            <%=betweenDatesDeliveredPackages[i].destination%>
+                        </td>
+                        <td>
+                            <%=betweenDatesDeliveredPackages[i].status%>
+                        </td>
+                        <td>
+                            <%=betweenDatesDeliveredPackages[i].dimensions%>
+                        </td>
+                        <td>
+                            <%=betweenDatesDeliveredPackages[i].insurance_amount%>
+                        </td>
+                        <td>
+                            <%=betweenDatesDeliveredPackages[i].catagory%>
+                        </td>
+                        <td>
+                            <%=betweenDatesDeliveredPackages[i].final_delivery_date%>
+                        </td>
+                    </tr>
+                    <% } %>
+        </table>
+    </div>
+
+
+    <hr>
+
+    <div class="table-container">
+        <table class="table">
+            <thead class="thead-dark">
+                <tr>
+                    <th scope="col">Catagory</th>
+                    <th scope="col">Package Count</th>
+                
+                </tr>
+            </thead>
+            <tbody>
+                <% for (let i=0; i < catagory_count.length; i++) { %>
+                    <tr>
+                        <td>
+                            <%=catagory_count[i].catagory%>
+                        </td>
+                        <td>
+                            <%=catagory_count[i].packages_count%>
+                        </td>
+                      
+                    <% } %>
+        </table>
+    </div>
+
+   
+
+
+
 
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"

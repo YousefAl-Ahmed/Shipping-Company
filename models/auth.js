@@ -13,13 +13,22 @@ const getDbConnection = async () => {
 
 //this method will be called for the useres who wants to register,
 // after ensuring that the email is unique
-const addUser = async (email, username, password, isAdmin) => {
+const addUser = async (email, username, password, isAdmin, firstName, lastName) => {
     const db = await getDbConnection();
     const sql = `INSERT INTO users
-    ('email', 'username', 'password', 'isAdmin')
-    VALUES ('${email}', '${username}', '${password}' , 'false')`;
+    ('email', 'username', 'password','firstName' ,'lastName', 'isAdmin')
+    VALUES ('${email}', '${username}', '${password}' ,'${firstName}','${lastName}', 'false')`;
 
     await db.run(sql);
+    await db.close();
+    return 1; //1 means that the user has registered successfully
+}
+//edit user
+const editUser = async (email, username, password, firstName, lastName) => {
+    const db = await getDbConnection();
+    const sql = `UPDATE users SET email = '${email}',  password = '${password}', firstName = '${firstName}', lastName = '${lastName}' WHERE username = '${username}'`;
+    await db.run
+        (sql);
     await db.close();
     return 1; //1 means that the user has registered successfully
 }
@@ -151,7 +160,7 @@ const isAdmin = async (email) => {
 
 module.exports = {
     addUser, authUser, changeUserName, changePassword,
-    getUserID, authLogIn, isAdmin, getUserInfo, getUsername, getUserPackages, getAllPackages, getLostPackages, getDelayedPackages, getDeliveredPackages, getUserInfoByUsername
+    getUserID, authLogIn, isAdmin, getUserInfo, getUsername, getUserPackages, getAllPackages, getLostPackages, getDelayedPackages, getDeliveredPackages, getUserInfoByUsername, editUser
 };
 
 

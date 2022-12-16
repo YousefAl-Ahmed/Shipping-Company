@@ -13,8 +13,8 @@ db.get("PRAGMA foreign_keys = ON")
 let sql;
 
 //drop users table
-sql = `DROP TABLE users`;
-db.run(sql);
+// sql = `DROP TABLE users`;
+// db.run(sql);
 
 
 

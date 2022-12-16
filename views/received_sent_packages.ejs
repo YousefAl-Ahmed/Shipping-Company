@@ -57,37 +57,54 @@
             <thead class="thead-dark">
                 <tr>
                     <th scope="col">Package ID</th>
-                    <th scope="col">Retail center name</th>
-                    <th scope="col">Retail center address</th>
-                    <th scope="col">location name</th>
-                    <th scope="col">Sender name</th>
-                    <th scope="col">Payment status</th>
+                    <th scope="col">Package Name</th>
+                    <th scope="col">Weight</th>
+                    <th scope="col">Destination</th>
+                    <th scope="col">Status</th>
+                    <th scope="col">Dimensions</th>
+                    <th scope="col">Insurance amount</th>
+                    <th scope="col">Catagory</th>
+                    <th scope="col">Delivery Date</th>
+                    <th scope="col">Payment Status</th>
                 </tr>
             </thead>
             <tbody>
                 <% for (let i=0; i < sent_or_packages_result.length; i++) { %>
                     <tr>
-                        <th>
-                            <%= sent_or_packages_result[i].package_id %>
-                        </th>
                         <td>
-                            <%= sent_or_packages_result[i].retail_center_name %>
+                            <%=sent_or_packages_result[i].package_id%>
+                        </td>
+                        
+                        <td>
+                            <%=sent_or_packages_result[i].package_name%>
                         </td>
                         <td>
-                            <%= sent_or_packages_result[i].retail_center_address %>
+                            <%=sent_or_packages_result[i].weight%>
                         </td>
                         <td>
-                            <%= sent_or_packages_result[i].location_name %>
+                            <%=sent_or_packages_result[i].destination%>
                         </td>
                         <td>
-                            <%= sent_or_packages_result[i].sender_name %>
+                            <%=sent_or_packages_result[i].status%>
                         </td>
                         <td>
-                            <%= sent_or_packages_result[i].status %>
+                            <%=sent_or_packages_result[i].dimensions%>
+                        </td>
+                        <td>
+                            <%=sent_or_packages_result[i].insurance_amount%>
+                        </td>
+                        <td>
+                            <%=sent_or_packages_result[i].catagory%>
+                        </td>
+                        <td>
+                            <%=sent_or_packages_result[i].final_delivery_date%>
                         </td>
 
-
-                        <% } %>
+                        <td>
+                            <%=sent_or_packages_result[i].payment_status%>
+                        </td>
+                    </tr>
+                    <% } %>
         </table>
     </div>
 

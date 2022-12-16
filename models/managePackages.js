@@ -161,14 +161,9 @@ const getPackgesInRetailCenter = async (username) => {
     await db.close();
     return packages;
 }
-const getSentPackgesInRetailCenter = async (username) => {
-    const db = await getDbConnection();
-    const sql = `SELECT * FROM retail_center WHERE sender_name = '${username}'`;
-    const packages = await db.all
-        (sql);
-    await db.close();
-    return packages;
-}
+
+
+
 const getPackageInfoByCatagory = async (username, catagory) => {
     const db = await getDbConnection();
     const sql = `SELECT * FROM packages WHERE username = '${username}' AND catagory = '${catagory}'`;
@@ -208,7 +203,7 @@ const track_packages = async (catagory, location, status) => {
 
 const sent_packages_user = async (username) => {
     const db = await getDbConnection();
-    const sql = `SELECT * FROM packages  WHERE username = (select sender_name from retail_center where sender_name = '${username}')`;
+    const sql = `SELECT * FROM packages JOIN retail_center ON packages.package_id = retail_center.package_id WHERE retail_center.sender_name = '${username}'`;
     const packages
         = await
         db.all
@@ -216,6 +211,18 @@ const sent_packages_user = async (username) => {
     await db.close();
     return packages;
 }
+
+const received_packages_user = async (username) => {
+    const db = await getDbConnection();
+    const sql = `SELECT * FROM packages JOIN retail_center ON packages.package_id = retail_center.package_id WHERE retail_center.receiver_name = '${username}'`;
+    const packages
+        = await
+        db.all
+        (sql);
+    await db.close();
+    return packages;
+}
+
 
         
 
@@ -235,8 +242,8 @@ module.exports = {
     getPackageInfoByDate,
     getPackageInfoByLocation,
     track_packages,
-    getSentPackgesInRetailCenter
-  
+    sent_packages_user,
+    received_packages_user,
 }
 
 

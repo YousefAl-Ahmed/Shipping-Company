@@ -301,10 +301,10 @@ app.post("/reports/received_sent_packages", async (req, res) => {
     const username  = req.body.username;
     let sent_or_packages_result;
     if (sent_or_received == 'sent') {
-         sent_or_packages_result= await managePackages.getSentPackgesInRetailCenter(username);
+         sent_or_packages_result= await managePackages.sent_packages_user(username);
     }
     else {
-        sent_or_packages_result = await managePackages.getPackgesInRetailCenter(username);
+        sent_or_packages_result = await managePackages.received_packages_user(username);
     }
     console.log(sent_or_packages_result);
     res.render("received_sent_packages", { sent_or_packages_result: sent_or_packages_result});

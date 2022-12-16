@@ -107,18 +107,44 @@ app.post("/auth", async (req, res) => {
 });
 
 app.post("/user-page/:username/send-package", async (req, res) => {
+
     const username = req.params.username;
     const package_name = req.body.package_name;
     const weight = req.body.weight;
     const retail_center = req.body.retail_center;
     const status = req.body.status;
     const dimentions = req.body.dimentions;
-    const insurance_amount = req.body.insurance_amount;
     const catagory = req.body.catagory;
     const final_delivery_date = req.body.date;
     const reciever_name = req.body.reciever_name;
+    const dimensionsNumber = dimentions.split("x");
+    const insurance_amount = (req.body.weight * 0.5) + 10 + (dimensionsNumber[0]);
+
     await managePackages.addPackage(username, package_name, weight, retail_center, status, final_delivery_date, dimentions, insurance_amount, catagory, reciever_name);
-    res.redirect(`/user-page/${username}`);
+    res.redirect(`/user-page/${username}/${insurance_amount}/payment`);
+});
+app.get("/user-page/:username/:insurance_amount/payment", async (req, res) => {
+    const username = req.params.username;
+    const insurance_amount = req.params.insurance_amount;
+    res.render("payment", { user: req.session.user, userInfo: await auth.getUserInfoByUsername(username), insurance_amount: insurance_amount });
+});
+app.post("/user-page/:username/:insurance_amount/payment", async (req, res) => {
+    const username = req.params.username;
+    const insurance_amount = req.params.insurance_amount;
+    // const package_id = managePackages.getLastInsertedPackageId();
+    await managePackages.addPayment(username, insurance_amount);
+    res.redirect(`/user-page/${username}/payment-success`);
+});
+app.get("/user-page/:username/payment-success", async (req, res) => {
+    const username = req.params.username;
+    res.render("payment-success", { user: req.session.user, userInfo: await auth.getUserInfoByUsername(username) });
+});
+// when payment is canceled call function to delete the package
+app.get("/user-page/:username/payment-cancel", async (req, res) => {
+    const username = req.params.username;
+    await managePackages.deletePackage();
+
+    res.render("payment-cancel", { user: req.session.user, userInfo: await auth.getUserInfoByUsername(username) });
 });
 
 app.post("/addPackage", async (req, res) => {
@@ -281,9 +307,11 @@ app.post("/reports/status_catagory_report", async (req, res) => {
     const betweenDatesDeliveredPackages = await managePackages.getDeliveredPackagesBetweenDates(start_date, end_date);
     const catagory_count = await managePackages.catagory_count(start_date, end_date);
 
-    res.render("status_catagory_report", { betweenDatesLostPackages: betweenDatesLostPackages,
-         betweenDatesDelayedPackages: betweenDatesDelayedPackages, betweenDatesDeliveredPackages: betweenDatesDeliveredPackages , 
-         catagory_count: catagory_count });
+    res.render("status_catagory_report", {
+        betweenDatesLostPackages: betweenDatesLostPackages,
+        betweenDatesDelayedPackages: betweenDatesDelayedPackages, betweenDatesDeliveredPackages: betweenDatesDeliveredPackages,
+        catagory_count: catagory_count
+    });
 });
 
 app.post("/reports/track-packages", async (req, res) => {
@@ -298,16 +326,16 @@ app.post("/reports/track-packages", async (req, res) => {
 
 app.post("/reports/received_sent_packages", async (req, res) => {
     const sent_or_received = req.body.sent_or_received;
-    const username  = req.body.username;
+    const username = req.body.username;
     let sent_or_packages_result;
     if (sent_or_received == 'sent') {
-         sent_or_packages_result= await managePackages.sent_packages_user(username);
+        sent_or_packages_result = await managePackages.sent_packages_user(username);
     }
     else {
         sent_or_packages_result = await managePackages.received_packages_user(username);
     }
     console.log(sent_or_packages_result);
-    res.render("received_sent_packages", { sent_or_packages_result: sent_or_packages_result});
+    res.render("received_sent_packages", { sent_or_packages_result: sent_or_packages_result });
 });
 
 

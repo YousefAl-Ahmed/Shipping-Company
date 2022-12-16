@@ -1,5 +1,6 @@
 const sqlite3 = require('sqlite3')
 const sqlite = require('sqlite')
+const { compareSync } = require('bcryptjs')
 
 
 
@@ -206,8 +207,8 @@ const sent_packages_user = async (username) => {
     const sql = `SELECT * FROM packages JOIN retail_center ON packages.package_id = retail_center.package_id WHERE retail_center.sender_name = '${username}'`;
     const packages
         = await
-        db.all
-        (sql);
+            db.all
+                (sql);
     await db.close();
     return packages;
 }
@@ -217,15 +218,48 @@ const received_packages_user = async (username) => {
     const sql = `SELECT * FROM packages JOIN retail_center ON packages.package_id = retail_center.package_id WHERE retail_center.receiver_name = '${username}'`;
     const packages
         = await
-        db.all
-        (sql);
+            db.all
+                (sql);
     await db.close();
     return packages;
 }
 
-
-        
-
+// get last inserted package id
+const getLastInsertedPackageId = async () => {
+    const db = await getDbConnection();
+    const sql = `SELECT package_id FROM packages WHERE package_id = (SELECT package_id FROM packages ORDER BY package_id DESC LIMIT 1)`;
+    const packageId = await db.get
+        (sql);
+    await db.close();
+    return packageId['package_id'];
+}
+const addPayment = async (username, insurance_ammount) => {
+    const package_id = await getLastInsertedPackageId();
+    const db = await getDbConnection();
+    const sql = `INSERT INTO payment
+    ('package_id', 'username', 'insurance_amount','payment_status')
+    VALUES ('${package_id}', '${username}', '${insurance_ammount}','paid')`;
+    await db.run
+        (sql);
+    await db.close();
+    await updatePaymentStatus();
+}
+const updatePaymentStatus = async () => {
+    const db = await getDbConnection();
+    const sql = `UPDATE packages SET payment_status = 'paid'WHERE package_id = (SELECT package_id FROM packages ORDER BY package_id DESC LIMIT 1)`;
+    await db.run
+        (sql);
+    await db.close();
+}
+// delete last id package
+const deletePackage = async () => {
+    const db = await getDbConnection();
+    const sql = `DELETE FROM packages WHERE package_id = (SELECT package_id FROM packages ORDER BY package_id DESC LIMIT 1)`;
+    await db.run
+        (sql);
+    await db.close();
+    console.log("deleted");
+}
 // export all the functions
 module.exports = {
     addPackage,
@@ -244,6 +278,9 @@ module.exports = {
     track_packages,
     sent_packages_user,
     received_packages_user,
+    getLastInsertedPackageId,
+    addPayment,
+    deletePackage
 }
 
 

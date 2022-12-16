@@ -59,8 +59,20 @@ const getUserInfo = async (user_id) => {
     return userInfo;
 }
 
+//get all emails
+const getAllEmails = async () => {
+    const db = await getDbConnection();
+    const sql = `SELECT email FROM users`;
+    const emails
+        = await
+        db.all
+            (sql);
+    await db.close();
+    return emails;
+}
+        
 
-module.exports = { getAllUsers, addUser, removeUser, editUser, getUserInfo };
+module.exports = { getAllUsers, addUser, removeUser, editUser, getUserInfo,getAllEmails };
 
 
 

@@ -2,6 +2,17 @@ const express = require("express");
 const session = require("express-session");
 const bcrypt = require("bcryptjs")
 
+const nodemailer = require("nodemailer");
+const transporter = nodemailer.createTransport({
+    service: 'hotmail',
+    auth: {
+        user: "s201956670@kfupm.edu.sa",
+        pass: "0550344833Yy."
+    }
+});
+            
+
+
 const path = require('path');
 
 //models
@@ -310,6 +321,27 @@ app.post("/reports/received_sent_packages", async (req, res) => {
     res.render("received_sent_packages", { sent_or_packages_result: sent_or_packages_result});
 });
 
+app.post("/sendEmail", async (req, res) => {
+    const email = req.body.email;
+    const options = {
+        from: "s201956670@kfupm.edu.sa",
+        to : email,
+        subject : "La puta madre package",
+        text : "Your package has been delivered"
+
+    }
+    await transporter.sendMail(options, function(error, info){
+        if (error) {
+          console.log(error);
+        } else {
+          console.log('Email sent: ' + info.response);
+        }
+      }
+    );
+    res.redirect("/admin");
+
+});
+
 
 
 
@@ -342,7 +374,7 @@ app.get('/admin/manage-packages', async (req, res) => {
 
 
 app.get('/admin/send-email', async (req, res) => {
-    res.render("send-email", { user: req.session.user });
+    res.render("send-email", { user: req.session.user, users: await manageUsers.getAllEmails() });
 });
 app.get('/admin/manage-packages/remove-package', async (req, res) => {
     res.render("remove-package", { user: req.session.user });

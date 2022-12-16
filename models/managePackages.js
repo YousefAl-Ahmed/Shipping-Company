@@ -260,6 +260,16 @@ const deletePackage = async () => {
     await db.close();
     console.log("deleted");
 }
+
+//show all payments
+const showPayments = async () => {
+    const db = await getDbConnection();
+    const sql = `SELECT * FROM payment`;
+    const payments = await db.all
+        (sql);
+    await db.close();
+    return payments;
+}
 // export all the functions
 module.exports = {
     addPackage,
@@ -280,7 +290,8 @@ module.exports = {
     received_packages_user,
     getLastInsertedPackageId,
     addPayment,
-    deletePackage
+    deletePackage,
+    showPayments
 }
 
 

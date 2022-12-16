@@ -247,6 +247,11 @@ app.get("/user-page/:username/4/:date", async (req, res) => {
     const packageInfo = await managePackages.getPackageInfoByDate(username, date);
     res.render("search-by-date", { packageInfo, userInfo: await auth.getUserInfoByUsername(username) });
 });
+
+app.get("/admin/showPayments", async (req, res) => {
+    const payments = await managePackages.showPayments();
+    res.render("showPayments", { payments });
+});
 app.post("/user-page/:username", async (req, res) => {
     const username = req.params.username;
 

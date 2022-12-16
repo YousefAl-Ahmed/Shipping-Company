@@ -13,13 +13,18 @@ db.get("PRAGMA foreign_keys = ON")
 let sql;
 
 //drop users table
-// sql = `DROP TABLE users`;
-// db.run(sql);
+sql = `DROP TABLE users`;
+db.run(sql);
+
+
+
 sql = `CREATE TABLE IF NOT EXISTS users(
 	user_id	 INTEGER	   PRIMARY KEY AUTOINCREMENT,
   	email     TEXT  NOT NULL    UNIQUE,
     username TEXT  NOT NULL    UNIQUE,
     password  TEXT   NOT NULL,
+    firstName TEXT NOT NULL,
+    lastName TEXT NOT NULL,
     isAdmin      TEXT NOT NULL
 )`;
 
@@ -33,8 +38,9 @@ db.run(sql);
 
 
 //drop packages table
-   sql = `DROP TABLE packages`;
-  db.run(sql);
+// sql = `DROP TABLE packages`;
+// db.run(sql);
+
 
 sql = `CREATE TABLE IF NOT EXISTS packages (
     package_id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -64,6 +70,8 @@ db.run(sql);
 // sql = `INSERT INTO packages (username,package_name,weight,destination,status,final_delivery_date,dimensions,insurance_amount,catagory) VALUES ('jawadaljarrash','laptop',5,'cairo','in transit','2020-12-12','10x10x10',100,'electronics')`;
 // db.run(sql);
 
+// sql = `DROP TABLE locations`;
+// db.run(sql);
 
 //create table locations with primary key location_id,foreign key package_id,
 //location_name,location_date,type
@@ -80,8 +88,8 @@ sql = `CREATE TABLE IF NOT EXISTS locations (
 db.run(sql);
 
 //drop retail_center table
-  sql = `DROP TABLE retail_center`;
- db.run(sql);
+// sql = `DROP TABLE retail_center`;
+// db.run(sql);
 
 
 sql = `CREATE TABLE IF NOT EXISTS retail_center (

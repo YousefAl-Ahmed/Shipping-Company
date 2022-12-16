@@ -32,151 +32,172 @@
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="/user-page/<%=userInfo.username%>/send-package"> Send packages</a>
+                </li>
                 <li class="nav-item">
+                    <a class="nav-link" href="/user-page/<%=userInfo.username%>/receive-package"> Receive packages</a>
+                </li>
 
+                <li class="nav-item">
                     <a href="/logout"> <button type="button" class="btn btn-secondary">Logout</button>
                     </a>
                 </li>
+
             </ul>
         </div>
     </nav>
     <div class="main-packges-title">
-        <h1>My Packages</h1>
+        <h1>My Sent Packages</h1>
     </div>
 
-    <div class="table-container">
-        <table class="table">
-            <thead class="thead-dark">
-                <tr>
-                    <th scope="col">Package ID</th>
-                    <th scope="col">Package Name</th>
-                    <th scope="col">Weight</th>
-                    <th scope="col">Destination</th>
-                    <th scope="col">Status</th>
-                    <th scope="col">Dimensions</th>
-                    <th scope="col">Incurance amount</th>
-                    <th scope="col">Catagory</th>
-                    <th scope="col">Delivery Date</th>
-                    <th scope="col">Payment status</th>
-                </tr>
-            </thead>
-            <tbody>
-                <% for (let i=0; i < packages.length; i++) { %>
-                    <tr>
-                        <td>
-                            <%=packages[i].package_id%>
-                        </td>
-                        <td>
-                            <%=packages[i].package_name%>
-                        </td>
-                        <td>
-                            <%=packages[i].weight%>
-                        </td>
-                        <td>
-                            <%=packages[i].destination%>
-                        </td>
-                        <td>
-                            <%=packages[i].status%>
-                        </td>
-                        <td>
-                            <%=packages[i].dimensions%>
-                        </td>
-                        <td>
-                            <%=packages[i].insurance_amount%>
-                        </td>
-                        <td>
-                            <%=packages[i].catagory%>
-                        </td>
-                        <td>
-                            <%=packages[i].final_delivery_date%>
-                        </td>
-                        <td>
-                            <%=packages[i].payment_status%>
-                    </tr>
-                    <% } %>
-        </table>
-    </div>
-    <div>
-        <hr>
-
-    </div>
-    <!-- textfield to input a package id and show it in a table -->
-    <div class="">
-        <form action="/user-page/<%=userInfo.username%>/packages" method="POST">
-            <div class="">
-                <label for="package-id">Search Package</label>
-
-                <select class="" id="package-id" name="package-id">
-                    <option value="">
-                        Select package id to search for
-                    </option>
-                    <% for (let i=0; i < packages.length; i++) { %>
-
-                        <option value="<%=packages[i].package_id%>">
-                            <%=packages[i].package_id%>
-                        </option>
-                        <% } %>
+    <!-- if packages.length is 0 display text says no packages sent -->
+    <% if (packages.length==0) { %>
+        <div class="no-packages">
+            <h3>No packages sent</h3>
+        </div>
+        <% } else {%>
+            <div class="table-container">
+                <table class="table">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th scope="col">Package ID</th>
+                            <th scope="col">Package Name</th>
+                            <th scope="col">Weight</th>
+                            <th scope="col">Destination</th>
+                            <th scope="col">Status</th>
+                            <th scope="col">Dimensions</th>
+                            <th scope="col">Incurance amount</th>
+                            <th scope="col">Catagory</th>
+                            <th scope="col">Delivery Date</th>
+                            <th scope="col">Payment status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% for (let i=0; i < packages.length; i++) { %>
+                            <tr>
+                                <td>
+                                    <%=packages[i].package_id%>
+                                </td>
+                                <td>
+                                    <%=packages[i].package_name%>
+                                </td>
+                                <td>
+                                    <%=packages[i].weight%>
+                                </td>
+                                <td>
+                                    <%=packages[i].destination%>
+                                </td>
+                                <td>
+                                    <%=packages[i].status%>
+                                </td>
+                                <td>
+                                    <%=packages[i].dimensions%>
+                                </td>
+                                <td>
+                                    <%=packages[i].insurance_amount%>
+                                </td>
+                                <td>
+                                    <%=packages[i].catagory%>
+                                </td>
+                                <td>
+                                    <%=packages[i].final_delivery_date%>
+                                </td>
+                                <td>
+                                    <%=packages[i].payment_status%>
+                            </tr>
+                            <% } %>
+                </table>
             </div>
-            <button type="submit" class="btn btn-primary">Search</button>
-        </form>
-    </div>
-    <!-- table to show the searched package -->
-    <div class="table-container">
-        <table class="table">
-            <thead class="thead-dark">
-                <tr>
-                    <th scope="col">Package ID</th>
-                    <th scope="col">Package Name</th>
-                    <th scope="col">Weight</th>
-                    <th scope="col">Destination</th>
-                    <th scope="col">Status</th>
-                    <th scope="col">Dimensions</th>
-                    <th scope="col">Incurance amount</th>
-                    <th scope="col">Catagory</th>
-                    <th scope="col">Delivery Date</th>
-                    <th scope="col">Payment status</th>
-                </tr>
-            </thead>
-            <tbody>
-                <% for (let i=0; i < searchedPackages.length; i++) { %>
-                    <tr>
-                        <td>
-                            <%=searchedPackages[i].package_id%>
-                        </td>
-                        <td>
-                            <%=searchedPackages[i].package_name%>
-                        </td>
-                        <td>
-                            <%=searchedPackages[i].weight%>
-                        </td>
-                        <td>
-                            <%=searchedPackages[i].destination%>
-                        </td>
-                        <td>
-                            <%=searchedPackages[i].status%>
-                        </td>
-                        <td>
-                            <%=searchedPackages[i].dimensions%>
-                        </td>
-                        <td>
-                            <%=searchedPackages[i].insurance_amount%>
-                        </td>
-                        <td>
-                            <%=searchedPackages[i].catagory%>
-                        </td>
-                        <td>
-                            <%=searchedPackages[i].final_delivery_date%>
-                        </td>
-                        <td>
-                            <%=searchedPackages[i].payment_status%>
-                    </tr>
-                    <% } %>
-        </table>
-    </div>
-    <!-- include footer -->
-    <footer class="footer">
-        <div class="container">
-            <span class="text-muted">Place sticky footer content here.</span>
+            <% } %>
+                <hr>
+                <div class="main-packges-title">
+                    <h1>Search Packages</h1>
+                </div>
+
+                <!-- textfield to input a package id and show it in a table -->
+                <div class="inline-items">
+                    <div class="">
+                        <form class='form center-container' method="POST">
+                            <div class="">
+                                <label for="package_id">Search Package By ID</label>
+                                <select id="package_id" name="package_id">
+                                    <% if (packages.length==0) { %>
+                                        <option value="">
+                                            You have no packages
+                                        </option>
+                                        <% } else {%>
+
+                                            <option value="">Select package id to search for</option>
+                                            <% for (let i=0; i < packages.length; i++) { %>
+
+                                                <option value="<%=packages[i].package_id%>">
+                                                    <%=packages[i].package_id%>
+                                                </option>
+                                                <% } %>
+                                                    <% } %>
+
+                                </select>
+
+
+                            </div>
+                            <div class="some-margin"> <button type="submit" class="btn btn-primary">Search</button>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="">
+                        <form class='form center-container' method="POST">
+                            <div class="">
+                                <div>
+                                    <label for="catagory">Search Package by Catagory</label>
+                                    <select id="catagory" name="catagory" class="catagory" required>
+                                        <option value="">Select catagory</option>
+                                        <option value="regular">regular</option>
+                                        <option value="fragile">fragile</option>
+                                        <option value="liquid">liquid</option>
+                                        <option value="chemical">chemical</option>
+                                    </select>
+                                </div>
+
+                            </div>
+                            <div class="some-margin"> <button type="submit" class="btn btn-primary">Search</button>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="">
+                        <form class='form center-container' method="POST">
+                            <div class="">
+                                <div>
+                                    <label for="package_location">Search Package by City</label>
+                                    <select id="package_location" name="package_location" class="retail_center"
+                                        required>
+                                        <option value="">Select Package location </option>
+                                        <option value="Dammam">Dammam </option>
+                                        <option value="Riyadh">Riyadh </option>
+                                        <option value="Jeddah">Jeddah </option>
+                                        <option value="Jazan">Jazan </option>
+                                        <option value="Khobar">Khobar </option>
+                                    </select>
+                                </div>
+
+                            </div>
+                            <div class="some-margin"> <button type="submit" class="btn btn-primary">Search</button>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="">
+                        <form class='form center-container' method="POST">
+                            <div class="">
+                                <div>
+                                    <label for="date">Search By Delivery date</label>
+                                    <input type="date" name="date" id="date">
+                                </div>
+
+                            </div>
+                            <div class="some-margin"> <button type="submit" class="btn btn-primary">Search</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <!-- table to show the searched package -->
 
 </body>
 

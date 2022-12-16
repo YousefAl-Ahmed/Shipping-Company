@@ -69,6 +69,7 @@ app.get("/logout", (req, res) => {
         res.redirect("/");
     });
 });
+//pass the user info to the navbar partial page
 
 app.get("/user-page/:username", async (req, res) => {
     const username = req.params.username;
@@ -82,28 +83,32 @@ app.get("/user-page/:username/profile", async (req, res) => {
     const username = req.params.username;
     res.render("profile", { user: req.session.user, userInfo: await auth.getUserInfoByUsername(username) });
 });
-
+app.get("/user-page/:username/receive-package", async (req, res) => {
+    const username = req.params.username;
+    res.render("receive-package", { user: req.session.user, userInfo: await auth.getUserInfoByUsername(username), packages: await auth.getUserPackages(username), receivedPackages: await managePackages.getPackgesInRetailCenter(username) });
+});
 app.post("/auth", async (req, res) => {
 
 
     const email = req.body.email;
     const username = req.body.username;
     const password = req.body.password;
-
+    const firstName = req.body.firstName;
+    const lastName = req.body.lastName;
 
 
     let hashedPassword = await bcrypt.hash(password, 8);
 
     const info = await auth.authUser(email, username)
     if (info === undefined) {
-        await auth.addUser(email, username, hashedPassword, false);
+        await auth.addUser(email, username, hashedPassword, false, firstName, lastName);
 
         res.redirect("/login");
     } else res.render("register", { message: "not unique" })
 });
 
-app.post("/sendPackage/", async (req, res) => {
-    const username = req.body.username;
+app.post("/user-page/:username/send-package", async (req, res) => {
+    const username = req.params.username;
     const package_name = req.body.package_name;
     const weight = req.body.weight;
     const retail_center = req.body.retail_center;
@@ -116,10 +121,7 @@ app.post("/sendPackage/", async (req, res) => {
     await managePackages.addPackage(username, package_name, weight, retail_center, status, final_delivery_date, dimentions, insurance_amount, catagory, reciever_name);
     res.redirect(`/user-page/${username}`);
 });
-app.get("/user-page/:username/send-package", async (req, res) => {
-    const username = req.params.username;
-    res.render("send-package", { user: req.session.user, userInfo: await auth.getUserInfoByUsername(username), users: await manageUsers.getAllUsers() });
-});
+
 app.post("/addPackage", async (req, res) => {
     const username = req.body.username;
     const package_name = req.body.package_name;
@@ -142,13 +144,8 @@ app.post("/removePackage", async (req, res) => {
 });
 
 app.post("/editPackage", async (req, res) => {
-
-
-
     const package_id = req.body.package_id;
     const packageInfo = await managePackages.getPackageInfo(package_id);
-    console.log(packageInfo.username);
-    console.log(packageInfo.dimensions);
 
     let package_name = req.body.package_name;
     if (package_name == '') package_name = packageInfo.package_name;
@@ -170,6 +167,73 @@ app.post("/editPackage", async (req, res) => {
     await managePackages.editPackage(package_id, package_name, weight, destination, status, final_delivery_date, dimentions, insurance_ammount, catagory);
     res.redirect("/admin");
 });
+app.post('/user-page/:username/profile', async (req, res) => {
+    const username = req.params.username;
+
+    const userInfo = await auth.getUserInfoByUsername(username);
+    let firstName = req.body.firstName;
+    if (firstName == '') firstName = userInfo.firstName;
+    let lastName = req.body.lastName;
+    if (lastName == '') lastName = userInfo.lastName;
+    let email = req.body.email;
+    if (email == '') email = userInfo.email;
+    let password = req.body.password;
+    if (password == '') password = '12345';
+    let hashedPassword = await bcrypt.hash(password, 8);
+
+
+    await auth.editUser(email, username, hashedPassword, firstName, lastName);
+    res.redirect(`/user-page/${username}`);
+});
+app.get("/user-page/:username/1/:package_id", async (req, res) => {
+    const username = req.params.username;
+    const package_id = req.params.package_id;
+    const packageInfo = await managePackages.getPackageInfo(package_id);
+    res.render("search-by-id", { packageInfo, userInfo: await auth.getUserInfoByUsername(username) });
+});
+
+app.get("/user-page/:username/2/:catagory", async (req, res) => {
+    const username = req.params.username;
+    const catagory = req.params.catagory;
+    const packageInfo = await managePackages.getPackageInfoByCatagory(username, catagory);
+    res.render("search-by-catagory", { packageInfo, userInfo: await auth.getUserInfoByUsername(username) });
+});
+app.get("/user-page/:username/3/:package_location", async (req, res) => {
+    const username = req.params.username;
+
+    const package_location = req.params.package_location;
+    const packageInfo = await managePackages.getPackageInfoByLocation(username, package_location);
+    res.render("search-by-location", { packageInfo, userInfo: await auth.getUserInfoByUsername(username) });
+});
+app.get("/user-page/:username/4/:date", async (req, res) => {
+    const username = req.params.username;
+    const date = req.params.date;
+    const packageInfo = await managePackages.getPackageInfoByDate(username, date);
+    res.render("search-by-date", { packageInfo, userInfo: await auth.getUserInfoByUsername(username) });
+});
+app.post("/user-page/:username", async (req, res) => {
+    const username = req.params.username;
+
+    if (typeof req.body.package_id != 'undefined') {
+        const package_id = req.body.package_id;
+        res.redirect(`/user-page/${username}/1/${package_id}`);
+    }
+    else if (typeof req.body.catagory != 'undefined') {
+        const catagory = req.body.catagory;
+        res.redirect(`/user-page/${username}/2/${catagory}`);
+    }
+    else if (typeof req.body.package_location != 'undefined') {
+        const package_location = req.body.package_location;
+        res.redirect(`/user-page/${username}/3/${package_location}`);
+    } else if (typeof req.body.date != 'undefined') {
+        const date = req.body.date;
+        res.redirect(`/user-page/${username}/4/${date}`);
+    } else {
+        res.redirect(`/user-page/${username}`);
+    }
+
+});
+
 
 app.post("/add-package-route", async (req, res) => {
     const package_id = req.body.package_id;
@@ -198,8 +262,6 @@ app.post("/removeUser", async (req, res) => {
 app.post("/editUser", async (req, res) => {
     const user_id = req.body.user_id;
     const userInfo = await manageUsers.getUserInfo(user_id);
-    console.log(userInfo.username);
-    console.log(userInfo.email);
     let email = req.body.email;
     if (email == '') email = userInfo.email;
     let username = req.body.username;
@@ -227,7 +289,10 @@ app.post("/reports/status_catagory_report", async (req, res) => {
 
 
 
-
+app.get("/user-page/:username/send-package", async (req, res) => {
+    const username = req.params.username;
+    res.render("send-package", { user: req.session.user, userInfo: await auth.getUserInfoByUsername(username), users: await manageUsers.getAllUsers() });
+});
 //logout route and redirect to index
 
 app.get('/admin', async (req, res) => {
@@ -290,13 +355,14 @@ app.post("/", async (req, res) => {
     const logedPassword = req.body.password.toString();
     const email = req.body.email;
     const isAdmin = await auth.isAdmin(email);
-    console.log(isAdmin);
     const info = await auth.authLogIn(email)
 
     if (info.email) {
+
         //validate password
         bcrypt.compare(logedPassword, info.password, async (err, result) => {
             if (result) {
+
                 id = await auth.getUserID(email);
 
                 req.session.authenticated = true;
@@ -304,10 +370,14 @@ app.post("/", async (req, res) => {
                 if (isAdmin === 'true') {
                     res.redirect("/admin");
 
+
                 }
                 else
                     res.render("index", { userInfo: await auth.getUserInfo(email), user: req.session.user });
 
+            }
+            else {
+                console.log('password not correct');
             }
 
         })

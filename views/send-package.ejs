@@ -29,32 +29,31 @@
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="/user-page/<%=userInfo.username%>/send-package"> Send packages</a>
+                </li>
                 <li class="nav-item">
+                    <a class="nav-link" href="/user-page/<%=userInfo.username%>/receive-package"> Receive packages</a>
+                </li>
 
+                <li class="nav-item">
                     <a href="/logout"> <button type="button" class="btn btn-secondary">Logout</button>
                     </a>
                 </li>
+
             </ul>
         </div>
     </nav>
-    <form action="/sendpackage" class="form" method="post">
+    <form class="form" method="post">
         <h2 class="Register-text">Add Package</h2>
 
         <div class="drop-down-div">
             <label for="username">user names</label>
 
-            <select name="username" id="username">
-                <option value="">Select User name</option>
+            <!-- <select name="username" id="username"> -->
+            <input type="text" name="username" value="<%=userInfo.username%>" disabled>
 
-                <% for (let i=0; i < users.length; i++) { %>
-                    <option value="<%= users[i].username %>">
-                        <%= users[i].username %>
-                    </option>
-                    <% } %>
-            </select>
+
         </div>
-        <!-- <label for="username">Username</label>
-          <input type="username" name="username" id="username" class="username" placeholder="" required> -->
+
         <div>
             <label for="reciever_name">Reciever name</label>
             <select name="reciever_name" id="reciever_name">
@@ -156,7 +155,6 @@
 
             <div class="btns-group">
                 <button class="btn">submit</button>
-
             </div>
 
 

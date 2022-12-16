@@ -11,22 +11,22 @@ const getDbConnection = async () => {
 }
 
 //add package
-const addPackage = async (username, package_name, weight, destination, status, final_delivery_date, dimensions, insurance_amount, catagory,reciever_name) => {
+const addPackage = async (username, package_name, weight, destination, status, final_delivery_date, dimensions, insurance_amount, catagory, reciever_name) => {
     const db = await getDbConnection();
     const sql = `INSERT INTO packages 
     ('username', 'package_name', 'weight', 'destination', 'status', 'final_delivery_date', 'dimensions', 'insurance_amount', 'catagory','payment_status')
     VALUES ('${username}', '${package_name}', '${weight}', '${destination}', '${status}', '${final_delivery_date}', '${dimensions}', '${insurance_amount}', '${catagory}','not paid')`;
     //select last inserted package id
-  
+
     await db.run(sql);
     await db.close();
 
     let package_id = getLastPackageId();
-    package_id.then(function(result) {
+    package_id.then(function (result) {
         const package_id = result.package_id;
-         addToRetailCenter(package_id,destination,username,reciever_name,username);
+        addToRetailCenter(package_id, destination, username, reciever_name, username);
 
-   
+
     });
 
     // package_id.then(function(result) {
@@ -36,7 +36,7 @@ const addPackage = async (username, package_name, weight, destination, status, f
 
     //  addToRetailCenter(destination,username,receiver_name,username);
 
-    
+
 }
 //get last inserted package id
 const getLastPackageId = async () => {
@@ -48,17 +48,17 @@ const getLastPackageId = async () => {
 
 
 
-    
-async function addToRetailCenter(package_id,destination,username,reciever_name,username){
 
-    
+async function addToRetailCenter(package_id, destination, username, reciever_name, username) {
+
+
     const db = await getDbConnection();
 
     const sql = `INSERT INTO retail_center
     (package_id,'retail_center_name','retail_center_address','location_name','sender_name','receiver_name','status')
     VALUES ('${package_id}','${destination}','${destination}','${destination}','${username}','${reciever_name}','not paid')`;
     await db
-    .run(sql);
+        .run(sql);
     await db.close();
 }
 
@@ -70,9 +70,9 @@ const removePackage = async (package_id) => {
     const db = await getDbConnection();
     const sql = `DELETE FROM packages WHERE package_id = '${package_id}'`;
     await db
-    .run(sql);
+        .run(sql);
     await db.close();
-    return 1; 
+    return 1;
 }
 
 //get package info
@@ -88,14 +88,14 @@ const editPackage = async (package_id, package_name, weight, destination, status
     const db = await getDbConnection();
     const sql = `UPDATE packages SET package_name = '${package_name}', weight = '${weight}', destination = '${destination}', status = '${status}', final_delivery_date = '${final_delivery_date}', dimensions = '${dimensions}', insurance_ammount = '${insurance_ammount}', catagoery = '${catagoery}' WHERE package_id = '${package_id}'`;
     await db
-    .run(sql);
+        .run(sql);
     await db.close();
 }
 
 //add package to locations 
-const addPackageRoute = async (package_id, location_name, date,locationType) => {
+const addPackageRoute = async (package_id, location_name, date, locationType) => {
     const db = await getDbConnection();
-//split date
+    //split date
     const dateArray = date.split('-');
     const year = dateArray[0];
     const month = dateArray[1];
@@ -104,9 +104,8 @@ const addPackageRoute = async (package_id, location_name, date,locationType) => 
     const sql = `INSERT INTO locations
     ('package_id', 'location_name', 'day','month','year','type')
     VALUES ('${package_id}', '${location_name}', '${day}','${month}','${year}','${locationType}')`;
-    await db
-    .run
-    (sql);
+    await db.run
+        (sql);
     await db.close();
 }
 
@@ -115,13 +114,44 @@ const getLostPackagesBetweenDates = async (startDate, endDate) => {
     const db = await getDbConnection();
     const sql = `SELECT * FROM packages WHERE final_delivery_date BETWEEN '${startDate}' AND '${endDate}'`;
     const packages
-    = await
-    db.all
-    (sql);
+        = await
+            db.all
+                (sql);
     await db.close();
     return packages;
 }
-    
-
-module.exports = {addPackage,removePackage,getPackageInfo,editPackage,addPackageRoute,getLostPackagesBetweenDates};
+//get packages in retail center by username where username is the receiver
+const getPackgesInRetailCenter = async (username) => {
+    const db = await getDbConnection();
+    const sql = `SELECT * FROM retail_center WHERE receiver_name = '${username}'`;
+    const packages = await db.all
+        (sql);
+    await db.close();
+    return packages;
+}
+const getPackageInfoByCatagory = async (username, catagory) => {
+    const db = await getDbConnection();
+    const sql = `SELECT * FROM packages WHERE username = '${username}' AND catagory = '${catagory}'`;
+    const packages = await db.all
+        (sql);
+    await db.close();
+    return packages;
+}
+const getPackageInfoByDate = async (username, date) => {
+    const db = await getDbConnection();
+    const sql = `SELECT * FROM packages WHERE username = '${username}' AND final_delivery_date = '${date}'`;
+    const packages = await db.all
+        (sql);
+    await db.close();
+    return packages;
+}
+const getPackageInfoByLocation = async (username, location) => {
+    const db = await getDbConnection();
+    const sql = `SELECT * FROM packages WHERE username = '${username}' AND destination = '${location}'`;
+    const packages = await db.all
+        (sql);
+    await db.close();
+    return packages;
+}
+module.exports = { getPackageInfoByLocation, getPackageInfoByDate, getPackageInfoByCatagory, addPackage, removePackage, getPackageInfo, editPackage, addPackageRoute, getLostPackagesBetweenDates, getPackgesInRetailCenter };
 

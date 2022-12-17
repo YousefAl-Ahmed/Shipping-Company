@@ -35,6 +35,9 @@
                 <li class="nav-item">
                     <a class="nav-link" href="/user-page/<%=userInfo.username%>/receive-package"> Receive packages</a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/user-page/<%=userInfo.username%>/retail-centers"> Retail centers</a>
+                </li>
 
                 <li class="nav-item">
                     <a href="/logout"> <button type="button" class="btn btn-secondary">Logout</button>
@@ -57,7 +60,7 @@
                 <h1>Package Found with Catagory <%= packageInfo[0].catagory %>
                 </h1>
                 <div class="table-container">
-                    <table class="table">
+                    <table class="table table-striped">
                         <thead class="thead-dark">
                             <tr>
                                 <th scope="col">Package ID</th>

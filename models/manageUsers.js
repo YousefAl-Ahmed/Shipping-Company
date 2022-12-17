@@ -21,11 +21,11 @@ const getAllUsers = async () => {
     return users;
 }
 //add user
-const addUser = async (email, username, password, isAdmin) => {
+const addUser = async (email, username, password, isAdmin, firstName, lastName) => {
     const db = await getDbConnection();
     const sql = `INSERT INTO users
-    ('email', 'username', 'password', 'isAdmin')
-    VALUES ('${email}', '${username}', '${password}' , '${isAdmin}')`;
+    ('email', 'username', 'password', 'isAdmin','firstName','lastName')
+    VALUES ('${email}', '${username}', '${password}' , '${isAdmin}', '${firstName}', '${lastName}')`;
 
     await db
         .run(sql);
@@ -65,14 +65,14 @@ const getAllEmails = async () => {
     const sql = `SELECT email FROM users`;
     const emails
         = await
-        db.all
-            (sql);
+            db.all
+                (sql);
     await db.close();
     return emails;
 }
-        
 
-module.exports = { getAllUsers, addUser, removeUser, editUser, getUserInfo,getAllEmails };
+
+module.exports = { getAllUsers, addUser, removeUser, editUser, getUserInfo, getAllEmails };
 
 
 

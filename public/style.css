@@ -26,10 +26,20 @@
 
 
 /* Global Stylings */
+.radio-input {
+    display: inline;
+}
+
 label {
-    display: block;
-    margin-bottom: 10px;
+    /* display: inline; */
+    /* margin-bottom: 10px; */
     font-size: 20px;
+}
+
+
+.user-label {
+    display: flex;
+    margin-bottom: 10px;
 }
 
 input,
@@ -71,6 +81,17 @@ nav {
     align-items: center;
     color: white;
     padding: 20px;
+}
+
+.inline-content {
+    display: inline;
+    justify-content: center;
+    /* center everything */
+    align-items: center;
+    /* center everything */
+    text-align: center;
+    /* center everything */
+
 }
 
 nav a,

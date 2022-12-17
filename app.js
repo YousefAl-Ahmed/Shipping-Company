@@ -157,6 +157,11 @@ app.get("/user-page/:username/payment-cancel", async (req, res) => {
 
     res.render("payment-cancel", { user: req.session.user, userInfo: await auth.getUserInfoByUsername(username) });
 });
+app.get("/user-page/:username/retail-centers", async (req, res) => {
+    const username = req.params.username;
+    const retail_centers = await managePackages.getRetailCenters();
+    res.render("retail-centers", { user: req.session.user, userInfo: await auth.getUserInfoByUsername(username), retail_centers: retail_centers });
+});
 
 app.post("/addPackage", async (req, res) => {
     const username = req.body.username;
@@ -299,9 +304,11 @@ app.post("/addUser", async (req, res) => {
     const email = req.body.email;
     const username = req.body.username;
     const password = req.body.password;
+    const firstName = req.body.firstName;
+    const lastName = req.body.lastName;
     const admin = req.body.isAdmin;
     let hashedPassword = await bcrypt.hash(password, 8);
-    await manageUsers.addUser(email, username, hashedPassword, admin);
+    await manageUsers.addUser(email, username, hashedPassword, admin, firstName, lastName);
     res.redirect("/admin");
 });
 app.post("/removeUser", async (req, res) => {

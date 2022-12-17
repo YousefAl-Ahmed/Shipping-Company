@@ -68,7 +68,14 @@ const getRetailCenter = async (location_name) => {
 
 }
 
-
+const getRetailCenters = async () => {
+    const db = await getDbConnection();
+    const sql = `SELECT * FROM retail_centers_table`;
+    const retail_centers = await db.all
+        (sql);
+    await db.close();
+    return retail_centers;
+}
 
 
 
@@ -306,7 +313,8 @@ module.exports = {
     addPayment,
     deletePackage,
     showPayments,
-    getPackageRoute
+    getPackageRoute,
+    getRetailCenters
 }
 
 

@@ -36,6 +36,9 @@
                 <li class="nav-item">
                     <a class="nav-link" href="/user-page/<%=userInfo.username%>/receive-package"> Receive packages</a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/user-page/<%=userInfo.username%>/retail-centers"> Retail centers</a>
+                </li>
 
                 <li class="nav-item">
                     <a href="/logout"> <button type="button" class="btn btn-secondary">Logout</button>
@@ -45,6 +48,126 @@
             </ul>
         </div>
     </nav>
+
+    <hr>
+    <div class="main-packges-title">
+        <h1>Search Packages</h1>
+    </div>
+
+    <!-- textfield to input a package id and show it in a table -->
+    <div class="inline-items">
+        <div class="">
+            <form class='form center-container' method="POST">
+                <div class="">
+                    <label for="package_id">Search Package By ID</label>
+                    <select id="package_id" name="package_id">
+                        <% if (packages.length==0) { %>
+                            <option value="">
+                                You have no packages
+                            </option>
+                            <% } else {%>
+
+                                <option value="">Select package id to search for</option>
+                                <% for (let i=0; i < packages.length; i++) { %>
+
+                                    <option value="<%=packages[i].package_id%>">
+                                        <%=packages[i].package_id%>
+                                    </option>
+                                    <% } %>
+                                        <% } %>
+
+                    </select>
+
+
+                </div>
+                <div class="some-margin"> <button type="submit" class="btn btn-primary">Search</button>
+                </div>
+            </form>
+        </div>
+        <div class="">
+            <form class='form center-container' method="POST">
+                <div class="">
+                    <div>
+                        <label for="catagory">Search Package by Catagory</label>
+                        <select id="catagory" name="catagory" class="catagory" required>
+                            <option value="">Select catagory</option>
+                            <option value="regular">regular</option>
+                            <option value="fragile">fragile</option>
+                            <option value="liquid">liquid</option>
+                            <option value="chemical">chemical</option>
+                        </select>
+                    </div>
+
+                </div>
+                <div class="some-margin"> <button type="submit" class="btn btn-primary">Search</button>
+                </div>
+            </form>
+        </div>
+        <div class="">
+            <form class='form center-container' method="POST">
+                <div class="">
+                    <div>
+                        <label for="package_location">Search Package by City</label>
+                        <select id="package_location" name="package_location" class="retail_center" required>
+                            <option value="">Select Package location </option>
+                            <option value="Dammam">Dammam </option>
+                            <option value="Riyadh">Riyadh </option>
+                            <option value="Jeddah">Jeddah </option>
+                            <option value="Jazan">Jazan </option>
+                            <option value="Khobar">Khobar </option>
+                        </select>
+                    </div>
+
+                </div>
+                <div class="some-margin"> <button type="submit" class="btn btn-primary">Search</button>
+                </div>
+            </form>
+        </div>
+        <div class="">
+            <form class='form center-container' method="POST">
+                <div class="">
+                    <div>
+                        <label for="date">Search By Delivery date</label>
+                        <input type="date" name="date" id="date">
+                    </div>
+
+                </div>
+                <div class="some-margin"> <button type="submit" class="btn btn-primary">Search</button>
+                </div>
+            </form>
+        </div>
+        <div class="">
+            <form class='form center-container' method="POST">
+                <div class="">
+                    <label for="package_id">Trace Package By ID</label>
+                    <select id="package_id" name="trace_package_id">
+                        <% if (packages.length==0) { %>
+                            <option value="">
+                                You have no packages
+                            </option>
+                            <% } else {%>
+
+                                <option value="">Select package id to trace</option>
+                                <% for (let i=0; i < packages.length; i++) { %>
+
+                                    <option value="<%=packages[i].package_id%>">
+                                        <%=packages[i].package_id%>
+                                    </option>
+                                    <% } %>
+                                        <% } %>
+
+                    </select>
+
+
+                </div>
+                <div class="some-margin"> <button type="submit" class="btn btn-primary">Search</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- table to show the searched package -->
+    <hr>
     <div class="main-packges-title">
         <h1>My Sent Packages</h1>
     </div>
@@ -55,8 +178,8 @@
             <h3>No packages sent</h3>
         </div>
         <% } else {%>
-            <div class="table-container">
-                <table class="table">
+            <div class="table-container ">
+                <table class="table table-striped">
                     <thead class="thead-dark">
                         <tr>
                             <th scope="col">Package ID</th>
@@ -108,124 +231,6 @@
                 </table>
             </div>
             <% } %>
-                <hr>
-                <div class="main-packges-title">
-                    <h1>Search Packages</h1>
-                </div>
-
-                <!-- textfield to input a package id and show it in a table -->
-                <div class="inline-items">
-                    <div class="">
-                        <form class='form center-container' method="POST">
-                            <div class="">
-                                <label for="package_id">Search Package By ID</label>
-                                <select id="package_id" name="package_id">
-                                    <% if (packages.length==0) { %>
-                                        <option value="">
-                                            You have no packages
-                                        </option>
-                                        <% } else {%>
-
-                                            <option value="">Select package id to search for</option>
-                                            <% for (let i=0; i < packages.length; i++) { %>
-
-                                                <option value="<%=packages[i].package_id%>">
-                                                    <%=packages[i].package_id%>
-                                                </option>
-                                                <% } %>
-                                                    <% } %>
-
-                                </select>
-
-
-                            </div>
-                            <div class="some-margin"> <button type="submit" class="btn btn-primary">Search</button>
-                            </div>
-                        </form>
-                    </div>
-                    <div class="">
-                        <form class='form center-container' method="POST">
-                            <div class="">
-                                <div>
-                                    <label for="catagory">Search Package by Catagory</label>
-                                    <select id="catagory" name="catagory" class="catagory" required>
-                                        <option value="">Select catagory</option>
-                                        <option value="regular">regular</option>
-                                        <option value="fragile">fragile</option>
-                                        <option value="liquid">liquid</option>
-                                        <option value="chemical">chemical</option>
-                                    </select>
-                                </div>
-
-                            </div>
-                            <div class="some-margin"> <button type="submit" class="btn btn-primary">Search</button>
-                            </div>
-                        </form>
-                    </div>
-                    <div class="">
-                        <form class='form center-container' method="POST">
-                            <div class="">
-                                <div>
-                                    <label for="package_location">Search Package by City</label>
-                                    <select id="package_location" name="package_location" class="retail_center"
-                                        required>
-                                        <option value="">Select Package location </option>
-                                        <option value="Dammam">Dammam </option>
-                                        <option value="Riyadh">Riyadh </option>
-                                        <option value="Jeddah">Jeddah </option>
-                                        <option value="Jazan">Jazan </option>
-                                        <option value="Khobar">Khobar </option>
-                                    </select>
-                                </div>
-
-                            </div>
-                            <div class="some-margin"> <button type="submit" class="btn btn-primary">Search</button>
-                            </div>
-                        </form>
-                    </div>
-                    <div class="">
-                        <form class='form center-container' method="POST">
-                            <div class="">
-                                <div>
-                                    <label for="date">Search By Delivery date</label>
-                                    <input type="date" name="date" id="date">
-                                </div>
-
-                            </div>
-                            <div class="some-margin"> <button type="submit" class="btn btn-primary">Search</button>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-                <div class="center-div some-margin">
-                    <form class='form center-container' method="POST">
-                        <div class="">
-                            <label for="package_id">Trace Package By ID</label>
-                            <select id="package_id" name="trace_package_id">
-                                <% if (packages.length==0) { %>
-                                    <option value="">
-                                        You have no packages
-                                    </option>
-                                    <% } else {%>
-
-                                        <option value="">Select package id to trace</option>
-                                        <% for (let i=0; i < packages.length; i++) { %>
-
-                                            <option value="<%=packages[i].package_id%>">
-                                                <%=packages[i].package_id%>
-                                            </option>
-                                            <% } %>
-                                                <% } %>
-
-                            </select>
-
-
-                        </div>
-                        <div class="some-margin"> <button type="submit" class="btn btn-primary">Search</button>
-                        </div>
-                    </form>
-                </div>
-                <!-- table to show the searched package -->
 
 </body>
 

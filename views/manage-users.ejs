@@ -1,15 +1,17 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css"
-    integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+        integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
     <link rel="stylesheet" href="/style.css">
-    <script src = "/register.js"></script>
+    <script src="/register.js"></script>
     <title>Manage users</title>
 </head>
+
 <body>
     <nav style="margin-bottom: 2vh;" class="navbar navbar-expand-lg navbar-light bg-light">
         <a class="navbar-brand" href="#">Admin page</a>
@@ -35,7 +37,7 @@
                 <li class="nav-item">
                     <a class="nav-link" href="/admin/package-route">Package Route</a>
                 </li>
-                
+
                 <li class="nav-item">
                     <a class="nav-link" href="/admin/send-email">Send Email</a>
                 </li>
@@ -54,50 +56,74 @@
 
     <form action="/addUser" class="form" method="post">
         <h2 class="Register-text">Add User</h2>
- 
-    
+
+
         <!-- Steps -->
-          <div class="input-group">
-    
+        <div class="input-group">
+
             <label for="email">Email</label>
             <input type="email" name="email" id="email" class="email" placeholder="" required>
-    
+
             <br>
-    
+
             <label for="username">Username</label>
             <input type="text" name="username" id="username" class="username" placeholder="" required>
-    
             <br>
-    
+            <label for="firstName">First Name</label>
+            <input type="text" name="firstName" id="firstName" class="firstName" placeholder="" required>
+            <br>
+
+            <label for="lastName">Last Name</label>
+            <input type="text" name="lastName" id="lastName" class="lastName" placeholder="" required>
+            <br>
+
             <label for="password">Password</label>
             <input type="password" name="password" id="password" class="password" placeholder="" required>
-    
-    
-          </div>
-          <!-- radio button -->
-                <label for="role">Role</label>
-                <input type="radio" name="isAdmin" id="role" value="true" required>Admin
-                <input type="radio" name="isAdmin" id="role" value="false" required>Customer
-            
-    
-    
-         
-    
-          <div class="btns-group">
+
+
+
+        </div>
+        <!-- radio button -->
+        <div class="center-div">
+            <legend>Role</legend>
+
+            <div>
+                <label style="display: inline;" for="isAdmin">Admin</label>
+                <input type="radio" name="isAdmin" id="role" value="true" required>
+
+            </div>
+            <br>
+            <div class="inline-content">
+
+                <label style="display: inline;" class="user-label" for="isAdmin">Customer</label>
+                <input type="radio" name="isAdmin" id="role" value="false" required>
+
+            </div>
+        </div>
+
+
+
+        <div class="center-div">
+            <button class="btn btn-success">submit</button>
+
+        </div>
+        <!-- 
+        <div class="btns-group">
             <button class="btn">submit</button>
-       
-          </div>
-    
-    
-      </form>
-    
-    
- 
 
- 
+        </div> -->
 
 
-    
-    
+    </form>
+
+
+
+
+
+
+
+
+
 </body>
+
 </html>

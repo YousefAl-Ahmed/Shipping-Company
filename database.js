@@ -91,17 +91,45 @@ sql = `CREATE TABLE IF NOT EXISTS locations (
     month INTEGER NOT NULL,
     year INTEGER NOT NULL,
     type TEXT NOT NULL,
+    status TEXT NOT NULL,
     FOREIGN KEY (package_id) REFERENCES packages(package_id)
     )`;
 db.run(sql);
 
 //drop retail_center table
-// sql = `DROP TABLE retail_center`;
+// sql = `DROP TABLE retail_centers_table`;
 // db.run(sql);
 
+// create retail_centers_table with primary key retail_center_id, center_name, center_address, location_name
+sql = `CREATE TABLE IF NOT EXISTS retail_centers_table (
+    retail_center_id INTEGER PRIMARY KEY,
+    center_name TEXT NOT NULL,
+    center_address TEXT NOT NULL,
+    location_name TEXT NOT NULL
+    )`;
+db.run(sql);
+// insert centers into retail_centers_table
+// let center1 = [1, 'The Fast Tracking Center', 'Eastren Provience, Dammam, 32210', 'Dammam'];
+// let center2 = [2, 'Kingdom Center', 'King Fahd Rd, Al Olaya, Riyadh 12214', 'Riyadh'];
+// let center3 = [3, 'City Center', 'Mishrifah, Jeddah 23332', 'Jeddah'];
+// let center4 = [4, 'Al Khobar Center', 'Al Khobar 31952', 'Al Khobar'];
+// let center5 = [5, 'Jazan Center', 'Jazan Port 31952', 'jazan'];
+
+// let centers = [center1, center2, center3, center4, center5];
+
+// for (let i = 0; i < centers.length; i++) {
+//     db.run(`INSERT INTO retail_centers_table VALUES (?,?,?,?)`, centers[i], (err) => {
+//         if (err) return console.log(err.message);
+//         else console.log('inserted into retail_centers_table');
+//     });
+// }
+// drop retail_center table
+// sql = `DROP TABLE retail_center`;
+// db.run(sql);
+// drop packages table
 
 sql = `CREATE TABLE IF NOT EXISTS retail_center (
-    retail_center_id INTEGER PRIMARY KEY AUTOINCREMENT,
+    retail_center_id INTEGER,
     package_id INTEGER NOT NULL,
     retail_center_name TEXT NOT NULL,
     retail_center_address TEXT NOT NULL,
@@ -109,6 +137,10 @@ sql = `CREATE TABLE IF NOT EXISTS retail_center (
     sender_name TEXT NOT NULL,
     receiver_name TEXT NOT NULL,
     status TEXT NOT NULL,
+    FOREIGN KEY (retail_center_id) REFERENCES retail_centers_table(retail_center_id),
+    FOREIGN KEY (retail_center_name) REFERENCES retail_centers_table(center_name),
+    FOREIGN KEY (retail_center_address) REFERENCES retail_centers_table(center_address),
+    FOREIGN KEY (location_name) REFERENCES retail_centers_table(location_name),
     FOREIGN KEY (status) REFERENCES packages(status)
     FOREIGN KEY (receiver_name) REFERENCES users(username),
     FOREIGN KEY (sender_name) REFERENCES users(username),

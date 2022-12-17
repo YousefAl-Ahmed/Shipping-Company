@@ -25,7 +25,7 @@ const addPackage = async (username, package_name, weight, destination, status, f
     let package_id = getLastPackageId();
     package_id.then(function (result) {
         const package_id = result.package_id;
-        addToRetailCenter(package_id, destination, username, reciever_name, username);
+        addToRetailCenter(package_id, destination, username, reciever_name);
 
 
     });
@@ -47,21 +47,28 @@ const getLastPackageId = async () => {
     return package_id;
 }
 
-
-
-
-async function addToRetailCenter(package_id, destination, username, reciever_name, username) {
-
-
+async function addToRetailCenter(package_id, destination, username, reciever_name) {
+    const retail_center = await getRetailCenter(destination);
     const db = await getDbConnection();
-
-    const sql = `INSERT INTO retail_center
-    (package_id,'retail_center_name','retail_center_address','location_name','sender_name','receiver_name','status')
-    VALUES ('${package_id}','${destination}','${destination}','${destination}','${username}','${reciever_name}','not paid')`;
+    const sql = `INSERT INTO retail_center 
+     ('retail_center_id', 'package_id', 'retail_center_name', 'retail_center_address', 'location_name', 'sender_name', 'receiver_name', 'status')
+    VALUES ('${retail_center.retail_center_id}', '${package_id}','${retail_center.center_name}',
+    '${retail_center.center_address}', '${retail_center.location_name}', '${username}', '${reciever_name}', 'paid')`;
     await db
         .run(sql);
     await db.close();
 }
+// get retail center from retail_center table by location name
+const getRetailCenter = async (location_name) => {
+    const db = await getDbConnection();
+    const sql = `SELECT * FROM retail_centers_table WHERE location_name = '${location_name}'`;
+    const retail_center = await db.get(sql);
+    await db.close();
+    return retail_center;
+
+}
+
+
 
 
 
@@ -102,8 +109,7 @@ const addPackageRoute = async (package_id, location_name, date, locationType) =>
     const month = dateArray[1];
     const day = dateArray[2];
 
-    const sql = `INSERT INTO locations
-    ('package_id', 'location_name', 'day','month','year','type')
+    const sql = `INSERT INTO locations  ('package_id', 'location_name', 'day','month','year','type')
     VALUES ('${package_id}', '${location_name}', '${day}','${month}','${year}','${locationType}')`;
     await db.run
         (sql);
@@ -251,6 +257,14 @@ const updatePaymentStatus = async () => {
         (sql);
     await db.close();
 }
+const getPackageRoute = async (package_id) => {
+    const db = await getDbConnection();
+    const sql = `SELECT * FROM locations WHERE package_id = '${package_id}'`;
+    const packageRoute = await db.all
+        (sql);
+    await db.close();
+    return packageRoute;
+}
 // delete last id package
 const deletePackage = async () => {
     const db = await getDbConnection();
@@ -291,7 +305,8 @@ module.exports = {
     getLastInsertedPackageId,
     addPayment,
     deletePackage,
-    showPayments
+    showPayments,
+    getPackageRoute
 }
 
 

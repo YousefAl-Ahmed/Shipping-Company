@@ -47,44 +47,51 @@
         <h1>Packages to be received</h1>
     </div>
 
-    <div class="table-container">
-        <table class="table">
-            <thead class="thead-dark">
-                <tr>
-                    <th scope="col">Package ID</th>
-                    <th scope="col">Retail center name</th>
-                    <th scope="col">Retail center address</th>
-                    <th scope="col">location name</th>
-                    <th scope="col">Sender name</th>
-                    <th scope="col">Payment status</th>
-                </tr>
-            </thead>
-            <tbody>
-                <% for (let i=0; i < receivedPackages.length; i++) { %>
-                    <tr>
-                        <th>
-                            <%= receivedPackages[i].package_id %>
-                        </th>
-                        <td>
-                            <%= receivedPackages[i].retail_center_name %>
-                        </td>
-                        <td>
-                            <%= receivedPackages[i].retail_center_address %>
-                        </td>
-                        <td>
-                            <%= receivedPackages[i].location_name %>
-                        </td>
-                        <td>
-                            <%= receivedPackages[i].sender_name %>
-                        </td>
-                        <td>
-                            <%= receivedPackages[i].status %>
-                        </td>
+    <!-- if there is no packages show  -->
+    <% if (receivedPackages.length==0) { %>
+        <div class="no-packages">
+            <h2>There is no packages to be received</h2>
+        </div>
+        <% } else {%>
+            <div class="table-container">
+                <table class="table">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th scope="col">Package ID</th>
+                            <th scope="col">Retail center name</th>
+                            <th scope="col">Retail center address</th>
+                            <th scope="col">Location</th>
+                            <th scope="col">Sender username</th>
+                            <th scope="col">Payment status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% for (let i=0; i < receivedPackages.length; i++) { %>
+                            <tr>
+                                <th>
+                                    <%= receivedPackages[i].package_id %>
+                                </th>
+                                <td>
+                                    <%= receivedPackages[i].retail_center_name %>
+                                </td>
+                                <td>
+                                    <%= receivedPackages[i].retail_center_address %>
+                                </td>
+                                <td>
+                                    <%= receivedPackages[i].location_name %>
+                                </td>
+                                <td>
+                                    <%= receivedPackages[i].sender_name %>
+                                </td>
+                                <td>
+                                    <%= receivedPackages[i].status %>
+                                </td>
 
 
-                        <% } %>
-        </table>
-    </div>
+                                <% } %>
+                </table>
+            </div>
+            <% } %>
 </body>
 
 </html>

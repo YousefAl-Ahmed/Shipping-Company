@@ -45,20 +45,18 @@
         </div>
     </nav>
     <!-- show packages in packageInfo searched by id -->
-    <div class="main-packges-title">
-    </div>
+
     <div class="main-packges-title">
 
         <% if(packageInfo.length==0){ %>
             <div class="no-packages">
-                <h1>There is no packages with date <%= date %>
-                </h1>
+                <h1>There is no packages</h1>
             </div>
             <% } else {%>
                 <h1>
-                    <h1>Package Found with Date <%= packageInfo[0].final_delivery_date %>
+                    <h1>Tracing package with ID <%= packageInfo.package_id %>
+                            %>
                     </h1>
-
                     <div class="table-container">
                         <table class="table">
                             <thead class="thead-dark">
@@ -76,43 +74,100 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <% for (let i=0; i < packageInfo.length; i++) { %>
-                                    <tr>
-                                        <td>
-                                            <%=packageInfo[i].package_id%>
-                                        </td>
-                                        <td>
-                                            <%=packageInfo[i].package_name%>
-                                        </td>
-                                        <td>
-                                            <%=packageInfo[i].weight%>
-                                        </td>
-                                        <td>
-                                            <%=packageInfo[i].destination%>
-                                        </td>
-                                        <td>
-                                            <%=packageInfo[i].status%>
-                                        </td>
-                                        <td>
-                                            <%=packageInfo[i].dimensions%>
-                                        </td>
-                                        <td>
-                                            <%=packageInfo[i].insurance_amount%>
-                                        </td>
-                                        <td>
-                                            <%=packageInfo[i].catagory%>
-                                        </td>
-                                        <td>
-                                            <%=packageInfo[i].final_delivery_date%>
-                                        </td>
-                                        <td>
-                                            <%=packageInfo[i].payment_status%>
-                                    </tr>
-                                    <% } %>
+                                <tr>
+                                    <td>
+                                        <%=packageInfo.package_id%>
+                                    </td>
+                                    <td>
+                                        <%=packageInfo.package_name%>
+                                    </td>
+                                    <td>
+                                        <%=packageInfo.weight%>
+                                    </td>
+                                    <td>
+                                        <%=packageInfo.destination%>
+                                    </td>
+                                    <td>
+                                        <%=packageInfo.status%>
+                                    </td>
+                                    <td>
+                                        <%=packageInfo.dimensions%>
+                                    </td>
+                                    <td>
+                                        <%=packageInfo.insurance_amount%>
+                                    </td>
+                                    <td>
+                                        <%=packageInfo.catagory%>
+                                    </td>
+                                    <td>
+                                        <%=packageInfo.final_delivery_date%>
+                                    </td>
+                                    <td>
+                                        <%=packageInfo.payment_status%>
+                                    </td>
+
+                                </tr>
                         </table>
                     </div>
                     <% } %>
     </div>
+    <hr>
+    <div class="main-packges-title">
+
+        <% if(packageRoute.length==0){ %>
+            <div class="no-packages">
+                <h1>The package route is still being processed</h1>
+            </div>
+            <% } else {%>
+                <h1>
+                    <h1>Package route <%= packageInfo.package_id %>
+                            %>
+                    </h1>
+                    <div class="table-container">
+                        <table class="table">
+                            <thead class="thead-dark">
+                                <tr>
+                                    <th scope="col">Location Id</th>
+                                    <th scope="col">Location name</th>
+                                    <th scope="col">Day</th>
+                                    <th scope="col">Month</th>
+                                    <th scope="col">year</th>
+                                    <th scope="col">type of transportation</th>
+                                    <th scope="col">Status</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <% for (let i=0; i<packageRoute.length; i++) {%>
+                                    <tr>
+                                        <td>
+                                            <%=packageRoute[i].location_id%>
+                                        </td>
+                                        <td>
+                                            <%=packageRoute[i].location_name%>
+                                        </td>
+                                        <td>
+                                            <%=packageRoute[i].day%>
+                                        </td>
+                                        <td>
+                                            <%=packageRoute[i].month%>
+                                        </td>
+                                        <td>
+                                            <%=packageRoute[i].year%>
+                                        </td>
+                                        <td>
+                                            <%=packageRoute[i].type%>
+                                        </td>
+                                        <td>
+                                            <%=packageInfo.status%>
+                                        </td>
+                                    </tr>
+                                    <% } %>
+
+                        </table>
+                    </div>
+                    <% } %>
+    </div>
+
 </body>
 
 </html>

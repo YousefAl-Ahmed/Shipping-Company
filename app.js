@@ -10,7 +10,7 @@ const transporter = nodemailer.createTransport({
         pass: "0550344833Yy."
     }
 });
-            
+
 
 
 const path = require('path');
@@ -123,7 +123,7 @@ app.post("/user-page/:username/send-package", async (req, res) => {
     const package_name = req.body.package_name;
     const weight = req.body.weight;
     const retail_center = req.body.retail_center;
-    const status = req.body.status;
+    const status = 'in transit';
     const dimentions = req.body.dimentions;
     const catagory = req.body.catagory;
     const final_delivery_date = req.body.date;
@@ -232,7 +232,7 @@ app.get("/user-page/:username/2/:catagory", async (req, res) => {
     const username = req.params.username;
     const catagory = req.params.catagory;
     const packageInfo = await managePackages.getPackageInfoByCatagory(username, catagory);
-    res.render("search-by-catagory", { packageInfo, userInfo: await auth.getUserInfoByUsername(username) });
+    res.render("search-by-catagory", { packageInfo, userInfo: await auth.getUserInfoByUsername(username), catagory: catagory });
 });
 app.get("/user-page/:username/3/:package_location", async (req, res) => {
     const username = req.params.username;
@@ -245,7 +245,7 @@ app.get("/user-page/:username/4/:date", async (req, res) => {
     const username = req.params.username;
     const date = req.params.date;
     const packageInfo = await managePackages.getPackageInfoByDate(username, date);
-    res.render("search-by-date", { packageInfo, userInfo: await auth.getUserInfoByUsername(username) });
+    res.render("search-by-date", { packageInfo, userInfo: await auth.getUserInfoByUsername(username), date: date });
 });
 
 app.get("/admin/showPayments", async (req, res) => {
@@ -269,12 +269,22 @@ app.post("/user-page/:username", async (req, res) => {
     } else if (typeof req.body.date != 'undefined') {
         const date = req.body.date;
         res.redirect(`/user-page/${username}/4/${date}`);
+    } else if (typeof req.body.trace_package_id != 'undefined') {
+        const trace_package_id = req.body.trace_package_id;
+        const packageInfo = await managePackages.getPackageInfo(trace_package_id);
+        res.redirect(`/user-page/${username}/5/${trace_package_id}`);
     } else {
         res.redirect(`/user-page/${username}`);
     }
 
 });
-
+app.get("/user-page/:username/5/:trace_package_id", async (req, res) => {
+    const username = req.params.username;
+    const trace_package_id = req.params.trace_package_id;
+    const packageInfo = await managePackages.getPackageInfo(trace_package_id);
+    const packageRoute = await managePackages.getPackageRoute(trace_package_id);
+    res.render("trace-package", { packageInfo, packageRoute, userInfo: await auth.getUserInfoByUsername(username) });
+});
 
 app.post("/add-package-route", async (req, res) => {
     const package_id = req.body.package_id;
@@ -358,18 +368,18 @@ app.post("/sendEmail", async (req, res) => {
     const email = req.body.email;
     const options = {
         from: "s201956670@kfupm.edu.sa",
-        to : email,
-        subject : "La puta madre package",
-        text : "Your package has been delivered"
+        to: email,
+        subject: "La puta madre package",
+        text: "Your package has been delivered"
 
     }
-    await transporter.sendMail(options, function(error, info){
+    await transporter.sendMail(options, function (error, info) {
         if (error) {
-          console.log(error);
+            console.log(error);
         } else {
-          console.log('Email sent: ' + info.response);
+            console.log('Email sent: ' + info.response);
         }
-      }
+    }
     );
     res.redirect("/admin");
 

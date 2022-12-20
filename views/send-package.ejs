@@ -38,8 +38,7 @@
                 </li>
 
                 <li class="nav-item">
-                    <a href="/logout"> <button type="button" class="btn btn-secondary">Logout</button>
-                    </a>
+                    <a class="nav-link" href="/logout"> Logout</a>
                 </li>
 
             </ul>
@@ -49,7 +48,7 @@
         <h2 class="Register-text">Add Package</h2>
 
         <div class="drop-down-div">
-            <label for="username">user names</label>
+            <label for="username">Username</label>
 
             <!-- <select name="username" id="username"> -->
             <input type="text" name="username" value="<%=userInfo.username%>" disabled>
@@ -155,20 +154,16 @@
                 <label for="date">Delivery date</label>
                 <input type="date" name="date" id="date" required>
             </div>
+            <br>
 
-            <div class="btns-group">
-                <button class="btn">submit</button>
+            <div class="center-div">
+                <button class="btn btn-success">submit</button>
+    
             </div>
-
 
     </form>
 
-    <!-- Button trigger modal -->
-    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
-        Launch demo modal
-    </button>
-
-    <!-- Modal -->
+  
 
 
 </body>

@@ -43,6 +43,8 @@
             </ul>
         </div>
     </nav>
+    <a class="Register-text" href="/admin/manage-users/remove-user">Remove user</a>
+    <a class="Register-text" href="/admin/manage-users/edit-user">Edit user</a>
 
 
 
@@ -66,25 +68,44 @@
             <input type="text" name="username" id="username" class="username" placeholder="" >
     
             <br>
+
+            <label for="firstName">First Name</label>
+            <input type="text" name="firstName" id="firstName" class="firstName" placeholder="" >
+            <br>
+
+            <label for="lastName">Last Name</label>
+            <input type="text" name="lastName" id="lastName" class="lastName" placeholder="" >
+            <br>
     
             <label for="password">Password</label>
             <input type="password" name="password" id="password" class="password" placeholder="" >
     
     
           </div>
-          <!-- radio button -->
-                <label for="role">Role</label>
-                <input type="radio" name="isAdmin" id="role" value="true" >Admin 
-                <input type="radio" name="isAdmin" id="role" value="false" >Customer
-            
-    
+         <!-- radio button -->
+         <div class="center-div">
+            <legend>Role</legend>
+
+            <div>
+                <label style="display: inline;" for="isAdmin">Admin</label>
+                <input type="radio" name="isAdmin" id="role" value="true" >
+
+            </div>
+            <br>
+            <div class="inline-content">
+
+                <label style="display: inline;" class="user-label" for="isAdmin">Customer</label>
+                <input type="radio" name="isAdmin" id="role" value="false" >
+
+            </div>
+        </div>
     
          
     
-          <div class="btns-group">
-            <button class="btn">submit</button>
-       
-          </div>
+        <div class="center-div">
+            <button class="btn btn-success">submit</button>
+
+        </div>
     
     
       </form>

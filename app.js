@@ -320,15 +320,19 @@ app.post("/removeUser", async (req, res) => {
 app.post("/editUser", async (req, res) => {
     const user_id = req.body.user_id;
     const userInfo = await manageUsers.getUserInfo(user_id);
+
     let email = req.body.email;
     if (email == '') email = userInfo.email;
     let username = req.body.username;
     if (username == '') username = userInfo.username;
-
+    let firstName = req.body.firstName;
+    if (firstName == '') firstName = userInfo.firstName;
+    let lastName = req.body.lastName;
+    if (lastName == '') lastName = userInfo.lastName;
 
     let admin = req.body.isAdmin;
     if (admin == '') admin = userInfo.isAdmin;
-    await manageUsers.editUser(user_id, email, username, admin);
+    await manageUsers.editUser(user_id, email, username, admin, firstName, lastName);
     res.redirect("/admin");
 });
 
@@ -376,8 +380,8 @@ app.post("/sendEmail", async (req, res) => {
     const options = {
         from: "s201956670@kfupm.edu.sa",
         to: email,
-        subject: "La puta madre package",
-        text: "Your package has been delivered"
+        subject: "Package Delivery",
+        text: "Your package is on its way to you !"
 
     }
     await transporter.sendMail(options, function (error, info) {

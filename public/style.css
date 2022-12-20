@@ -16,6 +16,30 @@
 
 }
 
+/* set backround for body */
+body {
+    /* background: var(--body-color); */
+    background-image: url('/background.png');
+    /* background-repeat: no-repeat; */
+    background-size: cover;
+
+    font-family: 'Lato', sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+h3 {
+    color: white;
+
+}
+
+h1,
+h3,
+h4,
+h5,
+h6 {
+    color: white;
+}
 
 * {
     font-family: 'Lato', sans-serif;
@@ -247,6 +271,7 @@ h2 {
 
 /* --------------------------------- register page --------------------------------- */
 .Register-text {
+    color: #c5283d;
     font-weight: 700;
     text-align: center;
 }

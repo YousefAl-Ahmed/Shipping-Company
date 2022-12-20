@@ -44,7 +44,7 @@
         </li>
         <li class="nav-item">
           <a class="nav-link" href="/admin/showPayments">Show Payments</a>
-      </li>
+        </li>
 
         <li class="nav-item">
           <a class="nav-link" href="/logout">logout</a>
@@ -56,7 +56,7 @@
   <div style="display: flex;">
 
     <form action="/reports/status_catagory_report" class="form" method="post">
-      <h2 class="Register-text">Select starting and ending date</h2>
+      <h2 class="Register-text black-title">Select starting and ending date</h2>
 
       <div>
         <label for="start_date">Starting Date</label>
@@ -81,7 +81,7 @@
 
 
     <form action="/reports/track-packages" class="form" method="post">
-      <h2 class="Register-text">Track Packages</h2>
+      <h2 class="Register-text black-title">Track Packages</h2>
 
 
       <div>
@@ -131,7 +131,7 @@
 
 
     <form action="/reports/received_sent_packages" class="form" method="post">
-      <h2 class="Register-text">Sent/Received Packages for Particular User</h2>
+      <h2 class="Register-text black-title">Sent/Received Packages for Particular User</h2>
       <div>
         <label for="sent_or_received">Status</label>
         <select id="sent_or_received" name="sent_or_received" class="sent_or_received" required>
@@ -145,15 +145,15 @@
       <div>
         <label for="username">Username</label>
         <select name="username" id="username">
-            <option value="">Select Username</option>
+          <option value="">Select Username</option>
 
-            <% for (let i=0; i < users.length; i++) { %>
-                <option value="<%= users[i].username %>">
-                    <%= users[i].username %>
-                </option>
-                <% } %>
+          <% for (let i=0; i < users.length; i++) { %>
+            <option value="<%= users[i].username %>">
+              <%= users[i].username %>
+            </option>
+            <% } %>
         </select>
-    </div>
+      </div>
 
       <div class="btns-group">
         <button class="btn">submit</button>

@@ -62,9 +62,6 @@
     <label for="package_id">Package ID</label>
     <input type="number" name="package_id" id="package_id" class="package_id" placeholder="" required>
 
-    <br>
-
-    <br>
 
 
 
@@ -77,6 +74,18 @@
         <option value="Jeddah">Jeddah </option>
         <option value="Jazan">Jazan </option>
         <option value="Khobar">Khobar </option>
+      </select>
+    </div>
+
+    <div>
+      <label for="status">status</label>
+      <select id="status" name="status" class="status" required>
+        <option value="">Select status</option>
+        <option value="in transit">in transit</option>
+        <option value="lost">lost</option>
+        <option value="delayed">delayed</option>
+        <option value="damaged">damaged</option>
+        <option value="delivered">delivered</option>
       </select>
     </div>
 
@@ -106,7 +115,7 @@
     <div class="center-div">
       <button class="btn btn-success">submit</button>
 
-  </div>
+    </div>
 
 
   </form>

@@ -64,6 +64,7 @@
                             <th scope="col">Location</th>
                             <th scope="col">Sender username</th>
                             <th scope="col">Payment status</th>
+                            <th scope="col">Package status</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -83,6 +84,9 @@
                                 </td>
                                 <td>
                                     <%= receivedPackages[i].sender_name %>
+                                </td>
+                                <td>
+                                    <%= receivedPackages[i].payment_status %>
                                 </td>
                                 <td>
                                     <%= receivedPackages[i].status %>

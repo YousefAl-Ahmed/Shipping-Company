@@ -25,7 +25,7 @@ const addPackage = async (username, package_name, weight, destination, status, f
     let package_id = getLastPackageId();
     package_id.then(function (result) {
         const package_id = result.package_id;
-        addToRetailCenter(package_id, destination, username, reciever_name);
+        addToRetailCenter(package_id, destination, username, reciever_name, status);
 
 
     });
@@ -47,13 +47,14 @@ const getLastPackageId = async () => {
     return package_id;
 }
 
-async function addToRetailCenter(package_id, destination, username, reciever_name) {
+async function addToRetailCenter(package_id, destination, username, reciever_name, status) {
     const retail_center = await getRetailCenter(destination);
     const db = await getDbConnection();
     const sql = `INSERT INTO retail_center 
-     ('retail_center_id', 'package_id', 'retail_center_name', 'retail_center_address', 'location_name', 'sender_name', 'receiver_name', 'status')
+     ('retail_center_id', 'package_id', 'retail_center_name', 'retail_center_address', 'location_name', 'sender_name', 'receiver_name', 'payment_status',
+     'status')
     VALUES ('${retail_center.retail_center_id}', '${package_id}','${retail_center.center_name}',
-    '${retail_center.center_address}', '${retail_center.location_name}', '${username}', '${reciever_name}', 'paid')`;
+    '${retail_center.center_address}', '${retail_center.location_name}', '${username}', '${reciever_name}', 'paid','${status}')`;
     await db
         .run(sql);
     await db.close();
@@ -108,21 +109,23 @@ const editPackage = async (package_id, package_name, weight, destination, status
 }
 
 //add package to locations 
-const addPackageRoute = async (package_id, location_name, date, locationType) => {
+const addPackageRoute = async (package_id, location_name, date, locationType, status) => {
     const db = await getDbConnection();
     //split date
-    const dateArray = date.split('-');
-    const year = dateArray[0];
-    const month = dateArray[1];
-    const day = dateArray[2];
-
-    const sql = `INSERT INTO locations  ('package_id', 'location_name', 'day','month','year','type')
-    VALUES ('${package_id}', '${location_name}', '${day}','${month}','${year}','${locationType}')`;
+    const sql = `INSERT INTO locations  ('package_id', 'location_name', 'date','type','status')
+    VALUES ('${package_id}', '${location_name}', '${date}','${locationType}','${status}')`;
     await db.run
         (sql);
     await db.close();
 }
-
+const updatePackageStatus = async (package_id, status) => {
+    const db = await getDbConnection();
+    const sql = `UPDATE packages SET status = '${status}' WHERE package_id = '${package_id}'`;
+    await db
+        .run
+        (sql);
+    await db.close();
+}
 //get package between two dates
 const getLostPackagesBetweenDates = async (startDate, endDate) => {
     const db = await getDbConnection();
@@ -259,7 +262,7 @@ const addPayment = async (username, insurance_ammount) => {
 }
 const updatePaymentStatus = async () => {
     const db = await getDbConnection();
-    const sql = `UPDATE packages SET payment_status = 'paid'WHERE package_id = (SELECT package_id FROM packages ORDER BY package_id DESC LIMIT 1)`;
+    const sql = `UPDATE packages SET payment_status = 'paid' WHERE package_id = (SELECT package_id FROM packages ORDER BY package_id DESC LIMIT 1)`;
     await db.run
         (sql);
     await db.close();
@@ -273,13 +276,32 @@ const getPackageRoute = async (package_id) => {
     return packageRoute;
 }
 // delete last id package
-const deletePackage = async () => {
+// const deletePackage = async () => {
+//     const db = await getDbConnection();
+//     const sql = `DELETE FROM packages WHERE package_id = (SELECT package_id FROM packages ORDER BY package_id DESC LIMIT 1)`;
+//     await db.run
+//         (sql);
+//     await db.close();
+//     console.log("deleted");
+// }
+const cancelPackage = async () => {
     const db = await getDbConnection();
-    const sql = `DELETE FROM packages WHERE package_id = (SELECT package_id FROM packages ORDER BY package_id DESC LIMIT 1)`;
+    // select last inserted package id
+    const package_id = await getLastInsertedPackageId();
+    const sql = `UPDATE packages SET status = 'cancelled' WHERE package_id = (SELECT package_id FROM packages ORDER BY package_id DESC LIMIT 1)`;
     await db.run
         (sql);
     await db.close();
-    console.log("deleted");
+    cancelRecieverPackage(package_id);
+
+}
+// change status to cancelled and payment_status to not paid in retail center
+const cancelRecieverPackage = async (package_id) => {
+    const db = await getDbConnection();
+    const sql = `UPDATE retail_center SET status = 'cancelled', payment_status = 'not paid' WHERE package_id = '${package_id}'`;
+    await db.run
+        (sql);
+    await db.close();
 }
 
 //show all payments
@@ -311,10 +333,11 @@ module.exports = {
     received_packages_user,
     getLastInsertedPackageId,
     addPayment,
-    deletePackage,
+    cancelPackage,
     showPayments,
     getPackageRoute,
-    getRetailCenters
+    getRetailCenters,
+    updatePackageStatus
 }
 
 

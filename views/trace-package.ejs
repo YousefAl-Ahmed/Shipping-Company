@@ -123,18 +123,14 @@
             </div>
             <% } else {%>
                 <h1>
-                    <h1>Package route <%= packageInfo.package_id %>
-                            %>
-                    </h1>
+                    <h1>Package ID <%= packageInfo.package_id %> route </h1>
                     <div class="table-container">
                         <table class="table table-dark">
                             <thead class="thead-dark">
                                 <tr>
                                     <th scope="col">Location Id</th>
                                     <th scope="col">Location name</th>
-                                    <th scope="col">Day</th>
-                                    <th scope="col">Month</th>
-                                    <th scope="col">year</th>
+                                    <th scope="col">Date</th>
                                     <th scope="col">type of transportation</th>
                                     <th scope="col">Status</th>
                                 </tr>
@@ -149,19 +145,15 @@
                                             <%=packageRoute[i].location_name%>
                                         </td>
                                         <td>
-                                            <%=packageRoute[i].day%>
+                                            <%=packageRoute[i].date%>
                                         </td>
-                                        <td>
-                                            <%=packageRoute[i].month%>
-                                        </td>
-                                        <td>
-                                            <%=packageRoute[i].year%>
-                                        </td>
+
+
                                         <td>
                                             <%=packageRoute[i].type%>
                                         </td>
                                         <td>
-                                            <%=packageInfo.status%>
+                                            <%=packageRoute[i].status%>
                                         </td>
                                     </tr>
                                     <% } %>

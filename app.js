@@ -153,8 +153,8 @@ app.get("/user-page/:username/payment-success", async (req, res) => {
 // when payment is canceled call function to delete the package
 app.get("/user-page/:username/payment-cancel", async (req, res) => {
     const username = req.params.username;
-    await managePackages.deletePackage();
-
+    // await managePackages.deletePackage();
+    await managePackages.cancelPackage();
     res.render("payment-cancel", { user: req.session.user, userInfo: await auth.getUserInfoByUsername(username) });
 });
 app.get("/user-page/:username/retail-centers", async (req, res) => {
@@ -292,11 +292,13 @@ app.get("/user-page/:username/5/:trace_package_id", async (req, res) => {
 });
 
 app.post("/add-package-route", async (req, res) => {
+    const status = req.body.status;
     const package_id = req.body.package_id;
     const location = req.body.location;
     const date = req.body.date;
     const locationType = req.body.locationType;
-    await managePackages.addPackageRoute(package_id, location, date, locationType);
+    await managePackages.addPackageRoute(package_id, location, date, locationType, status);
+    await managePackages.updatePackageStatus(package_id, status);
     res.redirect("/admin");
 });
 

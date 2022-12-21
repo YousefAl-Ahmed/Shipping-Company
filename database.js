@@ -38,9 +38,11 @@ db.run(sql);
 
 
 // //drop packages table
-//    sql = `DROP TABLE packages`;
-//   db.run(sql);
-// create payment table
+
+//drop payment table
+// sql = `DROP TABLE payment`;
+// db.run(sql);
+
 sql = `CREATE TABLE IF NOT EXISTS payment (
     payment_id INTEGER PRIMARY KEY AUTOINCREMENT,
     package_id INTEGER NOT NULL,
@@ -50,7 +52,10 @@ sql = `CREATE TABLE IF NOT EXISTS payment (
     FOREIGN KEY (package_id) REFERENCES packages(package_id),
     FOREIGN KEY (username) REFERENCES users(username)
     )`;
+
 db.run(sql);
+// sql = `DROP TABLE packages`;
+// db.run(sql);
 sql = `CREATE TABLE IF NOT EXISTS packages (
     package_id INTEGER PRIMARY KEY AUTOINCREMENT,
     username TEXT NOT NULL,
@@ -87,9 +92,7 @@ sql = `CREATE TABLE IF NOT EXISTS locations (
     location_id INTEGER PRIMARY KEY AUTOINCREMENT,
     package_id INTEGER NOT NULL,
     location_name TEXT NOT NULL,
-    day INTEGER NOT NULL,
-    month INTEGER NOT NULL,
-    year INTEGER NOT NULL,
+    date TEXT NOT NULL,
     type TEXT NOT NULL,
     status TEXT NOT NULL,
     FOREIGN KEY (package_id) REFERENCES packages(package_id)
@@ -136,7 +139,9 @@ sql = `CREATE TABLE IF NOT EXISTS retail_center (
     location_name TEXT NOT NULL,
     sender_name TEXT NOT NULL,
     receiver_name TEXT NOT NULL,
+    payment_status TEXT NOT NULL,
     status TEXT NOT NULL,
+    FOREIGN KEY (status) REFERENCES packages(status),
     FOREIGN KEY (retail_center_id) REFERENCES retail_centers_table(retail_center_id),
     FOREIGN KEY (retail_center_name) REFERENCES retail_centers_table(center_name),
     FOREIGN KEY (retail_center_address) REFERENCES retail_centers_table(center_address),
@@ -148,6 +153,8 @@ sql = `CREATE TABLE IF NOT EXISTS retail_center (
     )`;
 db.run(sql);
 //insert into packages
+// drop all database
+
 
 db.run(sql
     , (err) => {

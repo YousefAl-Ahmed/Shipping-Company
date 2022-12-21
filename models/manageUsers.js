@@ -13,7 +13,7 @@ const getDbConnection = async () => {
 //show all users
 const getAllUsers = async () => {
     const db = await getDbConnection();
-    const sql = `SELECT * FROM users`;
+    const sql = `SELECT * FROM users WHERE isAdmin = 'false'`;
     const users = await
         db.all
             (sql);
@@ -42,7 +42,7 @@ const removeUser = async (user_id) => {
 }
 
 //update user
-const editUser = async (user_id, email, username, isAdmin,firstName,lastName) => {
+const editUser = async (user_id, email, username, isAdmin, firstName, lastName) => {
     const db = await getDbConnection();
     const sql = `UPDATE users SET email = '${email}', username = '${username}', isAdmin = '${isAdmin}', firstName = '${firstName}', lastName = '${lastName}' WHERE user_id = '${user_id}'`;
     await db

@@ -99,10 +99,11 @@ const getUserInfo = async (email) => {
     await db.close();
     return userInfo;
 }
-//get userInfo by username
+//get userInfo by username and where isAdmin false
+
 const getUserInfoByUsername = async (username) => {
     const db = await getDbConnection();
-    const sql = `SELECT * FROM users WHERE username = '${username}'`;
+    const sql = `SELECT * FROM users WHERE username = '${username}' AND isAdmin = 'false'`;
     const userInfo = await db.get(sql);
     await db.close();
     return userInfo;
